@@ -15,7 +15,6 @@ function Register() {
   const [emailErr, setEmailErr] = useState(false);
   const [passwordErr, setPasswordErr] = useState(false);
   const [userNameErr, setUserNameErr] = useState(false);
-  const [value,setValue] = useState('');
 
   var store = useSelector((state) => {
     return state.user;

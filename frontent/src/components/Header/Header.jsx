@@ -33,7 +33,7 @@ function Header() {
 
               <div className="header-right-accountbar mt-2 d-flex justify-content-between">
                 <div className={`header-right-accountbar-image ${username?"header-right-accountbar-image-logged-in":"header-right-accountbar-image-not-loggin"}`}>
-                  <Link to={`/signup`}  className={`${username?"":"text-decoration-none"}`} ><h6 className={`${username?"":"padding-left-3px text-white header-right-accountbar-username"}`} >{username?"":"signup"}</h6></Link>
+                  <Link to={`/signup`}  className={`${username?"":"text-decoration-none"}`} ><h6 className={`${username?"":"padding-left-3px header-right-accountbar-singup-h6"}`} >{username?"":"signup"}</h6></Link>
                 </div>
                 <div className="header-right-accountbar-username-div">
                 <Link to={`${username?"/profile":"/login"}`}  className="text-decoration-none" ><h6 className={`${username?"header-right-accountbar-username":" header-right-accountbar-username"}`} >{username?username:"login"}</h6></Link>

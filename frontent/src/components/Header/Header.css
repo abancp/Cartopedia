@@ -87,3 +87,10 @@
 .transition-500ms{
     transition: 500ms;
 }
+.header-right-accountbar-singup-h6{
+    font-size: large;
+    font-weight: 600;
+    font-family: 'Work Sans', sans-serif;
+    transition: 500ms;
+    color: darkcyan;
+}
