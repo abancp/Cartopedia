@@ -1,0 +1,9 @@
+.home-products-main-div{
+    display: flex;
+    padding: 15px;
+    overflow-y: hidden;
+    overflow-x: scroll;
+}
+.home-products-product{
+    max-width: 150px;
+}
