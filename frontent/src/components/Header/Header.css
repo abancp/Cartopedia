@@ -9,7 +9,7 @@
 .header-left-branding{
     font-weight: 600;
     font-family: 'Rubik', sans-serif;
-    color:rgb(212, 245, 245);
+    color:darkcyan;
     margin-left: 1.5rem;
     transition: 500ms;
     cursor: pointer;
@@ -21,7 +21,7 @@
 .header-left-branding-used{
     font-size: 20px;
     font-weight: 600;
-    color: rgb(212, 245, 245);
+    color: rgb(22, 156, 156);
     font-family: 'Rubik', sans-serif;
     margin-left: 1rem;
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import axios from "axios";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -6,9 +6,6 @@ import collections from '../../config/collections';
 
 function Login() {
     const dispatch = useDispatch();
-    var store = useSelector((state) => {
-        return state.user;
-    });
     const navigate = useNavigate();
     const handleSubmit = (e) => {
         e.preventDefault();

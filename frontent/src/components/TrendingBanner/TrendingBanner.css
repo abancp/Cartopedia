@@ -1,0 +1,71 @@
+.home-trendingbanner-main-div{
+    display: flex;
+    overflow-x: scroll;
+    transition: 500ms;
+    overflow-y: hidden;
+}
+.home-trendingbanner-product{
+    width: 15rem;
+    height: 17.7rem;
+    border: solid black 2px;
+    margin-right: 10px;
+    float: left;
+    min-width: 15rem;
+    max-width: 15rem;
+    transition: 500ms;
+    border-radius: 4px;
+}
+.home-trendingbanner-main-div::-webkit-scrollbar{
+    height: 7px;              
+    width: 4px;               
+    border: 1px solid transparent;
+    background:transparent;
+    opacity: 0.3;
+    border-radius: 4px;
+    transition: 500ms;
+}
+.home-trendingbanner-main-div:hover+.home-trendingbanner-main-div::-webkit-scrollbar-thumb:horizontal{
+    background: #918d8d;
+    border-radius: 4px;
+    transition: 500ms;
+}
+.home-trendingbanner-main-div::-webkit-scrollbar-thumb:horizontal:hover{            
+    background: #858383;
+    transition: 500ms;
+    border-radius: 4px;
+}
+.home-trendingbanner-main-div::-webkit-scrollbar-button{
+    background-color: rgb(216, 91, 91);
+    color: rgb(255, 255, 255);
+    width: 6px;
+    height: 6px;
+}
+.home-trendingbanner-product-image{
+    object-fit:cover;
+    width: 14.3rem;
+    height: 10rem;
+    border: solid rgb(0, 0, 0) 2px;
+    border-radius: 4px;
+}
+.home-trendingbanner-product-details-price{
+    font-weight: 600;
+    margin-bottom: 0;
+}
+.home-trendingbanner-product-details-title{
+    max-width: 14rem;
+    max-height:.9rem ;
+    margin-bottom: .7rem;
+}
+.home-trendingbanner-product-details-title-div{
+    overflow:hidden ;
+}
+.home-trendingbanner-product-addtocart-div{
+    width: 14.75rem;
+    height: 2.65rem;
+    background-color: darkcyan;
+    border-radius: 3px;
+    padding: 5px;
+}
+.home-trendingbanner-product-addtocart{
+    font-size:25px;
+}

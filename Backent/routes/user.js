@@ -24,12 +24,5 @@ router.post("/check-email-availablility",(req,res)=>{
 
 router.post("/getUserDetails",getUserDetails)
 
-router.patch("/add-to-cart",(req,res)=>{
-
-});
-
-router.get('/get-prduct-details/:proId',(req,res)=>{
-    
-});
 
 export default router;
