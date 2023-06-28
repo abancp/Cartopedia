@@ -5,13 +5,13 @@
     overflow-y: hidden;
 }
 .home-trendingbanner-product{
-    width: 15rem;
-    height: 17.7rem;
-    border: solid black 2px;
+    width: 14.87rem;
+    height: 17.86rem;
+    border: solid black 1px;
     margin-right: 10px;
     float: left;
-    min-width: 15rem;
-    max-width: 15rem;
+    min-width: 14.87rem;
+    max-width: 14.87rem;
     transition: 500ms;
     border-radius: 4px;
 }
@@ -41,11 +41,10 @@
     height: 6px;
 }
 .home-trendingbanner-product-image{
-    object-fit:cover;
+    /*object-fit:cover;*/
     width: 14.3rem;
     height: 10rem;
-    border: solid rgb(0, 0, 0) 2px;
-    border-radius: 4px;
+    border-radius: 3px;
 }
 .home-trendingbanner-product-details-price{
     font-weight: 600;
@@ -65,6 +64,12 @@
     background-color: darkcyan;
     border-radius: 3px;
     padding: 5px;
+    cursor: pointer;
+    transition: 500ms;
+}
+.home-trendingbanner-product-addtocart-div:hover{
+    background-color: rgb(30, 167, 167);
+
 }
 .home-trendingbanner-product-addtocart{
     font-size:25px;

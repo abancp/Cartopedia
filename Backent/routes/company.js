@@ -3,12 +3,11 @@ import companyFunctions from "../functions/companyFunctions.js";
 
 const router = express.Router();
 
-router.get("/",(req,res)=>{
-    res.send("Admin is here")
-})
 
-router.post("/add-product",(req,res)=>{
-    
+router.post("/add-product", (req, res) => {
+    companyFunctions.addProduct(req.body).then((id)=>{
+        res.json({id:id})
+    })
 })
 
 export default router;

@@ -1,15 +1,17 @@
 import jwt from "jsonwebtoken";
 import collections from "../configuration/collections.js";
+import userFunctions from "../functions/userFunctions.js";
 
-const verifyCompany=(req,res,next)=>{
-    console.log(req.headers.authorization)
-    jwt.verify(req.headers.authorization,collections.JWT_SECRET,(err,decoded)=>{
-        if(err){
-            console.log(err)
-            res.status(400).send({err:err.message});
-        }else{
-            let {company} = decoded;
-            company?next():res.status(401).send({err:err.message});
+const verifyCompany = (req, res, next) => {
+    jwt.verify(req.headers.authorization, collections.JWT_SECRET, (err, decoded) => {
+        if (err) {
+            res.status(401).send({ err: err.message });
+        } else {
+            let { email } = decoded;
+            userFunctions.getUserDetails(email).then((user) => {
+
+                user.company ? next() : res.status(401)
+            })
         };
     });
 }

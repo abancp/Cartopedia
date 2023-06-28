@@ -31,7 +31,7 @@ function Login() {
                     <div className='col-lg-5 col-12 col-md-6 register-form-div mx-md-3'>
                         <img src="/register-bg.jpg" alt="" className='col-12 register-form-div-cart-bg' />
                         <form action="" method="post" onSubmit={handleSubmit} >
-                            <input type="text" className='register-form-phone-input register-form-input' name='phone' placeholder='Phone With Country Code' />
+                            <input type="email" className='register-form-phone-input register-form-input' name='phone' placeholder='email' />
                             <input type="password" className='register-form-password-input register-form-input' name='password' placeholder='Password' />
                             <button className="register-form-submit-button" type="submit">submit</button>
                         </form>

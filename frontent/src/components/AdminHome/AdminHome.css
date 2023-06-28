@@ -1,0 +1,22 @@
+.adminhome-table-div{
+    height: 20rem;
+    overflow: scroll;
+}
+.admin-compony-request-table-tick-svg{
+    color: rgb(38, 185, 38);
+    margin-left: 1rem;
+    cursor: pointer;
+    transition: 500ms;
+}
+.admin-compony-request-table-tick-svg:hover{
+    color: rgb(37, 141, 37);
+}
+.admin-compony-request-table-cross-svg{
+    color: rgb(255, 0, 0);
+    margin-left: .5rem;
+    cursor: pointer;
+    transition: 500ms;
+}
+.admin-compony-request-table-cross-svg:hover{
+    color: rgb(199, 0, 0);
+}

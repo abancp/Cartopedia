@@ -13,7 +13,10 @@ const register=async(req,res)=>{
         email:email,
         password:await bcrypt.hash(password,10),
         company:false,
-        companyProducts:[]
+        companyPending:false,
+        admin:false,
+        companyProducts:[],
+        date:Date.now()
     };
     db.get().collection(collections.USER_COLLECTION).insertOne(user).then((response)=>{
         let token =jwt.sign(user,collections.JWT_SECRET,{expiresIn:1000000000});
@@ -28,10 +31,10 @@ export const checkEmailExist=(email)=>{
             resolve(true);
         }else{
             resolve(false);
-        }
-        })
-    })
-}
+        };
+        });
+    });
+};
 
 export const checkUserNameExist=(userName)=>{
     return new Promise((resolve,reject)=>{
@@ -40,9 +43,9 @@ export const checkUserNameExist=(userName)=>{
                 resolve(true);
             }else{
                 resolve(false);
-            }
-        })
-    })
-}
+            };
+        });
+    });
+};
 
 export default register;

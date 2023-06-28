@@ -7,6 +7,7 @@ const initialState={
 };
 
 const appReducer=(prevState=initialState,action)=>{
+    console.log("action"+action)
         return{
             user:window.localStorage.getItem("token")?axios.post(collections.server_base+"/getUserDetails",{token:window.localStorage.getItem("token")}).then((res)=>{return res.data}):null
         };

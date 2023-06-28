@@ -4,12 +4,14 @@ import cors from "cors";
 import morgan from 'morgan';
 import path from "path";
 import { fileURLToPath } from "url";
-import db from "./configuration/mongodb.js"
+import db from "./configuration/mongodb.js";
+import adminRouter from "./routes/admin.js";
 import userRouter from "./routes/user.js";
 import companyRouter from "./routes/company.js";
 import sellerRouter from "./routes/seller.js";
 import verifyCompany from './middeleware/verifyCompany.js';
-import multer from 'multer';
+import verifyAdmin from './middeleware/verifyAdmin.js';
+import { uploadProfile,uplaodProductDisplay,uplaodProductDetailed } from './functions/fileUploadingFunctions.js';
 
 const app = express();
 
@@ -20,24 +22,17 @@ app.use(morgan('common'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.resolve('./public')));
 app.use(cors());
 
 app.use("/", userRouter);
-app.use("/company", companyRouter);
+app.use("/admin",verifyAdmin, adminRouter);
+app.use("/company",verifyCompany, companyRouter);
 app.use("/seller", sellerRouter);
 
-var storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, './public/user-profiles')
-    },
-    filename: (req, file, cb) => {
-        cb(null, req.body.email + ".jpg")
-    }
-});
-const upload = multer({ storage: storage })
-
-app.use('/uplaod/user-profile', upload.single('file'), (req, res) => { res.json({ uploaded: true }) })
+app.use('/uplaod/user-profile', uploadProfile.single('file'), (req, res) => { res.json({ uploaded: true }) })
+app.use('/uplaod/product-display',verifyCompany, uplaodProductDisplay.single('file'), (req, res) => { res.json({ uploaded: true }) })
+app.use('/uplaod/product-details',verifyCompany, uplaodProductDetailed.array('files'), (req, res) => { res.json({ uploaded: true }) })
 
 app.use((req, res) => res.status(404));
 

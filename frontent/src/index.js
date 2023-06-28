@@ -8,6 +8,9 @@ import LoginPage from './Pages/LoginPage';
 import RegisterPage from './Pages/RegisterPage';
 import UsedPage from './Pages/UsedPage';
 import AdminHome from './components/AdminHome/AdminHome';
+import UserProfilepage from './Pages/UserProfilePage';
+import RegisterAsCompanyPage from './Pages/RegisterAsCompanyPage';
+import CompanyPage from './Pages/CompanyPage';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -28,6 +31,18 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <AdminHome/>,
+  },
+  {
+    path: "/user-profile",
+    element: <UserProfilepage/>
+  },
+  {
+    path: "/register-as-company",
+    element: <RegisterAsCompanyPage/>
+  },
+  {
+    path: "/company",
+    element: <CompanyPage/>
   },
 ]);
 
