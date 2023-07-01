@@ -90,33 +90,34 @@ export default {
             $set: {
                 emailOtp: await bcrypt.hash("" + otp, 10),
                 emailOtpDate: Date.now(),
-                emailOtpExpareDate: Date.now() + 30000
+                emailOtpExpareDate: Date.now() + 60000
             }
         })
     },
-    submitEmailOtp:  (email, otp) => {
-        return new Promise(async(resolve,reject)=>{
+    submitEmailOtp: (email, otp) => {
+        return new Promise(async (resolve, reject) => {
             let user = await db.get().collection(collections.USER_COLLECTION).findOne({ email: email })
-        if (user.emailOtpExpareDate > Date.now()) {
-            if (bcrypt.compare(otp, user.emailOtp)) {
-                db.get().collection(collections.USER_COLLECTION).updateOne({ email: email }, {
-                    $set: {
-                        verifyEmail: true,
-                        companyPending: true,
-                        companyRequestDetails:{}
-                    }
-                })
-                let tempCompany = user.companyRequestDetails
-                db.get().collection(collections.COMPANY_REQUIEST_COLLLECTION).insertOne(tempCompany)
-                resolve("otp is correct")
+            console.log(await bcrypt.compare(""+otp,user.emailOtp))
+            if (user.emailOtpExpareDate > Date.now()) {
+                if (await bcrypt.compare(""+otp,user.emailOtp)) {
+                    db.get().collection(collections.USER_COLLECTION).updateOne({ email: email }, {
+                        $set: {
+                            verifyEmail: true,
+                            companyPending: true,
+                            companyRequestDetails: {}
+                        }
+                    })
+                    let tempCompany = user.companyRequestDetails
+                    db.get().collection(collections.COMPANY_REQUIEST_COLLLECTION).insertOne(tempCompany)
+                    resolve(true)
+                } else {
+                    console.log("otp incorrect")
+                    reject("otpErr")
+                }
             } else {
-                console.log("otp incorrect")
-                reject("otp is incorrect")
+                console.log("otp time out")
+                reject("timeError")
             }
-        } else {
-            console.log("otp time out")
-            reject("otp time out")
-        }
         })
     }
 };

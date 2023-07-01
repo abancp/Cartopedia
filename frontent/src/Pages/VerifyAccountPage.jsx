@@ -2,11 +2,11 @@ import React from 'react';
 import VerifyAccount from '../components/VerifyAccount/VerifyAccount';
 import Header from '../components/Header/Header';
 
-function VerifyAccountPage(props) {
+function VerifyAccountPage() {
   return (
     <div>
-        <Header/>
-        {props.type=="email"?<VerifyAccount type="Email"/>:<VerifyAccount type="Phone"/>}
+      <Header />
+      <VerifyAccount type="Email" />
     </div>
   );
 };

@@ -8,8 +8,7 @@ export default{
         resolve(companyRequiests)
       })
     },
-    allowCompany:(email)=>{
-      return new Promise(async(resolve,reject)=>{
+    allowCompany:async(email)=>{
         let request = await db.get().collection(collections.COMPANY_REQUIEST_COLLLECTION).findOne({email:email})
         db.get().collection(collections.COMPANY_REQUIEST_COLLLECTION).deleteOne({email:email})
         db.get().collection(collections.USER_COLLECTION).updateOne({email:email},{
@@ -19,10 +18,8 @@ export default{
             companyDetails:request
         }
         })
-      })
     },
     denieCompany:(email)=>{
-      return new Promise((resolve,reject)=>{
         db.get().collection(collections.USER_COLLECTION).updateOne({email:email},{
           $set:{
             companyPending:false,
@@ -30,6 +27,5 @@ export default{
           }
         })
         db.get().collection(collections.COMPANY_REQUIEST_COLLLECTION).deleteOne({email:email})
-      })
     }
 }

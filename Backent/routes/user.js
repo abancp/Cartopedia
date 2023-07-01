@@ -60,11 +60,13 @@ router.post("/requset-add-company", (req, res) => {
 })
 
 router.post("/submit-otp", (req, res) => {
+    console.log("wefiohoqwfqwqwefqweqwwe")
     let { email, otp } = req.body
-    userFunctions.submitEmailOtp(email, otp).then(()=>{
-
-    }).catch(()=>{
-        
+    userFunctions.submitEmailOtp(email, otp).then((response)=>{
+        res.json({verify:response})
+    }).catch((err)=>{
+        console.log(err)
+        res.json({err:err})
     })
 })
 
