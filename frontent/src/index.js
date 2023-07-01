@@ -11,6 +11,7 @@ import AdminHome from './components/AdminHome/AdminHome';
 import UserProfilepage from './Pages/UserProfilePage';
 import RegisterAsCompanyPage from './Pages/RegisterAsCompanyPage';
 import CompanyPage from './Pages/CompanyPage';
+import VerifyAccountPage from './Pages/VerifyAccountPage';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -44,6 +45,11 @@ const router = createBrowserRouter([
     path: "/company",
     element: <CompanyPage/>
   },
+  {
+    path: "/verify-email",
+    element: <VerifyAccountPage type="email"/>
+  },
+  
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

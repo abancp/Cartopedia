@@ -12,7 +12,7 @@ function RegisterAsCompany() {
 
   const [companyErr, setCompanyErr] = useState(false);
   const [websiteErr, setWebsiteErr] = useState(false);
-  const [email, setEmail] = useState(false);
+  const [email, setEmail] = useState(null);
 
   var store = useSelector((state) => {
     return state.user;
@@ -28,11 +28,11 @@ function RegisterAsCompany() {
     }
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    axios.post(collections.server_base + "/check-companyname-availablility", { companyName: e.target[0].value, website: e.target[1].value }, { headers: { 'Authorization':  window.localStorage.getItem("token") } }).then((res) => {
+    axios.post(collections.server_base + "/check-companyname-availablility", { companyName: e.target[0].value, website: e.target[1].value }, { headers: { 'Authorization': window.localStorage.getItem("token") } }).then((res) => {
       if (res.data.companyName) {
-        setCompanyErr(true);
+        setCompanyErr(true)
       } else {
         setCompanyErr(false);
         if (res.data.website) {
@@ -47,15 +47,15 @@ function RegisterAsCompany() {
             description: e.target[4].value,
             email: email
           }
-          axios.post(collections.server_base + "/requset-add-company", company, { headers: { 'Authorization': window.localStorage.getItem("token") } }).then((res) => {
+          axios.post(collections.server_base+"/add-company-temparerly", company).then((res) => {
             dispatch({
               type: company
             });
-            dispatch({
-              type: company
-            });
+            console.log("is it execute")
+            axios.post(collections.server_base + "/get-otp-email", { email: email }).then((res) => {
+              navigate("/verify-email")
+            })
           })
-          navigate("/")
         }
       }
     })
@@ -77,7 +77,7 @@ function RegisterAsCompany() {
               <input type="text" className='register-form-password-input register-form-input' name='location' placeholder='Location' />
               <textarea className='register-form-input register-form-description-textarea' name="description" placeholder='Write a description of your Company' rows="1" ></textarea>
               <p>our admins will check your request and if it genuin we will email you</p>
-              <button className='register-form-submit-button' type="submit" >SUBMIT</button>
+              <button className='register-form-submit-button' type="submit" >Verify Email</button>
             </form>
           </div>
         </div>

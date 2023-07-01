@@ -4,18 +4,24 @@ import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import collections from '../../config/collections';
 import {useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom"
 
 function AddCompanyProduct() {
   const [photo, setPhoto] = useState(null);
   const [detailedPhotos, setDetailedPhotos] = useState([]);
   const [companyMail,setCompanyMail] = useState(null);
   const [companyName,setCompanyName] = useState(null);
- 
+  const navigate = useNavigate();
+  
   var store = useSelector((state) => { return state.user })
   useEffect(()=>{
     store.then((res)=>{
       setCompanyMail(res.email)
-      setCompanyName(res.companyDetails.companyName)
+      if(res.companyDetails===undefined){
+        navigate("/")
+      }else{
+        setCompanyName(res.companyDetails.companyName)
+      }
     })
   },[])
 
@@ -36,7 +42,7 @@ function AddCompanyProduct() {
     }
     axios.post(collections.server_base+"/company/add-product",product,{ headers: { 'Authorization':  window.localStorage.getItem("token") } }).then((res)=>{
 
-      let fromDataProfile = new FormData();
+    let fromDataProfile = new FormData();
     fromDataProfile.append('_id',res.data.id);
     fromDataProfile.append("file",photo);
     axios.post(collections.server_base+"/uplaod/product-display",fromDataProfile,{ headers: { 'Authorization':  window.localStorage.getItem("token") } });
