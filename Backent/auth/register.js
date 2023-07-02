@@ -11,7 +11,7 @@ const register=async(req,res)=>{
         userName:userName,
         phone:phone,
         email:email,
-        password:await bcrypt.hash(password,10),
+        password:await bcrypt.hash(""+password,10),
         company:false,
         companyPending:false,
         admin:false,
