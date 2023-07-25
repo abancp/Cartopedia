@@ -23,7 +23,7 @@ function AddCompanyProduct() {
         setCompanyName(res.companyDetails.companyName)
       }
     })
-  },[])
+  },[navigate,store])
 
   const handleSubmit = (e) => {
     e.preventDefault();

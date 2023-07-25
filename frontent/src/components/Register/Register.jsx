@@ -4,7 +4,7 @@ import Dropzone from "react-dropzone"
 import axios from 'axios';
 import collections from '../../config/collections';
 import {useNavigate} from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch} from 'react-redux';
 
 
 function Register() {
@@ -16,9 +16,6 @@ function Register() {
   const [passwordErr, setPasswordErr] = useState(false);
   const [userNameErr, setUserNameErr] = useState(false);
 
-  var store = useSelector((state) => {
-    return state.user;
-  });
 
   const handleSubmit =(e) => {
     e.preventDefault();
@@ -63,7 +60,7 @@ function Register() {
     }
   }
   return (
-    <div className='register'>
+    <div className='register '>
       <div className="container-fluid">
         <div className="row d-flex justify-content-end">
           <div className='col-lg-5 col-12 col-md-6 register-form-div mx-md-3 '>

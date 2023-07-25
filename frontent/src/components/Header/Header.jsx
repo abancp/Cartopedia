@@ -1,60 +1,42 @@
-import React, { useState, useEffect } from 'react';
-import "./Header.css";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import "./Header.css"
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import collections from '../../config/collections';
-
 function Header() {
-  const navigate = useNavigate();
-  const [username, setUsername] = useState(null)
-  const [userEmail, setUserEmail] = useState(null)
-  var store = useSelector((state) => { return state.user })
-  useEffect(() => {
-    if (store) {
-      store.then((res) => {
-        setUsername(res.firstName + " " + res.lastName)
-        setUserEmail(res.email)
-        if(res.firstName===undefined){
-          window.localStorage.clear();
-          window.location.reload();
-        }
-        if(window.location.pathname==="/"){
-          if(res.company){
-            navigate("/company")
-          }
-        }
-      });
-    }
-  });
+  const [userName, setUserName] = useState(null)
+  const user = useSelector((reduxState) => (reduxState.user))
+  if (user) {
+    user.then((user) => {
+      setUserName(user.firstName + " " + user.lastName)
+    })
+  }
+
   return (
     <div className='Header'>
-      <div className='container-fluid' >
-        <div className="row">
-          <div className="col-12 d-flex justify-content-between">
-            <div className="header-left col-6 ">
-              <Link className='link' to={`/`}><h2 className='header-left-branding d-inline'>Cartopedia</h2></Link>
-              <Link className='link' to={`/used`}><h4 className='header-left-branding-used d-inline' >Used</h4></Link>
+      <div className="left-div">
+        <Link className='text-decoration-none' to={"/"}><h3 className='branding'>Cartopedia</h3></Link>
+      </div>
+      <div className="center-div">
+        <div className='search'>
+          <input type="text" className='search-input' />
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="search-icon bi bi-search" viewBox="0 0 16 16">
+            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+          </svg>
+        </div>
+      </div>
+      <div className="right-div">
+        <div className='account'>
+          {userName ? <div className='account-login-div'>
+            <Link className='text-decoration-none' to={"/user-profile"} ><h5 className='account-login-h4'>{userName}</h5></Link>
+          </div> : <div className='account-loginorsignup'>
+            <div className='account-login-div'>
+              <Link className='text-decoration-none' to={"/login"} ><h5 className='account-login-h4'>login</h5></Link>
             </div>
-            <div className="header-right col-6 d-flex justify-content-end">
-              <div className="header-right-cart-svg-div" >
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="header-right-cart-svg d-inline bi bi-cart2" viewBox="0 0 16 16">
-                  <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
-                </svg>
-                <span class=" badge  bg-success">10</span>
-
-              </div>
-
-              <div className="header-right-accountbar mt-2 d-flex justify-content-between">
-                <div className={`header-right-accountbar-image ${username ? "header-right-accountbar-image-logged-in" : "header-right-accountbar-image-not-loggin"}`}>
-                  {!username ? <Link to={`/signup`} className={`${username ? "" : "text-decoration-none"}`} ><h6 className={`${username ? "" : "padding-left-3px header-right-accountbar-singup-h6"}`} >{username ? "" : "signup"}</h6></Link> : ""}
-                  {username ? <img className='header-right-accountbar-image-success' src={`${collections.server_base}/user-profiles/${userEmail}.jpg`} alt="" /> : ""}
-                </div>
-                <div className="header-right-accountbar-username-div">
-                  <Link to={`${username ? "/user-profile" : "/login"}`} className="text-decoration-none" ><h6 className={`${username ? "header-right-accountbar-username" : " header-right-accountbar-username"}`} >{username ? username : "login"}</h6></Link>
-                </div>
-              </div>
+            <div className='account-signup-div'>
+              <Link className='text-decoration-none' to={"/signup"}><h5 className='account-signup-h4'>signup</h5></Link>
             </div>
-          </div>
+          </div>}
+
         </div>
       </div>
     </div>

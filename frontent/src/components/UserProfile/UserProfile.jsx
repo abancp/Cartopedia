@@ -16,10 +16,10 @@ function UserProfile() {
   const [companyPending, setCompanyPending] = useState(false);
   const [companyDetails, setCompanyDetails] = useState(null);
 
-  var store = useSelector((state) => { return state.user });
+  var user = useSelector((state) => { return state.user });
   useEffect(() => {
-    if (store) {
-      store.then((res) => {
+    if (user) {
+      user.then((res) => {
         setCompany(res.company);
         setFirstName(res.firstName);
         setLastName(res.lastName);

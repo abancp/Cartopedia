@@ -1,7 +1,7 @@
 import multer from "multer";
 import fs from "fs";
 
-export var storageProfile = multer.diskStorage({
+const storageProfile = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, './public/user-profiles')
     },
@@ -11,7 +11,7 @@ export var storageProfile = multer.diskStorage({
 });
 export const uploadProfile = multer({ storage: storageProfile })
 
-export var storageProductDisplay = multer.diskStorage({
+const storageProductDisplay = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, './public/product-displays')
     },
@@ -21,7 +21,7 @@ export var storageProductDisplay = multer.diskStorage({
 });
 export const uplaodProductDisplay = multer({ storage: storageProductDisplay })
 
-export var storageProductDetailed = multer.diskStorage({
+const storageProductDetailed = multer.diskStorage({
     destination: (req, file, cb) => {
         if (!fs.existsSync("./public/product-details/"+req.body._id)) {
             fs.mkdirSync("./public/product-details/"+req.body._id);
@@ -39,3 +39,13 @@ export var storageProductDetailed = multer.diskStorage({
     }
 });
 export const uplaodProductDetailed = multer({ storage: storageProductDetailed })
+
+const storageCoverPhoto = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, './public/cover-photos')
+    },
+    filename: (req, file, cb) => {
+        cb(null, req.body.photoname + ".jpg")
+    }
+});
+export const uploadCoverPhoto = multer({ storage: storageCoverPhoto })

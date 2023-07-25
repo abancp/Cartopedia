@@ -3,15 +3,15 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import {createBrowserRouter,RouterProvider,} from "react-router-dom";
-import HomePage from './Pages/HomePage';
-import LoginPage from './Pages/LoginPage';
-import RegisterPage from './Pages/RegisterPage';
+import HomePage from './Pages/HomePage/HomePage';
+import LoginPage from './Pages/LoginPage/LoginPage';
+import RegisterPage from './Pages/RegisterPage/RegisterPage';
 import UsedPage from './Pages/UsedPage';
-import AdminHome from './components/AdminHome/AdminHome';
-import UserProfilepage from './Pages/UserProfilePage';
 import RegisterAsCompanyPage from './Pages/RegisterAsCompanyPage';
 import CompanyPage from './Pages/CompanyPage';
 import VerifyAccountPage from './Pages/VerifyAccountPage';
+import SearchResultPage from './Pages/SearchResultPage';
+import UserProfilePage from './Pages/UserProfilePage';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -30,12 +30,8 @@ const router = createBrowserRouter([
     element: <RegisterPage/>,
   },
   {
-    path: "/admin",
-    element: <AdminHome/>,
-  },
-  {
-    path: "/user-profile",
-    element: <UserProfilepage/>
+    path:"/user-profile",
+    element:<UserProfilePage/>,
   },
   {
     path: "/register-as-company",
@@ -49,6 +45,11 @@ const router = createBrowserRouter([
     path: "/verify-email",
     element: <VerifyAccountPage/>
   },
+  {
+    path: "/search",
+    element: <SearchResultPage/>,
+    errorElement: <h1>Error in search result page</h1>
+  }
   
 ]);
 

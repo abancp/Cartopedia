@@ -1,0 +1,66 @@
+.Product .main{
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+    width: 80%;
+    background-image:linear-gradient(var(--secondery),var(--primary));
+    height: 400px;
+    padding: 1rem;
+}
+.Product .product-image-div{
+    background-color: aqua;
+    width: 100%;
+    height: 200px;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+}
+
+.Product .image{
+    object-fit: cover;
+    width: 100%;
+    height: 200px;
+    border-radius: 4px;
+}
+
+.Product .details{
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.Product .name{
+    color: white;
+    font-family:Verdana, Geneva, Tahoma, sans-serif ;
+    font-size: 400;
+}
+
+.Product .prices{
+    display: flex;
+    margin-top: 1rem;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.Product .cartopedia-price{
+    color: lime;
+}
+
+.Product .mrp{
+    color: red;
+    text-decoration: line-through;
+}
+
+.Product .description{
+    color: white;
+}
+
+.Product .end-items{
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.Product .company{
+    color: var(--tersiory);
+}
+.Product .trending{
+    color: blueviolet;
+}

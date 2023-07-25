@@ -1,0 +1,49 @@
+.Button{
+    width: fit-content;
+    height: 1rem;
+    padding: 5px;
+}
+
+
+.Button .button-main{
+   background-color: var(--secondery); 
+   border-radius: 6px;
+   display: flex;
+   justify-content:center;
+   align-items: center;
+   margin-left: .2rem;    
+   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19);
+   padding: 2px;
+   cursor: pointer;
+   transition: 400ms;
+}
+.Button .button-main:hover{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+}
+
+.Button .button-text{
+    color: white;
+    padding-bottom: 2px;
+    margin: 0;
+    margin-right: 3px;
+}
+
+.Button .button-circle{
+    height: 17px;
+    width: 17px;
+    border-radius: 100%;
+    background-color: var(--primary);
+    margin: 3px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: var(--tersiory) solid 3px;
+    margin-right: 6px;
+}
+
+.Button .button-icon{
+    margin-right: 1px ;
+    margin-bottom: 3px;
+    color: rgb(168, 115, 115);
+}

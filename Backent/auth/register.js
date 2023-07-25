@@ -17,6 +17,8 @@ const register=async(req,res)=>{
         admin:false,
         companyProducts:[],
         verifyEmail:false,
+        lastFiveSearchs:[],
+        indrestedProduct:{},
         date:Date.now()
     };
     db.get().collection(collections.USER_COLLECTION).insertOne(user).then((response)=>{
@@ -40,6 +42,18 @@ export const checkEmailExist=(email)=>{
 export const checkUserNameExist=(userName)=>{
     return new Promise((resolve,reject)=>{
         db.get().collection(collections.USER_COLLECTION).findOne({userName:userName}).then((user)=>{
+            if(user){
+                resolve(true);
+            }else{
+                resolve(false);
+            };
+        });
+    });
+};
+
+export const checkPhoneExist=(phone)=>{
+    return new Promise((resolve,reject)=>{
+        db.get().collection(collections.USER_COLLECTION).findOne({phone:phone}).then((user)=>{
             if(user){
                 resolve(true);
             }else{

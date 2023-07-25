@@ -1,0 +1,26 @@
+.product-display-image-div{
+    background-color: whitesmoke;
+    padding: 5px;
+    border-radius: 4px;
+}
+.product-details-div{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    justify-content: start;
+    width: 100%;
+    margin: 1rem;
+    margin-left: 2rem;
+    margin-top: 1rem;
+}
+.product-main-div{
+    background-color: whitesmoke;
+    border-radius: 4px;
+    justify-content: flex-start;
+    display: inline-flex;
+}
+.product-detailed-addtocart-div{
+    background-color: white;
+    width: fit-content;
+    color: darkcyan;
+    position: relative;
+    right: -50rem;
+}

@@ -32,7 +32,7 @@ function VerifyAccount(props) {
                 setValidTime(false)
             }
         }
-    }, [timer]);
+    }, [timer,navigate,store]);
     const handleSubmit = () => {
         axios.post(collections.server_base + "/submit-otp", { email: email, otp: otp }).then((res)=>{
             console.log(res.data)

@@ -14,7 +14,8 @@ function TrendingBanner() {
         <div className='trendingbanner'>
             <div className='container-fluid'>
                 <div className="row">
-                    <div className='home-trendingbanner-main-div mt-5'>
+                <h4 className=' mt-5'>Trending Products</h4>
+                    <div className='home-trendingbanner-main-div'>
                         {trendingProducts.map((product) => (
                             <div className='home-trendingbanner-product'>
                                 <div className='home-trendingbanner-product-image-div p-1'>

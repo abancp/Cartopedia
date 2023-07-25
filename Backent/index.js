@@ -11,7 +11,7 @@ import companyRouter from "./routes/company.js";
 import sellerRouter from "./routes/seller.js";
 import verifyCompany from './middeleware/verifyCompany.js';
 import verifyAdmin from './middeleware/verifyAdmin.js';
-import { uploadProfile,uplaodProductDisplay,uplaodProductDetailed } from './functions/fileUploadingFunctions.js';
+import { uploadProfile, uplaodProductDisplay, uplaodProductDetailed, uploadCoverPhoto } from './functions/fileUploadingFunctions.js';
 
 const app = express();
 
@@ -26,23 +26,19 @@ app.use(express.static(path.resolve('./public')));
 app.use(cors());
 
 app.use("/", userRouter);
-app.use("/admin",verifyAdmin, adminRouter);
-app.use("/company",verifyCompany, companyRouter);
+app.use("/admin", verifyAdmin, adminRouter);
+app.use("/company", verifyCompany, companyRouter);
 app.use("/seller", sellerRouter);
 
 app.use('/uplaod/user-profile', uploadProfile.single('file'), (req, res) => { res.json({ uploaded: true }) })
-app.use('/uplaod/product-display',verifyCompany, uplaodProductDisplay.single('file'), (req, res) => { res.json({ uploaded: true }) })
-app.use('/uplaod/product-details',verifyCompany, uplaodProductDetailed.array('files'), (req, res) => { res.json({ uploaded: true }) })
+app.use('/uplaod/product-display', verifyCompany, uplaodProductDisplay.single('file'), (req, res) => { res.json({ uploaded: true }) })
+app.use('/uplaod/cover-photo', verifyAdmin, uploadCoverPhoto.single('file'), (req, res) => { res.json({ uploaded: true }) })
+app.use('/uplaod/product-details', verifyCompany, uplaodProductDetailed.array('files'), (req, res) => { res.json({ uploaded: true }) })
 
 app.use((req, res) => res.status(404));
 
-db.connect((err) => {
-    if (err) {
-        console.log("Mongodb is not connected", err)
-    } else {
-        console.log("Mongodb Connected")
-    }
-})
+db.connect((err) => err ? console.log("Mongo db Not conneted ", err) : console.log("Mongodb Conneted"))
+
 app.listen(3001, () => console.log("Server Started : 3001"));
 
 export default app;

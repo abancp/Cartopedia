@@ -2,35 +2,40 @@ import db from "../configuration/mongodb.js";
 import collections from "../configuration/collections.js";
 import mailer from "../configuration/nodemailer.js";
 import bcrypt from "bcrypt";
+import levenshtein from "fast-levenshtein";
+import fs from "fs";
 
 export default {
+    getRandomCoverPicture: () => {
+        return new Promise((resolve, reject) => fs.readdir("./public/cover-photos", (err, files) => err ? reject(err) : resolve(files[Math.round(Math.random() * (files.length - 1))])))
+    },
+    getUserindrestedItem: (userEmail) => {
+        return new Promise(async(resolve, reject) => {
+            let user = await db.get().collection(collections.USER_COLLECTION).findOne({ email: userEmail })
+            resolve(user.indrestedItem)
+        })
+    },
     getTrendingProducts: () => {
         return new Promise(async (resolve, reject) => {
-            const cursor = db.get().collection(collections.PRODUCTS_COLLECTION).find().sort({ trend: -1 }).limit(20);
-            let pros = [];
+            const cursor = db.get().collection(collections.PRODUCTS_COLLECTION).find().sort({ trend: -1 }).limit(20)
+            let pros = []
             for await (const doc of cursor) {
-                console.dir;
-                pros.push(doc);
+                console.dir
+                pros.push(doc)
             }
-            resolve(pros);
+            resolve(pros)
         })
     },
     getUserDetails: (email) => {
         return new Promise(async (resolve, reject) => {
             let user = db.get().collection(collections.USER_COLLECTION).findOne({ email: email })
-            if (user) {
-                resolve(user)
-            }
+            if (user) resolve(user)
         })
     },
     checkCompanyNameExist: (companyName) => {
         return new Promise((resolve, reject) => {
             db.get().collection(collections.USER_COLLECTION).findOne({ companyDetails: { companyName: companyName } }).then((company) => {
-                if (company) {
-                    resolve(true)
-                } else {
-                    resolve(false)
-                }
+                company ? resolve(true) : resolve(false)
             })
         })
     },
@@ -97,9 +102,9 @@ export default {
     submitEmailOtp: (email, otp) => {
         return new Promise(async (resolve, reject) => {
             let user = await db.get().collection(collections.USER_COLLECTION).findOne({ email: email })
-            console.log(await bcrypt.compare(""+otp,user.emailOtp))
+            console.log(await bcrypt.compare("" + otp, user.emailOtp))
             if (user.emailOtpExpareDate > Date.now()) {
-                if (await bcrypt.compare(""+otp,user.emailOtp)) {
+                if (await bcrypt.compare("" + otp, user.emailOtp)) {
                     db.get().collection(collections.USER_COLLECTION).updateOne({ email: email }, {
                         $set: {
                             verifyEmail: true,
@@ -119,5 +124,107 @@ export default {
                 reject("timeError")
             }
         })
+    },
+    searchProduct: (searchedLine) => {
+        let keywords = searchedLine.split(" ")
+        return new Promise(async (resolve, reject) => {
+            let result = {
+                categories: [],
+                companies: [],
+                products: null
+            }
+            let tempProducts = []
+            let companies = await db.get().collection(collections.USER_COLLECTION).aggregate([
+                { "$unwind": "$companyDetails" },
+                { "$match": { "companyDetails.companyName": searchedLine } },
+                {
+                    "$project": {
+                        "companyDetails.companyName": 1,
+                        "_id": 1,
+                        "companyDetails.website": 1,
+                        "companyDetails.email": 1,
+                        "companyDetails.description": 1,
+                    }
+                }
+            ]).toArray()
+            result.companies.push(companies)
+            let totalCategories = await db.get().collection(collections.CATEGORIES_COLLECTION).find({}).toArray()
+            totalCategories[0].categories.forEach(category => {
+                for (let i = 0; i < keywords.length; i++) {
+                    if ((parseFloat(Number((100 - ((levenshtein.get(category, keywords[i].toLowerCase()) / keywords[i].length) * 100)) / 100.00).toFixed(3))) > 0.85) {
+                        result.categories.push(keywords[i])
+                    }
+                }
+            })
+            let products = await db.get().collection(collections.PRODUCTS_COLLECTION).aggregate([
+                {
+                    $project: {
+                        "name": 1,
+                        "tags": 1,
+                        "price": 1,
+                        "category": 1,
+                        "description": 1,
+                        "date": 1,
+                        "trend": 1,
+                        "comapanyId": 1,
+                        "companyName": 1,
+                        "stock": 1
+                    }
+                }
+            ]).toArray()
+            let final = {
+                length: 0,
+                diff: 0,
+            }
+            products.forEach((product) => {
+                final.length = product.name.length
+                final.diff = levenshtein.get(searchedLine, product.name)
+                product.priority = (parseFloat(Number((100 - ((final.diff / final.length) * 100)) / 100.00).toFixed(3)))
+                product.tags.forEach((tag) => {
+                    let tagDiff = ((parseFloat(Number((100 - ((levenshtein.get(searchedLine, tag) / tag.length) * 100)) / 100.00).toFixed(3))))
+                    switch (true) {
+                        case tagDiff >= 0.95:
+                            product.priority = product.priority + 0.80
+                            break;
+                        case tagDiff >= 0.9:
+                            product.priority = product.priority + 0.70
+                            break;
+                        case tagDiff >= 0.8:
+                            product.priority = product.priority + 0.50
+                            break;
+                        case tagDiff >= 0.7:
+                            product.priority = product.priority + 0.30
+                            break;
+                        case tagDiff >= 0.6:
+                            product.priority = product.priority + 0.10
+                            break;
+                        default:
+                            break;
+                    }
+                });
+                switch (true) {
+                    case product.priority >= 0.30:
+                        if (product.priority > 1) {
+                            product.priority = 1
+                        }
+                        tempProducts.push(product)
+                        break;
+                    case product.priority <= 0:
+                        product.priority = 0
+                    default:
+                        break;
+                }
+            })
+            tempProducts.sort((a, b) => b.priority - a.priority)
+            result.products = tempProducts
+            resolve(result)
+        })
+    },
+    addindrestedItem:(userEmail,product)=>{
+        db.get().collection(collections.USER_COLLECTION).updateOne({email:userEmail},{
+            $set:{
+                indrestedItem:product
+            }
+        })
     }
-};
+}

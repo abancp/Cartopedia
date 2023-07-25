@@ -7,7 +7,7 @@
 .home-trendingbanner-product{
     width: 14.87rem;
     height: 17.86rem;
-    border: solid black 1px;
+    background-color: whitesmoke;
     margin-right: 10px;
     float: left;
     min-width: 14.87rem;

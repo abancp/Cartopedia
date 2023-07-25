@@ -1,5 +1,5 @@
 import express from "express";
-import register, { checkEmailExist, checkUserNameExist } from "../auth/register.js";
+import register, { checkEmailExist, checkPhoneExist, checkUserNameExist } from "../auth/register.js";
 import login from "../auth/login.js";
 import getUserDetails from "../auth/getUserDetails.js";
 import userFunctions from "../functions/userFunctions.js";
@@ -15,17 +15,28 @@ router.post("/register", register);
 
 router.post("/login", login);
 
-router.post("/check-email-availablility", (req, res) => {
+router.post("/check-user-availablility", (req, res) => {
     console.log(req.body.email);
     checkEmailExist(req.body.email).then((emailResponse) => {
         checkUserNameExist(req.body.userName).then((userNameResponse) => {
-            res.json({ email: emailResponse, userName: userNameResponse })
+            checkPhoneExist(req.body.phone).then((phoneResponse)=>{
+                res.json({ email: emailResponse, userName: userNameResponse , phone:phoneResponse })
+            })
         })
     })
 })
 
-router.post("/getUserDetails", getUserDetails)
+router.post("/get-user-details", getUserDetails)
 
+router.get("/get-cover-photo",(req,res)=>{
+    userFunctions.getRandomCoverPicture().then(coverPhotoName=>{
+        res.json({coverPhotoName})
+    }).catch(err=>res.status(500).json({err}))
+})
+
+router.get("get-intrested-product/:userEmail",verifyToken,(req,res)=>{
+    userFunctions.getUserindrestedItem(req.params.userEmail).then((indrestedProduct)=>res.json({indrestedProduct}))
+})
 
 router.get("/get-trending-products", ((req, res) => {
     userFunctions.getTrendingProducts().then((response) => {
@@ -68,6 +79,18 @@ router.post("/submit-otp", (req, res) => {
         console.log(err)
         res.json({err:err})
     })
+})
+
+router.get("/search/:searchedLine",(req,res)=>{
+    userFunctions.searchProduct(req.params.searchedLine).then((result)=>{
+        console.log(result)
+        res.json(result)
+    })
+})
+
+router.post("/add-indrested-item",verifyToken,(req,res)=>{
+    userFunctions.addindrestedItem(req.body.email,req.body.product)
+    res.status(200)
 })
 
 
