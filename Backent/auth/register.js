@@ -1,5 +1,4 @@
 import db from "../configuration/mongodb.js";
-import collections from "../configuration/collections.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -21,15 +20,15 @@ const register=async(req,res)=>{
         indrestedProduct:{},
         date:Date.now()
     };
-    db.get().collection(collections.USER_COLLECTION).insertOne(user).then((response)=>{
-        let token =jwt.sign(user,collections.JWT_SECRET,{expiresIn:1000000000});
+    db.get().collection(process.env.USER_COLLECTION).insertOne(user).then((response)=>{
+        let token =jwt.sign(user,process.env.JWT_SECRET,{expiresIn:1000000000});
         res.json({register:true,token:token,user})
     });
 };
 
 export const checkEmailExist=(email)=>{
     return new Promise((resolve,reject)=>{
-        db.get().collection(collections.USER_COLLECTION).findOne({email:email}).then((user)=>{
+        db.get().collection(process.env.USER_COLLECTION).findOne({email:email}).then((user)=>{
         if(user){
             resolve(true);
         }else{
@@ -41,7 +40,7 @@ export const checkEmailExist=(email)=>{
 
 export const checkUserNameExist=(userName)=>{
     return new Promise((resolve,reject)=>{
-        db.get().collection(collections.USER_COLLECTION).findOne({userName:userName}).then((user)=>{
+        db.get().collection(process.env.USER_COLLECTION).findOne({userName:userName}).then((user)=>{
             if(user){
                 resolve(true);
             }else{
@@ -53,7 +52,7 @@ export const checkUserNameExist=(userName)=>{
 
 export const checkPhoneExist=(phone)=>{
     return new Promise((resolve,reject)=>{
-        db.get().collection(collections.USER_COLLECTION).findOne({phone:phone}).then((user)=>{
+        db.get().collection(process.env.USER_COLLECTION).findOne({phone:phone}).then((user)=>{
             if(user){
                 resolve(true);
             }else{

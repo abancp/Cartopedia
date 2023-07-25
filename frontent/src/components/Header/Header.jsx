@@ -8,6 +8,10 @@ function Header() {
   if (user) {
     user.then((user) => {
       setUserName(user.firstName + " " + user.lastName)
+      if(user.firstName===undefined){
+        window.localStorage.clear()
+        window.location.reload()
+      } 
     })
   }
 

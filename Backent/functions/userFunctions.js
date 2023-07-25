@@ -1,5 +1,4 @@
 import db from "../configuration/mongodb.js";
-import collections from "../configuration/collections.js";
 import mailer from "../configuration/nodemailer.js";
 import bcrypt from "bcrypt";
 import levenshtein from "fast-levenshtein";
@@ -11,13 +10,13 @@ export default {
     },
     getUserindrestedItem: (userEmail) => {
         return new Promise(async(resolve, reject) => {
-            let user = await db.get().collection(collections.USER_COLLECTION).findOne({ email: userEmail })
+            let user = await db.get().collection(process.env.USER_COLLECTION).findOne({ email: userEmail })
             resolve(user.indrestedItem)
         })
     },
     getTrendingProducts: () => {
         return new Promise(async (resolve, reject) => {
-            const cursor = db.get().collection(collections.PRODUCTS_COLLECTION).find().sort({ trend: -1 }).limit(20)
+            const cursor = db.get().collection(process.env.PRODUCTS_COLLECTION).find().sort({ trend: -1 }).limit(20)
             let pros = []
             for await (const doc of cursor) {
                 console.dir
@@ -28,20 +27,20 @@ export default {
     },
     getUserDetails: (email) => {
         return new Promise(async (resolve, reject) => {
-            let user = db.get().collection(collections.USER_COLLECTION).findOne({ email: email })
+            let user = db.get().collection(process.env.USER_COLLECTION).findOne({ email: email })
             if (user) resolve(user)
         })
     },
     checkCompanyNameExist: (companyName) => {
         return new Promise((resolve, reject) => {
-            db.get().collection(collections.USER_COLLECTION).findOne({ companyDetails: { companyName: companyName } }).then((company) => {
+            db.get().collection(process.env.USER_COLLECTION).findOne({ companyDetails: { companyName: companyName } }).then((company) => {
                 company ? resolve(true) : resolve(false)
             })
         })
     },
     checkWebsiteExist: (website) => {
         return new Promise((resolve, reject) => {
-            db.get().collection(collections.USER_COLLECTION).findOne({ companyDetails: { website: website } }).then((company) => {
+            db.get().collection(process.env.USER_COLLECTION).findOne({ companyDetails: { website: website } }).then((company) => {
                 if (company) {
                     resolve(true)
                 } else {
@@ -53,7 +52,7 @@ export default {
     requestAddDetailsToOtp: (companyDetails) => {
         return new Promise((resolve, reject) => {
             let { companyName, website, location, categories, description, email } = companyDetails
-            db.get().collection(collections.USER_COLLECTION).updateOne({ email: email }, {
+            db.get().collection(process.env.USER_COLLECTION).updateOne({ email: email }, {
                 $set: {
                     companyRequestDetails: {
                         companyName,
@@ -91,7 +90,7 @@ export default {
                 console.log('Email sent successfully');
             }
         });
-        db.get().collection(collections.USER_COLLECTION).updateOne({ email: email }, {
+        db.get().collection(process.env.USER_COLLECTION).updateOne({ email: email }, {
             $set: {
                 emailOtp: await bcrypt.hash("" + otp, 10),
                 emailOtpDate: Date.now(),
@@ -101,11 +100,11 @@ export default {
     },
     submitEmailOtp: (email, otp) => {
         return new Promise(async (resolve, reject) => {
-            let user = await db.get().collection(collections.USER_COLLECTION).findOne({ email: email })
+            let user = await db.get().collection(process.env.USER_COLLECTION).findOne({ email: email })
             console.log(await bcrypt.compare("" + otp, user.emailOtp))
             if (user.emailOtpExpareDate > Date.now()) {
                 if (await bcrypt.compare("" + otp, user.emailOtp)) {
-                    db.get().collection(collections.USER_COLLECTION).updateOne({ email: email }, {
+                    db.get().collection(process.env.USER_COLLECTION).updateOne({ email: email }, {
                         $set: {
                             verifyEmail: true,
                             companyPending: true,
@@ -113,7 +112,7 @@ export default {
                         }
                     })
                     let tempCompany = user.companyRequestDetails
-                    db.get().collection(collections.COMPANY_REQUIEST_COLLLECTION).insertOne(tempCompany)
+                    db.get().collection(process.env.COMPANY_REQUIEST_COLLLECTION).insertOne(tempCompany)
                     resolve(true)
                 } else {
                     console.log("otp incorrect")
@@ -134,7 +133,7 @@ export default {
                 products: null
             }
             let tempProducts = []
-            let companies = await db.get().collection(collections.USER_COLLECTION).aggregate([
+            let companies = await db.get().collection(process.env.USER_COLLECTION).aggregate([
                 { "$unwind": "$companyDetails" },
                 { "$match": { "companyDetails.companyName": searchedLine } },
                 {
@@ -148,7 +147,7 @@ export default {
                 }
             ]).toArray()
             result.companies.push(companies)
-            let totalCategories = await db.get().collection(collections.CATEGORIES_COLLECTION).find({}).toArray()
+            let totalCategories = await db.get().collection(process.env.CATEGORIES_COLLECTION).find({}).toArray()
             totalCategories[0].categories.forEach(category => {
                 for (let i = 0; i < keywords.length; i++) {
                     if ((parseFloat(Number((100 - ((levenshtein.get(category, keywords[i].toLowerCase()) / keywords[i].length) * 100)) / 100.00).toFixed(3))) > 0.85) {
@@ -156,7 +155,7 @@ export default {
                     }
                 }
             })
-            let products = await db.get().collection(collections.PRODUCTS_COLLECTION).aggregate([
+            let products = await db.get().collection(process.env.PRODUCTS_COLLECTION).aggregate([
                 {
                     $project: {
                         "name": 1,
@@ -221,7 +220,7 @@ export default {
         })
     },
     addindrestedItem:(userEmail,product)=>{
-        db.get().collection(collections.USER_COLLECTION).updateOne({email:userEmail},{
+        db.get().collection(process.env.USER_COLLECTION).updateOne({email:userEmail},{
             $set:{
                 indrestedItem:product
             }

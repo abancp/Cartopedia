@@ -2,6 +2,7 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import cors from "cors";
 import morgan from 'morgan';
+import dotenv from 'dotenv'
 import path from "path";
 import { fileURLToPath } from "url";
 import db from "./configuration/mongodb.js";
@@ -17,6 +18,8 @@ const app = express();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+dotenv.config()
 
 app.use(morgan('common'));
 app.use(express.json());
@@ -39,6 +42,6 @@ app.use((req, res) => res.status(404));
 
 db.connect((err) => err ? console.log("Mongo db Not conneted ", err) : console.log("Mongodb Conneted"))
 
-app.listen(3001, () => console.log("Server Started : 3001"));
+app.listen(process.env.PORT, () => console.log("Server Started : ",process.env.PORT));
 
 export default app;
