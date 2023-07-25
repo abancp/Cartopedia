@@ -45,8 +45,11 @@ function RegisterPage() {
             } else {
               setEmailErr(false);
               if(res.data.phone){
-                set
-              }else{let formData = new FormData();
+                setPhoneErr(true)
+                setPage(5)
+              }else{
+                setPhoneErr(false)
+              let formData = new FormData();
               formData.append('email', email);
               formData.append('file', profile);
               axios.post(collections.server_base + "/uplaod/user-profile", formData).then((res) => {
@@ -125,6 +128,7 @@ function RegisterPage() {
               case 5:
                 return <div className='inner'>
                   <div className="register-page">
+                  {phoneErr?<h6 className="error">this phone already registered</h6>:null}
                     <h2 className="screen-text">Enter Your Phone ...</h2>
                     <div className="regiser-inputs">
                       <Input onChange={(e) => { setPhone(e.target.value) }} value={phone} width="15rem" type="number" placeholder="Phone" />
