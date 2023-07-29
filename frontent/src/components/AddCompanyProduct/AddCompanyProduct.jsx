@@ -2,28 +2,31 @@ import React, { useEffect, useState } from 'react';
 import "./AddCompanyProduct.css";
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
-import collections from '../../config/collections';
-import {useSelector} from "react-redux";
-import {useNavigate} from "react-router-dom"
+import collections from '../../configurations/collections';
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom"
+import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { app } from "../../configurations/firebase"
 
 function AddCompanyProduct() {
   const [photo, setPhoto] = useState(null);
   const [detailedPhotos, setDetailedPhotos] = useState([]);
-  const [companyMail,setCompanyMail] = useState(null);
-  const [companyName,setCompanyName] = useState(null);
+  const [companyMail, setCompanyMail] = useState(null);
+  const [companyName, setCompanyName] = useState(null);
   const navigate = useNavigate();
-  
+  const storage = getStorage(app);
+
   var store = useSelector((state) => { return state.user })
-  useEffect(()=>{
-    store.then((res)=>{
+  useEffect(() => {
+    store.then((res) => {
       setCompanyMail(res.email)
-      if(res.companyDetails===undefined){
+      if (res.companyDetails === undefined) {
         navigate("/")
-      }else{
+      } else {
         setCompanyName(res.companyDetails.companyName)
       }
     })
-  },[navigate,store])
+  }, [navigate, store])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -50,9 +53,9 @@ function AddCompanyProduct() {
     let formDataDetailed = new FormData();
     formDataDetailed.append('_id',res.data.id);
     for (let i = 0; i < detailedPhotos.length; i++) {
-      formDataDetailed.append("index", i);
-      formDataDetailed.append("files", detailedPhotos[i]);
-    }
+        const storageRef = ref(storage, `product-detaileds/${res.data.id}/${res.data.id}[${i}]`);
+        uploadBytes(storageRef, detailedPhotos[i]).then(() => { })
+      }
     axios.post(collections.server_base + "/uplaod/product-details", formDataDetailed,{ headers: { 'Authorization':  window.localStorage.getItem("token") } });
     })
   }
@@ -81,7 +84,7 @@ function AddCompanyProduct() {
                   </div>
                   <div className='width-1rem'></div>
                   <div className="col ml-1">
-                    <Dropzone multiple={true} onDrop={acceptedFiles => { setDetailedPhotos(acceptedFiles)}}>
+                    <Dropzone multiple={true} onDrop={acceptedFiles => { setDetailedPhotos(acceptedFiles) }}>
                       {({ getRootProps, getInputProps }) => (
                         <section>
                           <div className='addcompanyproduct-product-imagepicker-dropzone d-flex justify-content-center ' {...getRootProps()}>

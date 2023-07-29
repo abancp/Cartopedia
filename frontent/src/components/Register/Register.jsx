@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import "./Register.css";
 import Dropzone from "react-dropzone"
 import axios from 'axios';
-import collections from '../../config/collections';
+import collections from '../../configurations/collections';
 import {useNavigate} from "react-router-dom";
 import { useDispatch} from 'react-redux';
 

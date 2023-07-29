@@ -6,7 +6,9 @@ import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import collections from '../../config/collections';
+import collections from '../../configurations/collections';
+import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { app } from "../../configurations/firebase"
 
 
 function RegisterPage() {
@@ -21,33 +23,35 @@ function RegisterPage() {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [phone, setPhone] = useState('')
   const [userName, setUserName] = useState('')
-  const [profile,setProfile] = useState(null)
-  const [passwordErr,setPasswordErr] = useState(false)
-  const [emailErr,setEmailErr] = useState(false)
-  const [userNameErr,setUserNameErr] = useState(false)
-  const [phoneErr,setPhoneErr] = useState()
+  const [profile, setProfile] = useState(null)
+  const [passwordErr, setPasswordErr] = useState(false)
+  const [emailErr, setEmailErr] = useState(false)
+  const [userNameErr, setUserNameErr] = useState(false)
+  const [phoneErr, setPhoneErr] = useState()
+  const [uploadProfile,setUploadProfile] = useState(false)
   if (page === 1) {
     setTimeout(() => { handlePageChange(1) }, 2300)
   }
   const handlePageChange = (change) => {
-    if(page===7 && change === 1){
+    if (page === 7 && change === 1) {
+      setPage(8)
       if (password === confirmPassword) {
-        axios.post(collections.server_base + "/check-user-availablility", { email,userName,phone}).then((res) => {
+        axios.post(collections.server_base + "/check-user-availablility", { email, userName, phone }).then((res) => {
           console.log(res.data)
-          if(res.data.userName){
+          if (res.data.userName) {
             setUserNameErr(true);
             setPage(6)
-          }else{
+          } else {
             setUserNameErr(false);
             if (res.data.email) {
               setEmailErr(true);
               setPage(3)
             } else {
               setEmailErr(false);
-              if(res.data.phone){
+              if (res.data.phone) {
                 setPhoneErr(true)
                 setPage(5)
-              }else{
+              } else {
                 setPhoneErr(false)
               let formData = new FormData();
               formData.append('email', email);
@@ -61,18 +65,19 @@ function RegisterPage() {
                   phone,
                   password
                 }
-                axios.post(collections.server_base + "/register",user).then((res)=>{
-                  dispatch({
-                    type: user
+                  axios.post(collections.server_base + "/register", user).then((res) => {
+                    dispatch({
+                      type: user
+                    });
+                    window.localStorage.setItem("token", res.data.token);
+                    dispatch({
+                      type: user
+                    });
+                    navigate("/");
+                  })
                 });
-                window.localStorage.setItem("token", res.data.token);
-                dispatch({
-                    type: user
-                });
-                navigate("/");
-                }) 
-              });}
-              
+              }
+
             }
           }
         })
@@ -80,8 +85,8 @@ function RegisterPage() {
         setPasswordErr(true);
         setPage(4)
       }
-    }else{
-    (page === 1 && change === -1) || (page === 8 && change === 1) ? setPage(page) : setPage(page + change)
+    } else {
+      (page === 1 && change === -1) || (page === 8 && change === 1) ? setPage(page) : setPage(page + change)
     }
   }
   return (
@@ -107,7 +112,7 @@ function RegisterPage() {
               case 3:
                 return <div className='inner'>
                   <div className="register-page">
-                    {emailErr?<h6 className="error">this email already registered</h6>:null}
+                    {emailErr ? <h6 className="error">this email already registered</h6> : null}
                     <h2 className="screen2text">Enter Your Email  ...</h2>
                     <div className="regiser-inputs">
                       <Input onChange={(e) => { setEmail(e.target.value) }} value={email} width="15rem" type="email" placeholder="Email" />
@@ -117,7 +122,7 @@ function RegisterPage() {
               case 4:
                 return <div className='inner'>
                   <div className="register-page">
-                  {passwordErr?<h6 className="error">passwords not matching</h6>:null}
+                    {passwordErr ? <h6 className="error">passwords not matching</h6> : null}
                     <h2 className="screen2-text">SShhh... Enter Your assword and confirm it  ...</h2>
                     <div className="regiser-inputs">
                       <Input onChange={(e) => { setPassword(e.target.value) }} value={password} width="13rem" type="password" placeholder="Password" />
@@ -128,7 +133,7 @@ function RegisterPage() {
               case 5:
                 return <div className='inner'>
                   <div className="register-page">
-                  {phoneErr?<h6 className="error">this phone already registered</h6>:null}
+                    {phoneErr ? <h6 className="error">this phone already registered</h6> : null}
                     <h2 className="screen-text">Enter Your Phone ...</h2>
                     <div className="regiser-inputs">
                       <Input onChange={(e) => { setPhone(e.target.value) }} value={phone} width="15rem" type="number" placeholder="Phone" />
@@ -138,7 +143,7 @@ function RegisterPage() {
               case 6:
                 return <div className='inner'>
                   <div className="register-page">
-                  {userNameErr?<h6 className="error">this userName already taken.try anthor....</h6>:null}
+                    {userNameErr ? <h6 className="error">this userName already taken.try anthor....</h6> : null}
                     <h2 className="screen-text">Enter Your UserName...</h2>
                     <div className="regiser-inputs">
                       <Input onChange={(e) => { setUserName(e.target.value) }} value={userName} width="15rem" type="text" placeholder="UserName" />
@@ -147,25 +152,27 @@ function RegisterPage() {
                   </div>
                 </div>
               case 7:
-              return <div className='inner'>
-              <div className="register-page">
-                <h2 className="screen-text">...and Your Buetifull Profile</h2>
-                <div className="regiser-inputs">
-                <Dropzone multiple={false} onDrop={acceptedFiles => { setProfile(acceptedFiles[0]); console.log(acceptedFiles[0]) }}>
-                {({ getRootProps, getInputProps }) => (
-                  <section>
-                    <div className='register-form-profile-dropzone ' {...getRootProps()}>
-                      <input className='register-form-input'  {...getInputProps()} />
-                      <h6 >{`${profile ? profile.name : "Profile Browse or Drop"}`}</h6>
+                return <div className='inner'>
+                  <div className="register-page">
+                    <h2 className="screen-text">...and Your Buetifull Profile</h2>
+                    <div className="regiser-inputs">
+                      <Dropzone multiple={false} onDrop={acceptedFiles => { setProfile(acceptedFiles[0]); console.log(acceptedFiles[0]) }}>
+                        {({ getRootProps, getInputProps }) => (
+                          <section>
+                            <div className='register-form-profile-dropzone ' {...getRootProps()}>
+                              <input className='register-form-input'  {...getInputProps()} />
+                              <h6 >{`${profile ? profile.name : "Profile Browse or Drop"}`}</h6>
+                            </div>
+                          </section>
+                        )}
+                      </Dropzone>
                     </div>
-                  </section>
-                )}
-              </Dropzone>     
+                  </div>
                 </div>
-              </div>
-            </div>
               case 8:
                 return <div className="loading-anime">
+                  {uploadProfile?<h4 className='loading-h4'>uploading profile</h4>:<h4 className='loading-h4'>craeting user</h4>}
+
                   <div className="loading-anime-div-1"></div>
                   <div className="loading-anime-div-2"></div>
                   <div className="loading-anime-div-3"></div>

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { legacy_createStore as createStore } from "redux";
-import collections from "../config/collections";
+import collections from "../configurations/collections";
 
 const initialState={
     user:window.localStorage.getItem("token")?axios.post(collections.server_base+"/get-user-details",{token:window.localStorage.getItem("token")}).then((res)=>{return res.data}):null

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import "./RegisterAsCompany.css";
 import axios from 'axios';
-import collections from '../../config/collections';
+import collections from '../../configurations/collections';
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 

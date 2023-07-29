@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Product from '../components/UserComppnents/Product/Product';
 import axios from 'axios';
-import collections from '../config/collections';
+import collections from '../configurations/collections';
 
 function SearchResultPage() {
   const [categories, setCategaries] = useState([]);
@@ -17,7 +17,7 @@ function SearchResultPage() {
       setCompanies(res.data.companies[0])
       setProducts(res.data.products)
     })
-  }, [])
+  }, [searchedLine])
   return (
     <div className='SearchResultPage'>
       <div className='container-fluid'>

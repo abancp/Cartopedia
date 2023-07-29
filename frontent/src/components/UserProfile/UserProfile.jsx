@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import "./UserProfile.css";
 import { useDispatch, useSelector } from 'react-redux';
-import collections from '../../config/collections';
+import collections from '../../configurations/collections';
 import { Link, useNavigate } from 'react-router-dom';
 
 function UserProfile() {

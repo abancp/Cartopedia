@@ -3,7 +3,7 @@ import "./VerifyAccount.css";
 import { useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
-import collections from "../../config/collections"
+import collections from "../../configurations/collections"
 
 function VerifyAccount(props) {
     const [email, setEmail] = useState(null);

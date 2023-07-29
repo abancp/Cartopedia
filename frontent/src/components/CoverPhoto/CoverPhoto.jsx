@@ -1,6 +1,6 @@
 import React from 'react';
 import "./CoverPhoto.css";
-import collections from '../../config/collections';
+import collections from '../../configurations/collections';
 
 function CoverPhoto(props) {
   return (

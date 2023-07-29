@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import "./TrendingBanner.css";
 import axios from "axios";
-import collections from "../../config/collections"
+import collections from "../../configurations/collections"
 
 function TrendingBanner() {
     const [trendingProducts, setTrendingProducts] = useState([]);

@@ -1,5 +1,5 @@
 import React from 'react';
-import collections from '../../../config/collections';
+import collections from '../../../configurations/collections';
 import "./Product.css"
 
 function Product(Props) {

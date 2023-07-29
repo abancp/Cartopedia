@@ -4,6 +4,7 @@ import login from "../auth/login.js";
 import getUserDetails from "../auth/getUserDetails.js";
 import userFunctions from "../functions/userFunctions.js";
 import verifyToken from "../middeleware/verifytoken.js";
+import db from "../configuration/mongodb.js"
 
 const router = express.Router();
 

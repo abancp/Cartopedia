@@ -5,7 +5,7 @@ const login=async(req,res)=>{
     let email = req.body.email;
     let password = req.body.password;
     console.log(req.body)
-    let user = await db.get().collection(process.env.USER_COLLECTION).findOne({email:email})
+    let user = await db.get.collection(process.env.USER_COLLECTION).findOne({email:email})
     if(user){
         if(await bcrypt.compare(""+password,user.password)){
             let token =jwt.sign(user,process.env.JWT_SECRET,{expiresIn:1000000000});

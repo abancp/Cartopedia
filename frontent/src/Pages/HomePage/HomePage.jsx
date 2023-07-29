@@ -5,7 +5,7 @@ import IndrestedProduct from '../../components/IndrestedProduct/IndrestedProduct
 import CoverPhoto from '../../components/CoverPhoto/CoverPhoto';
 import TrendingProduct from '../../components/TrendingProduct/TrendingProduct';
 import axios from "axios";
-import collections from "../../config/collections"
+import collections from "../../configurations/collections"
 import Preview from '../../components/Preview/Preview';
 import Button from '../../components/Button/Button';
 import { useSelector } from 'react-redux';
@@ -25,7 +25,7 @@ function HomePage() {
       <Header />
       <div className='Homepage-main'>
         <div className='coverphoto'>
- <CoverPhoto imageName={coverPhotoname} /> </div>
+             <CoverPhoto imageName={coverPhotoname} /> </div>
         <div className='indrested-product'> <IndrestedProduct /> </div>
       </div>
       <div className='Homepage-main-bottum'>
@@ -38,12 +38,12 @@ function HomePage() {
             etc="true"
             text3="Total items : 43"
             text4="Total amount : 21323"
-            button1={<Button text="clear cart" color="red" icon={<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-cart-x" viewBox="0 0 16 16"><path d="M7.354 5.646a.5.5 0 1 0-.708.708L7.793 7.5 6.646 8.646a.5.5 0 1 0 .708.708L8.5 8.207l1.146 1.147a.5.5 0 0 0 .708-.708L9.207 7.5l1.147-1.146a.5.5 0 0 0-.708-.708L8.5 6.793 7.354 5.646z" /><path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" /></svg>} />}
+            button1={<Button text="view cart" color="red" icon={<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-cart-x" viewBox="0 0 16 16"><path d="M7.354 5.646a.5.5 0 1 0-.708.708L7.793 7.5 6.646 8.646a.5.5 0 1 0 .708.708L8.5 8.207l1.146 1.147a.5.5 0 0 0 .708-.708L9.207 7.5l1.147-1.146a.5.5 0 0 0-.708-.708L8.5 6.793 7.354 5.646z" /><path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" /></svg>} />}
             button2={<Button text="place order" color="green" icon={<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-cart-check" viewBox="0 0 16 16"><path d="M11.354 6.354a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z" /><path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" /></svg>} />}
           />
           <Preview
             heading={user.firstName===undefined?"signup for best service":user.firstName+" "+user.lastName}
-            icon={user.firstName?<img className='home-preview-profile-img' src={`${collections.server_base}/user-profiles/${user.email}.jpg`} alt='' />:<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" className="preview-icon bi bi-person" viewBox="0 0 16 16"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/></svg>}
+            icon={user.firstName?<img className='home-preview-profile-img' src={`https://firebasestorage.googleapis.com/v0/b/${collections.firebase_storage}/o/user-profiles%2F${user.email}?alt=media`} alt='' />:<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" className="preview-icon bi bi-person" viewBox="0 0 16 16"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/></svg>}
             text1="sasmung s23 ultra pro max - 2"
             text2="iphone 14 pro max - 2  "
             etc="true"

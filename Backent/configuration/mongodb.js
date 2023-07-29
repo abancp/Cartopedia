@@ -24,5 +24,5 @@ const connect = async (cb) => {
 const get = () => state.db;
 export default {
     connect,
-    get,
+    get:client.db(dbName)
 };

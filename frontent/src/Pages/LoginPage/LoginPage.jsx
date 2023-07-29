@@ -3,7 +3,7 @@ import Header from '../../components/Header/Header';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import collections from '../../config/collections';
+import collections from '../../configurations/collections';
 import "./LoginPage.css"
 import Input from '../../components/Input/Input';
 import Button from '../../components/Button/Button';

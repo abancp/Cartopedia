@@ -186,3 +186,9 @@
     color: red;
     text-align: center;
 }
+.RegisterPage .loading-h4{
+    color: white;
+    position: absolute;
+    font-size: 12px;
+    bottom: 40px;
+}
