@@ -2,7 +2,7 @@ import { MongoClient,ServerApiVersion } from "mongodb";
 const state = {
     db: null
 };
-const url = "mongodb+srv://abancpchengani:1%402%40Abancp@cartopedia.j9zt4kz.mongodb.net/?retryWrites=true&w=majority"
+const url = "mongodb://127.0.0.1:27017/"
 const dbName = "Cartopedia"
 const client = new MongoClient(url, {
     serverApi: {
@@ -24,5 +24,5 @@ const connect = async (cb) => {
 const get = () => state.db;
 export default {
     connect,
-    get:client.db(dbName)
+    get,
 };

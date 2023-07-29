@@ -7,9 +7,6 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import collections from '../../configurations/collections';
-import { getStorage, ref, uploadBytes } from "firebase/storage";
-import { app } from "../../configurations/firebase"
-
 
 function RegisterPage() {
   const navigate = useNavigate()
