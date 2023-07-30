@@ -9,12 +9,6 @@ export default {
     getRandomCoverPicture: () => {
         return new Promise((resolve, reject) => fs.readdir("./public/cover-photos", (err, files) => err ? reject(err) : resolve(files[Math.round(Math.random() * (files.length - 1))])))
     },
-<<<<<<< HEAD
-    getUserindrestedItem: (userEmail) => {
-        return new Promise(async(resolve, reject) => {
-            let user = await db.get.collection(process.env.USER_COLLECTION).findOne({ email: userEmail })
-            resolve(user.indrestedItem)
-=======
     getUserindrestedItem: (email) => {
         return new Promise(async (resolve, reject) => {
             console.log(email)
@@ -37,7 +31,6 @@ export default {
                 console.log(item)
                 resolve(item)
             }
->>>>>>> master
         })
     },
     getTrendingProducts: () => {
@@ -53,11 +46,7 @@ export default {
     },
     getUserDetails: (email) => {
         return new Promise(async (resolve, reject) => {
-<<<<<<< HEAD
-            let user = db.get.collection(process.env.USER_COLLECTION).findOne({ email: email })
-=======
             let user = await db.get().collection(process.env.USER_COLLECTION).findOne({ email: email })
->>>>>>> master
             if (user) resolve(user)
         })
     },
@@ -246,20 +235,10 @@ export default {
             })
             tempProducts.sort((a, b) => b.priority - a.priority)
             result.products = tempProducts
-<<<<<<< HEAD
-            resolve(result)
-        })
-    },
-    addindrestedItem:(userEmail,product)=>{
-        db.get.collection(process.env.USER_COLLECTION).updateOne({email:userEmail},{
-            $set:{
-                indrestedItem:product
-=======
             if (email !== undefined) {
                 db.get().collection(process.env.USER_COLLECTION).updateOne({ email: email }, {
                     $set: { indrestedItems: [tempProducts[0], tempProducts[1], tempProducts[2]] }
                 })
->>>>>>> master
             }
             resolve(result)
         })
