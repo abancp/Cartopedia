@@ -3,7 +3,6 @@ import mailer from "../configuration/nodemailer.js";
 import bcrypt from "bcrypt";
 import levenshtein from "fast-levenshtein";
 import fs from "fs";
-import { ObjectId } from "mongodb";
 
 export default {
     getRandomCoverPicture: () => {
@@ -13,29 +12,29 @@ export default {
         return new Promise(async (resolve, reject) => {
             console.log(email)
             let user = await db.get().collection(process.env.USER_COLLECTION).findOne({ email: email })
-            var itemId = user.indrestedItems[Math.round(Math.random() * 2)]
-            if (itemId === null) {
-                for (let i = 0; i < 5; i++) {
-                    itemId = await user.indrestedItems[Math.round(Math.random() * 2) + 1]
-                    if (itemId !== null && itemId !== undefined) {
-                        itemId = new ObjectId(itemId)
-                        let item = await db.get().collection(process.env.PRODUCTS_COLLECTION).findOne({ _id: itemId })
-                        resolve(item)
+            if (user) {
+                let itemId = await user.indrestedItems[Math.round(Math.random() * 2)]
+                if (itemId === null || itemId === undefined) {
+                    for (let i = 0; i < 4; i++) {
+                        itemId = await user.indrestedItems[Math.round(Math.random() * 2)]
+                        if (itemId !== null && itemId !== undefined) {
+                            let item = await db.get().collection(process.env.PRODUCTS_COLLECTION).findOne({ _id: itemId })
+                            resolve(item)
+                        }
                     }
+                    resolve({ err: "the specified not have indrested item now!" })
+                } else {
+                    let item = await db.get().collection(process.env.PRODUCTS_COLLECTION).findOne({ _id: itemId })
+                    resolve(item)
                 }
-                console.log("no indrested item")
-                resolve({ err: "the specified not have indrested item now!" })
             } else {
-                itemId = new ObjectId(itemId)
-                let item = await db.get().collection(process.env.PRODUCTS_COLLECTION).findOne({ _id: itemId })
-                console.log(item)
-                resolve(item)
+                resolve({ err: "user not found" })
             }
         })
     },
     getTrendingProducts: () => {
         return new Promise(async (resolve, reject) => {
-            const cursor = db.get.collection(process.env.PRODUCTS_COLLECTION).find().sort({ trend: -1 }).limit(20)
+            const cursor = db.get().collection(process.env.PRODUCTS_COLLECTION).find().sort({ trend: -1 }).limit(20)
             let pros = []
             for await (const doc of cursor) {
                 console.dir
@@ -52,14 +51,14 @@ export default {
     },
     checkCompanyNameExist: (companyName) => {
         return new Promise((resolve, reject) => {
-            db.get.collection(process.env.USER_COLLECTION).findOne({ companyDetails: { companyName: companyName } }).then((company) => {
+            db.get().collection(process.env.USER_COLLECTION).findOne({ companyDetails: { companyName: companyName } }).then((company) => {
                 company ? resolve(true) : resolve(false)
             })
         })
     },
     checkWebsiteExist: (website) => {
         return new Promise((resolve, reject) => {
-            db.get.collection(process.env.USER_COLLECTION).findOne({ companyDetails: { website: website } }).then((company) => {
+            db.get().collection(process.env.USER_COLLECTION).findOne({ companyDetails: { website: website } }).then((company) => {
                 if (company) {
                     resolve(true)
                 } else {
@@ -71,7 +70,7 @@ export default {
     requestAddDetailsToOtp: (companyDetails) => {
         return new Promise((resolve, reject) => {
             let { companyName, website, location, categories, description, email } = companyDetails
-            db.get.collection(process.env.USER_COLLECTION).updateOne({ email: email }, {
+            db.get().collection(process.env.USER_COLLECTION).updateOne({ email: email }, {
                 $set: {
                     companyRequestDetails: {
                         companyName,
@@ -109,7 +108,7 @@ export default {
                 console.log('Email sent successfully');
             }
         });
-        db.get.collection(process.env.USER_COLLECTION).updateOne({ email: email }, {
+        db.get().collection(process.env.USER_COLLECTION).updateOne({ email: email }, {
             $set: {
                 emailOtp: await bcrypt.hash("" + otp, 10),
                 emailOtpDate: Date.now(),
@@ -119,11 +118,11 @@ export default {
     },
     submitEmailOtp: (email, otp) => {
         return new Promise(async (resolve, reject) => {
-            let user = await db.get.collection(process.env.USER_COLLECTION).findOne({ email: email })
+            let user = await db.get().collection(process.env.USER_COLLECTION).findOne({ email: email })
             console.log(await bcrypt.compare("" + otp, user.emailOtp))
             if (user.emailOtpExpareDate > Date.now()) {
                 if (await bcrypt.compare("" + otp, user.emailOtp)) {
-                    db.get.collection(process.env.USER_COLLECTION).updateOne({ email: email }, {
+                    db.get().collection(process.env.USER_COLLECTION).updateOne({ email: email }, {
                         $set: {
                             verifyEmail: true,
                             companyPending: true,
@@ -131,7 +130,7 @@ export default {
                         }
                     })
                     let tempCompany = user.companyRequestDetails
-                    db.get.collection(process.env.COMPANY_REQUIEST_COLLLECTION).insertOne(tempCompany)
+                    db.get().collection(process.env.COMPANY_REQUIEST_COLLLECTION).insertOne(tempCompany)
                     resolve(true)
                 } else {
                     console.log("otp incorrect")
@@ -152,7 +151,7 @@ export default {
                 products: null
             }
             let tempProducts = []
-            let companies = await db.get.collection(process.env.USER_COLLECTION).aggregate([
+            let companies = await db.get().collection(process.env.USER_COLLECTION).aggregate([
                 { "$unwind": "$companyDetails" },
                 { "$match": { "companyDetails.companyName": searchedLine } },
                 {
@@ -166,7 +165,7 @@ export default {
                 }
             ]).toArray()
             result.companies.push(companies)
-            let totalCategories = await db.get.collection(process.env.CATEGORIES_COLLECTION).find({}).toArray()
+            let totalCategories = await db.get().collection(process.env.CATEGORIES_COLLECTION).find({}).toArray()
             totalCategories[0].categories.forEach(category => {
                 for (let i = 0; i < keywords.length; i++) {
                     if ((parseFloat(Number((100 - ((levenshtein.get(category, keywords[i].toLowerCase()) / keywords[i].length) * 100)) / 100.00).toFixed(3))) > 0.85) {
@@ -174,7 +173,7 @@ export default {
                     }
                 }
             })
-            let products = await db.get.collection(process.env.PRODUCTS_COLLECTION).aggregate([
+            let products = await db.get().collection(process.env.PRODUCTS_COLLECTION).aggregate([
                 {
                     $project: {
                         "name": 1,
@@ -235,10 +234,26 @@ export default {
             })
             tempProducts.sort((a, b) => b.priority - a.priority)
             result.products = tempProducts
-            if (email !== undefined) {
-                db.get().collection(process.env.USER_COLLECTION).updateOne({ email: email }, {
-                    $set: { indrestedItems: [tempProducts[0], tempProducts[1], tempProducts[2]] }
-                })
+            if (email !== undefined||email !== null) {
+                switch(true){
+                    case tempProducts.length > 2:
+                        db.get().collection(process.env.USER_COLLECTION).updateOne({ email: email }, {
+                            $set: { indrestedItems: [tempProducts[0]._id, tempProducts[1]._id, tempProducts[2]._id] }
+                        })
+                        break
+                    case tempProducts.length > 1:
+                        db.get().collection(process.env.USER_COLLECTION).updateOne({ email: email }, {
+                            $set: { indrestedItems: [tempProducts[0]._id, tempProducts[1]._id] }
+                        })
+                        break
+                    case tempProducts.length > 0:
+                        db.get().collection(process.env.USER_COLLECTION).updateOne({ email: email }, {
+                            $set: { indrestedItems: [tempProducts[0]._id] }
+                        })
+                        break
+                    default:
+                        break
+                }
             }
             resolve(result)
         })
