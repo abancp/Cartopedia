@@ -17,7 +17,7 @@ const register=async(req,res)=>{
         companyProducts:[],
         verifyEmail:false,
         lastFiveSearchs:[],
-        indrestedProduct:{},
+        indrestedItems:[],
         date:Date.now()
     };
     db.get.collection(process.env.USER_COLLECTION).insertOne(user).then((response)=>{

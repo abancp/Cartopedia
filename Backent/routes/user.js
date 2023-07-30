@@ -9,7 +9,7 @@ import db from "../configuration/mongodb.js"
 const router = express.Router();
 
 router.get("/", (req, res) => {
-    res.json({ "String": "Welcome to cartopedia" })
+    res.json({ "String": "Welcome to cartopedia Server " })
 });
 
 router.post("/register", register);
@@ -35,8 +35,8 @@ router.get("/get-cover-photo",(req,res)=>{
     }).catch(err=>res.status(500).json({err}))
 })
 
-router.get("get-intrested-product/:userEmail",verifyToken,(req,res)=>{
-    userFunctions.getUserindrestedItem(req.params.userEmail).then((indrestedProduct)=>res.json({indrestedProduct}))
+router.get("/get-indrested-item/:email",(req,res)=>{
+    userFunctions.getUserindrestedItem(req.params.email).then((indrestedProduct)=>res.json({indrestedProduct}))
 })
 
 router.get("/get-trending-products", ((req, res) => {
@@ -82,16 +82,11 @@ router.post("/submit-otp", (req, res) => {
     })
 })
 
-router.get("/search/:searchedLine",(req,res)=>{
-    userFunctions.searchProduct(req.params.searchedLine).then((result)=>{
+router.get("/search/:searchedLine/:email",(req,res)=>{
+    userFunctions.searchProduct(req.params.searchedLine,req.params.email).then((result)=>{
         console.log(result)
         res.json(result)
     })
-})
-
-router.post("/add-indrested-item",verifyToken,(req,res)=>{
-    userFunctions.addindrestedItem(req.body.email,req.body.product)
-    res.status(200)
 })
 
 

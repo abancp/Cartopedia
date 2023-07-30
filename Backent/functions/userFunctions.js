@@ -3,15 +3,41 @@ import mailer from "../configuration/nodemailer.js";
 import bcrypt from "bcrypt";
 import levenshtein from "fast-levenshtein";
 import fs from "fs";
+import { ObjectId } from "mongodb";
 
 export default {
     getRandomCoverPicture: () => {
         return new Promise((resolve, reject) => fs.readdir("./public/cover-photos", (err, files) => err ? reject(err) : resolve(files[Math.round(Math.random() * (files.length - 1))])))
     },
+<<<<<<< HEAD
     getUserindrestedItem: (userEmail) => {
         return new Promise(async(resolve, reject) => {
             let user = await db.get.collection(process.env.USER_COLLECTION).findOne({ email: userEmail })
             resolve(user.indrestedItem)
+=======
+    getUserindrestedItem: (email) => {
+        return new Promise(async (resolve, reject) => {
+            console.log(email)
+            let user = await db.get().collection(process.env.USER_COLLECTION).findOne({ email: email })
+            var itemId = user.indrestedItems[Math.round(Math.random() * 2)]
+            if (itemId === null) {
+                for (let i = 0; i < 5; i++) {
+                    itemId = await user.indrestedItems[Math.round(Math.random() * 2) + 1]
+                    if (itemId !== null && itemId !== undefined) {
+                        itemId = new ObjectId(itemId)
+                        let item = await db.get().collection(process.env.PRODUCTS_COLLECTION).findOne({ _id: itemId })
+                        resolve(item)
+                    }
+                }
+                console.log("no indrested item")
+                resolve({ err: "the specified not have indrested item now!" })
+            } else {
+                itemId = new ObjectId(itemId)
+                let item = await db.get().collection(process.env.PRODUCTS_COLLECTION).findOne({ _id: itemId })
+                console.log(item)
+                resolve(item)
+            }
+>>>>>>> master
         })
     },
     getTrendingProducts: () => {
@@ -27,7 +53,11 @@ export default {
     },
     getUserDetails: (email) => {
         return new Promise(async (resolve, reject) => {
+<<<<<<< HEAD
             let user = db.get.collection(process.env.USER_COLLECTION).findOne({ email: email })
+=======
+            let user = await db.get().collection(process.env.USER_COLLECTION).findOne({ email: email })
+>>>>>>> master
             if (user) resolve(user)
         })
     },
@@ -124,7 +154,7 @@ export default {
             }
         })
     },
-    searchProduct: (searchedLine) => {
+    searchProduct: (searchedLine, email) => {
         let keywords = searchedLine.split(" ")
         return new Promise(async (resolve, reject) => {
             let result = {
@@ -216,6 +246,7 @@ export default {
             })
             tempProducts.sort((a, b) => b.priority - a.priority)
             result.products = tempProducts
+<<<<<<< HEAD
             resolve(result)
         })
     },
@@ -223,7 +254,14 @@ export default {
         db.get.collection(process.env.USER_COLLECTION).updateOne({email:userEmail},{
             $set:{
                 indrestedItem:product
+=======
+            if (email !== undefined) {
+                db.get().collection(process.env.USER_COLLECTION).updateOne({ email: email }, {
+                    $set: { indrestedItems: [tempProducts[0], tempProducts[1], tempProducts[2]] }
+                })
+>>>>>>> master
             }
+            resolve(result)
         })
     }
 }

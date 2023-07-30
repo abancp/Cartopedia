@@ -7,10 +7,10 @@ import HomePage from './Pages/HomePage/HomePage';
 import LoginPage from './Pages/LoginPage/LoginPage';
 import RegisterPage from './Pages/RegisterPage/RegisterPage';
 import UsedPage from './Pages/UsedPage';
-import RegisterAsCompanyPage from './Pages/RegisterAsCompanyPage';
+import RegisterAsCompanyPage from './Pages/RegisterAsCompanyPage/RegisterAsCompanyPage';
 import CompanyPage from './Pages/CompanyPage';
 import VerifyAccountPage from './Pages/VerifyAccountPage';
-import SearchResultPage from './Pages/SearchResultPage';
+import SearchResultPage from './Pages/SearchResultPage/SearchResultPage';
 import UserProfilePage from './Pages/UserProfilePage';
 const router = createBrowserRouter([
   {
