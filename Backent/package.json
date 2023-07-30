@@ -5,13 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-<<<<<<< HEAD
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-=======
     "start": "nodemon index.js",
     "test": "vitest"
->>>>>>> master
   },
   "author": "Aban Muhammed C P",
   "license": "ISC",
