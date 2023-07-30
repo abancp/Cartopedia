@@ -2,12 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Product from '../../components/UserComppnents/Product/Product';
 import axios from 'axios';
-<<<<<<< HEAD:frontent/src/Pages/SearchResultPage.jsx
-import collections from '../configurations/collections';
-=======
-import collections from '../../config/collections';
+import collections from '../../configurations/collections';
 import { useSelector } from 'react-redux';
->>>>>>> master:frontent/src/Pages/SearchResultPage/SearchResultPage.jsx
 
 function SearchResultPage() {
   const [categories, setCategaries] = useState([]);
@@ -32,11 +28,7 @@ function SearchResultPage() {
       setCompanies(res.data.companies[0])
       setProducts(res.data.products)
     })
-<<<<<<< HEAD:frontent/src/Pages/SearchResultPage.jsx
-  }, [searchedLine])
-=======
   }, [email,searchedLine,store])
->>>>>>> master:frontent/src/Pages/SearchResultPage/SearchResultPage.jsx
   return (
     <div className='SearchResultPage'>
       <div className='container-fluid'>
