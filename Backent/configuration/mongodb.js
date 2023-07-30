@@ -4,13 +4,7 @@ const state={
 };
 const url = "mongodb://127.0.0.1:27017"
 const dbName = "Cartopedia"
-const client = new MongoClient(url, {
-    serverApi: {
-      version: ServerApiVersion.v1,
-      strict: true,
-      deprecationErrors: true,
-    }
-  });
+const client = new MongoClient(url);
 const connect = async (cb) => {
     try {
         await client.connect();
