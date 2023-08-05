@@ -7,7 +7,7 @@ function CartPreview(props) {
         <h3 className='cart-name'>{props.heading}</h3>
         <div className="image-div">{props.icon}</div>
         <div className="cart-details">
-          <div className='cart-recent'>
+          <div className={` cart-recent ${props.line?"bottum-border":""} `}>
             <h5>{props.text1}</h5>
             <h5>{props.text2}{props.etc ? <span>...</span> : ""}</h5>
           </div>

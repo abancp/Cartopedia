@@ -4,7 +4,6 @@ import login from "../auth/login.js";
 import getUserDetails from "../auth/getUserDetails.js";
 import userFunctions from "../functions/userFunctions.js";
 import verifyToken from "../middeleware/verifytoken.js";
-import db from "../configuration/mongodb.js"
 
 const router = express.Router();
 
@@ -36,7 +35,7 @@ router.get("/get-cover-photo",(req,res)=>{
 })
 
 router.get("/get-indrested-item/:email",(req,res)=>{
-    userFunctions.getUserindrestedItem(req.params.email).then((indrestedProduct)=>res.json({indrestedProduct}))
+    userFunctions.getUserindrestedItem(req.params.email).then((indrestedItem)=>res.json({indrestedItem:indrestedItem}))
 })
 
 router.get("/get-trending-products", ((req, res) => {

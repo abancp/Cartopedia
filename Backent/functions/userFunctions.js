@@ -15,7 +15,7 @@ export default {
             if (user) {
                 let itemId = await user.indrestedItems[Math.round(Math.random() * 2)]
                 if (itemId === null || itemId === undefined) {
-                    for (let i = 0; i < 4; i++) {
+                    for (let i = 0; i < 8; i++) {
                         itemId = await user.indrestedItems[Math.round(Math.random() * 2)]
                         if (itemId !== null && itemId !== undefined) {
                             let item = await db.get().collection(process.env.PRODUCTS_COLLECTION).findOne({ _id: itemId })
