@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import './SearchResultPage.css'
 import { useLocation } from 'react-router-dom';
 import Product from '../../components/UserComppnents/Product/Product';
 import axios from 'axios';
 import collections from '../../configurations/collections';
 import { useSelector } from 'react-redux';
+import Header from '../../components/Header/Header';
 
 function SearchResultPage() {
   const [categories, setCategaries] = useState([]);
@@ -12,10 +14,10 @@ function SearchResultPage() {
   const [email, setEmail] = useState(undefined)
   const location = useLocation();
   let searchedLine = location.state.searchedLine
+  console.log(searchedLine)
   let store = useSelector((state) => {
     return state.user
   })
-  setEmail()
   useEffect(() => {
     if (store) {
       store.then((user) => {
@@ -31,8 +33,9 @@ function SearchResultPage() {
   }, [email,searchedLine,store])
   return (
     <div className='SearchResultPage'>
-      <div className='container-fluid'>
-        <div className='row'>
+      <Header searchedLine={searchedLine}/>
+      <div className='search-result-container'>
+        <div className='reults-row'>
           {categories.map((category, i) => (
             <Product key={`${i}`} Name={`${category.companyDetails.companyName}`} />
           ))}

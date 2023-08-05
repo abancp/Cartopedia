@@ -42,5 +42,7 @@
 
 .CartPreview .cart-recent{
     width: 100%;
+}
+.CartPreview .bottum-border{
     border-bottom: solid var(--tersiory) 1px;
 }

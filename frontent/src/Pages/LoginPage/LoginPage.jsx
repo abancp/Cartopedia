@@ -23,9 +23,7 @@ function LoginPage() {
     axios.post(collections.server_base + "/login", user).then(async (res) => {
       if (res.data.auth) {
         window.localStorage.setItem("token", res.data.token)
-        dispatch({
-          type: user
-        })
+        dispatch({type: "user"})
         navigate("/")
       } else setLoginErr(true)
     })
