@@ -1,0 +1,26 @@
+.LoadingPage{
+    background-color: var(--primary);
+}
+.LoadingPage .main{
+    height: 100vh;
+    width: 100%;
+    background: var(--primary);
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.LoadingPage .player{
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    background-color: var(--tersiory);
+    margin: 1rem;
+    animation: loading .4s ease-in-out infinite;
+}
+.LoadingPage .player-2{
+    animation-delay: .1s;
+}
+.LoadingPage .player-3{
+    animation-delay: .2s;
+}

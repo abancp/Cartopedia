@@ -1,28 +1,30 @@
 .RegisterPage {
     width: 100%;
-    height:100vh ;
+    height: 100vh;
     background-color: var(--primary);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.RegisterPage .register{
+.RegisterPage .register {
     width: 70%;
     height: 450px;
     margin-top: 3rem;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
-    background-image: linear-gradient(var(--secondery),var(--primary));
+    background-image: linear-gradient(var(--secondery), var(--primary));
     border-radius: 15px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     transition: 400ms;
 }
-.RegisterPage .left-arrow , .RegisterPage .right-arrow{
+
+.RegisterPage .left-arrow,
+.RegisterPage .right-arrow {
     height: 5rem;
     width: 5rem;
-    background-color:var(--primary);
+    background-color: var(--primary);
     margin-top: 10rem;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
     cursor: pointer;
@@ -30,120 +32,159 @@
     text-align: center;
     padding-top: .3rem;
 }
-.RegisterPage .left-arrow{
-    border-top-right-radius:100% ;
-    border-bottom-right-radius:100% ;
+
+.RegisterPage .left-arrow {
+    border-top-right-radius: 100%;
+    border-bottom-right-radius: 100%;
 }
-.RegisterPage .right-arrow{
-    border-top-left-radius:100% ;
-    border-bottom-left-radius:100% ;
+
+.RegisterPage .right-arrow {
+    border-top-left-radius: 100%;
+    border-bottom-left-radius: 100%;
 }
-.RegisterPage .left-arrow:hover{
+
+.RegisterPage .left-arrow:hover {
     width: 4.5rem;
 }
-.RegisterPage .right-arrow:hover{
+
+.RegisterPage .right-arrow:hover {
     width: 4.5rem;
 }
-.RegisterPage .left-arrow:active{
+
+.RegisterPage .left-arrow:active {
     width: 0;
 }
-.RegisterPage .right-arrow:active{
+
+.RegisterPage .right-arrow:active {
     width: 0;
 }
-.RegisterPage .left-arrow:active  .arrow-left{
+
+.RegisterPage .left-arrow:active .arrow-left {
     color: transparent;
 }
-.RegisterPage .right-arrow:active  .arrow-right{
+
+.RegisterPage .right-arrow:active .arrow-right {
     color: transparent;
 }
-.RegisterPage .right-arrow:active{
+
+.RegisterPage .right-arrow:active {
     width: 0;
 }
-.RegisterPage .arrow{
+
+.RegisterPage .arrow {
     font-size: 40px;
     color: white;
     transition: 200ms;
 }
-.RegisterPage .inner{
+
+.RegisterPage .inner {
     color: white;
 }
-.RegisterPage .first-page-text{
+
+.RegisterPage .first-page-text {
     transition: 300ms;
     font-size: 50px;
 }
-.RegisterPage .f-t-1 ,.RegisterPage .f-t-2,.RegisterPage .f-t-3,.RegisterPage .f-t-4,.RegisterPage .f-t-5{
+
+.RegisterPage .f-t-1,
+.RegisterPage .f-t-2,
+.RegisterPage .f-t-3,
+.RegisterPage .f-t-4,
+.RegisterPage .f-t-5 {
     transition: 300ms;
     animation: textcome .7s linear;
 }
-.RegisterPage .f-t-1{
+
+.RegisterPage .f-t-1 {
     animation-delay: 0s;
 }
-.RegisterPage .f-t-2{
+
+.RegisterPage .f-t-2 {
     animation-delay: .2s;
 }
-.RegisterPage .f-t-3{
+
+.RegisterPage .f-t-3 {
     animation-delay: .4s;
 }
-.RegisterPage .f-t-4{
+
+.RegisterPage .f-t-4 {
     animation-delay: .6s;
 }
-.RegisterPage .f-t-5{
+
+.RegisterPage .f-t-5 {
     animation-delay: .8s;
 }
-@keyframes textcome{
-    0%{
-        opacity:0.0;
+
+@keyframes textcome {
+    0% {
+        opacity: 0.0;
     }
-    10%{
+
+    10% {
         opacity: 0.1;
     }
-    20%{
+
+    20% {
         opacity: 0.2;
     }
-    30%{
+
+    30% {
         opacity: 0.3;
     }
-    40%{
+
+    40% {
         opacity: 0.4;
     }
-    50%{
+
+    50% {
         opacity: 0.5;
     }
-    60%{
+
+    60% {
         opacity: 0.6;
     }
-    70%{
+
+    70% {
         opacity: 0.7;
     }
-    80%{
+
+    80% {
         opacity: 0.8;
     }
-    90%{
+
+    90% {
         opacity: 0.9;
     }
-    100%{
+
+    100% {
         opacity: 1.0;
     }
 }
-.RegisterPage .regiser-inputs{
+
+.RegisterPage .regiser-inputs {
     margin-top: 2rem;
     display: flex;
     justify-content: space-around;
     align-items: center;
     gap: 1rem;
 }
-.RegisterPage .subtitle{
+
+.RegisterPage .subtitle {
     position: absolute;
     font-size: 12px;
     bottom: 40px;
 }
-.RegisterPage .loading-anime{
+
+.RegisterPage .loading-anime {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 20px;
 }
-.RegisterPage .loading-anime-div-1, .RegisterPage .loading-anime-div-2 ,.RegisterPage .loading-anime-div-3{
+
+.RegisterPage .loading-anime-div-1,
+.RegisterPage .loading-anime-div-2,
+.RegisterPage .loading-anime-div-3 {
     width: 20px;
     height: 20px;
     background-color: white;
@@ -151,42 +192,48 @@
     transition: 300ms;
     animation: loading .4s ease-in-out infinite;
 }
-.RegisterPage .loading-anime-div-2{
+
+.RegisterPage .loading-anime-div-2 {
     animation-delay: .1s;
 }
-.RegisterPage .loading-anime-div-3{
-    animation-delay: .2s ;
+
+.RegisterPage .loading-anime-div-3 {
+    animation-delay: .2s;
 }
 
-@keyframes loading{
-    0%{
+@keyframes loading {
+    0% {
         margin-top: 0;
     }
-    50%{
+
+    50% {
         margin-top: -20px;
     }
-    100%{
+
+    100% {
         margin-top: 0;
     }
 }
 
-.RegisterPage .register-form-profile-dropzone{
+.RegisterPage .register-form-profile-dropzone {
     margin-top: 2rem;
     height: 5rem;
     width: 20rem;
     background-color: transparent;
     cursor: pointer;
-    border:dotted  1px white;
+    border: dotted 1px white;
     border-radius: 6px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.RegisterPage .error{
+
+.RegisterPage .error {
     color: red;
     text-align: center;
 }
-.RegisterPage .loading-h4{
+
+.RegisterPage .loading-h4 {
     color: white;
     position: absolute;
     font-size: 12px;

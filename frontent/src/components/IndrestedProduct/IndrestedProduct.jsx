@@ -5,7 +5,7 @@ function Product(props) {
   console.log(props.indrestedItem)
   return (
     <div className='Product'>
-      <div className="main">
+      <div className={`main ${props.indrested?"":"margin-1rem"}`} >
         <div className="product-image-div">
           <img className='image' src={`${collections.server_base}/product-displays/${props.indrestedItem._id}.jpg`} alt="" />
         </div>

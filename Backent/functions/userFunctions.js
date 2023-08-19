@@ -27,8 +27,8 @@ export default {
                     let item = await db.get().collection(process.env.PRODUCTS_COLLECTION).findOne({ _id: itemId })
                     resolve(item)
                 }
-            }else{
-                resolve({err:"user not found"})
+            } else {
+                resolve({ err: "user not found" })
             }
         })
     },
@@ -234,8 +234,9 @@ export default {
             })
             tempProducts.sort((a, b) => b.priority - a.priority)
             result.products = tempProducts
-            if (email !== undefined||email !== null) {
-                switch(true){
+            if (email !== undefined && email !== null) {
+                console.log(email)
+                switch (true) {
                     case tempProducts.length > 2:
                         db.get().collection(process.env.USER_COLLECTION).updateOne({ email: email }, {
                             $set: { indrestedItems: [tempProducts[0]._id, tempProducts[1]._id, tempProducts[2]._id] }

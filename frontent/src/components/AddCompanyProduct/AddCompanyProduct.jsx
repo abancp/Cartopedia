@@ -32,31 +32,33 @@ function AddCompanyProduct() {
     e.preventDefault();
 
     const product = {
-      name:e.target[1].value,
-      price:e.target[2].value,
-      category:e.target[4].value,
-      stock:e.target[5].value,
-      tags:e.target[6].value.split(','),
-      description:e.target[7].value,
-      date:Date.now(),
-      trend:0,
-      comapanyId:companyMail,
-      companyName:companyName
+      name: e.target[1].value,
+      price: e.target[2].value,
+      category: e.target[4].value,
+      stock: e.target[5].value,
+      tags: e.target[6].value.split(','),
+      description: e.target[7].value,
+      date: Date.now(),
+      trend: 0,
+      comapanyId: companyMail,
+      companyName: companyName
     }
-    axios.post(collections.server_base+"/company/add-product",product,{ headers: { 'Authorization':  window.localStorage.getItem("token") } }).then((res)=>{
+    axios.post(collections.server_base + "/company/add-product", product, { headers: { 'Authorization': window.localStorage.getItem("token") } }).then((res) => {
 
-    let fromDataProfile = new FormData();
-    fromDataProfile.append('_id',res.data.id);
-    fromDataProfile.append("file",photo);
-    axios.post(collections.server_base+"/uplaod/product-display",fromDataProfile,{ headers: { 'Authorization':  window.localStorage.getItem("token") } });
+      let fromDataProfile = new FormData();
+      fromDataProfile.append('_id', res.data.id);
+      fromDataProfile.append("file", photo);
+      axios.post(collections.server_base + "/uplaod/product-display", fromDataProfile, { headers: { 'Authorization': window.localStorage.getItem("token") } });
 
-    let formDataDetailed = new FormData();
-    formDataDetailed.append('_id',res.data.id);
-    for (let i = 0; i < detailedPhotos.length; i++) {
+      let formDataDetailed = new FormData();
+      formDataDetailed.append('_id', res.data.id);
+      for (let i = 0; i < detailedPhotos.length; i++) {
         const storageRef = ref(storage, `product-detaileds/${res.data.id}/${res.data.id}[${i}]`);
         uploadBytes(storageRef, detailedPhotos[i]).then(() => { })
       }
-    axios.post(collections.server_base + "/uplaod/product-details", formDataDetailed,{ headers: { 'Authorization':  window.localStorage.getItem("token") } });
+      axios.post(collections.server_base + "/uplaod/product-details", formDataDetailed, { headers: { 'Authorization': window.localStorage.getItem("token") } }).then((res) => {
+        navigate("/")
+      });
     })
   }
   return (
@@ -73,7 +75,6 @@ function AddCompanyProduct() {
                         <section>
                           <div className='addcompanyproduct-product-imagepicker-dropzone d-flex justify-content-center ' {...getRootProps()}>
                             <input className='register-form-input'  {...getInputProps()} />
-
                             <h6 className='text-secondary my-auto'>{`${photo ? photo.name : "Display Photo Browse or Drop"}`}</h6>
                           </div>
                         </section>

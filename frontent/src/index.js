@@ -12,6 +12,7 @@ import CompanyPage from './Pages/CompanyPage';
 import VerifyAccountPage from './Pages/VerifyAccountPage';
 import SearchResultPage from './Pages/SearchResultPage/SearchResultPage';
 import UserProfilePage from './Pages/UserProfilePage';
+import LoadingPage from './Pages/LoadingPage/LoadingPage';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
   {
     path: "/search",
     element: <SearchResultPage/>
+  },
+  {
+    path: "/loading",
+    element: <LoadingPage/>
   }
   
 ]);
