@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import Header from '../../components/Header/Header';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import collections from '../../configurations/collections';
 import "./LoginPage.css"
+import axios from 'axios';
 import Input from '../../components/Input/Input';
+import Header from '../../components/Header/Header';
 import Button from '../../components/Button/Button';
+import collections from '../../configurations/collections';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 function LoginPage() {
   const [email, setEmail] = useState("")
@@ -25,7 +25,9 @@ function LoginPage() {
         window.localStorage.setItem("token", res.data.token)
         dispatch({type: "user"})
         navigate("/")
-      } else setLoginErr(true)
+      } else {
+        setLoginErr(true)
+      }
     })
   }
   return (

@@ -1,34 +1,32 @@
-import React, { useState } from 'react';
-import Header from '../../components/Header/Header';
+import React, { useState } from 'react'
 import "./RegisterPage.css"
-import Input from '../../components/Input/Input';
-import Dropzone from 'react-dropzone';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import collections from '../../configurations/collections';
+import axios from 'axios'
+import Input from '../../components/Input/Input'
+import Header from '../../components/Header/Header'
+import Dropzone from 'react-dropzone'
+import collections from '../../configurations/collections'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 function RegisterPage() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const [page, setPage] = useState(1)
-  const [firstName, setfirstName] = useState('')
-  const [lastName, setlastName] = useState('')
   const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
   const [phone, setPhone] = useState('')
-  const [userName, setUserName] = useState('')
   const [profile, setProfile] = useState(null)
-  const [passwordErr, setPasswordErr] = useState(false)
-  const [emailErr, setEmailErr] = useState(false)
-  const [userNameErr, setUserNameErr] = useState(false)
+  const [userName, setUserName] = useState('')
   const [phoneErr, setPhoneErr] = useState()
+  const [emailErr, setEmailErr] = useState(false)
+  const [password, setPassword] = useState('')
+  const [lastName, setlastName] = useState('')
+  const [firstName, setfirstName] = useState('')
+  const [passwordErr, setPasswordErr] = useState(false)
+  const [userNameErr, setUserNameErr] = useState(false)
   const [uploadProfile,setUploadProfile] = useState(false)
-  if (page === 1) {
-    setTimeout(() => { handlePageChange(1) }, 2300)
-  }
+  const [confirmPassword, setConfirmPassword] = useState('')
+  if (page === 1)setTimeout(() => { handlePageChange(1) }, 2300)
   const handlePageChange = (change) => {
     if (page === 7 && change === 1) {
       setPage(8)
@@ -36,23 +34,23 @@ function RegisterPage() {
         axios.post(collections.server_base + "/check-user-availablility", { email, userName, phone }).then((res) => {
           console.log(res.data)
           if (res.data.userName) {
-            setUserNameErr(true);
+            setUserNameErr(true)
             setPage(6)
           } else {
-            setUserNameErr(false);
+            setUserNameErr(false)
             if (res.data.email) {
-              setEmailErr(true);
+              setEmailErr(true)
               setPage(3)
             } else {
-              setEmailErr(false);
+              setEmailErr(false)
               if (res.data.phone) {
                 setPhoneErr(true)
                 setPage(5)
               } else {
                 setPhoneErr(false)
-              let formData = new FormData();
-              formData.append('email', email);
-              formData.append('file', profile);
+              let formData = new FormData()
+              formData.append('email', email)
+              formData.append('file', profile)
               axios.post(collections.server_base + "/uplaod/user-profile", formData).then((res) => {
                 let user={
                   firstName,
@@ -65,20 +63,20 @@ function RegisterPage() {
                   axios.post(collections.server_base + "/register", user).then((res) => {
                     dispatch({
                       type: "user"
-                    });
-                    window.localStorage.setItem("token", res.data.token);
+                    })
+                    window.localStorage.setItem("token", res.data.token)
                     dispatch({
                       type: "user"
-                    });
-                    navigate("/");
+                    })
+                    navigate("/")
                   })
-                });
+                })
               }
             }
           }
         })
       } else {
-        setPasswordErr(true);
+        setPasswordErr(true)
         setPage(4)
       }
     } else {
@@ -94,7 +92,7 @@ function RegisterPage() {
           {(() => {
             switch (page) {
               case 1:
-                return <div className='inner'><h1 className='first-page-text'><span className='f-t-1'>Create</span> <span className='f-t-2'>an</span> <span className='f-t-3'>Account</span> <span className='f-t-4'>and</span> <span className='f-t-5'>Start</span></h1> </div>;
+                return <div className='inner'><h1 className='first-page-text'><span className='f-t-1'>Create</span> <span className='f-t-2'>an</span> <span className='f-t-3'>Account</span> <span className='f-t-4'>and</span> <span className='f-t-5'>Start</span></h1> </div>
               case 2:
                 return <div className='inner'>
                   <div className="register-page">
@@ -125,7 +123,7 @@ function RegisterPage() {
                       <Input onChange={(e) => { setConfirmPassword(e.target.value) }} value={confirmPassword} width="13rem" type="password" placeholder="Confirm Password" />
                     </div>
                   </div>
-                </div>;
+                </div>
               case 5:
                 return <div className='inner'>
                   <div className="register-page">
@@ -152,7 +150,7 @@ function RegisterPage() {
                   <div className="register-page">
                     <h2 className="screen-text">...and Your Buetifull Profile</h2>
                     <div className="regiser-inputs">
-                      <Dropzone multiple={false} onDrop={acceptedFiles => { setProfile(acceptedFiles[0]); console.log(acceptedFiles[0]) }}>
+                      <Dropzone multiple={false} onDrop={acceptedFiles => { setProfile(acceptedFiles[0])}}>
                         {({ getRootProps, getInputProps }) => (
                           <section>
                             <div className='register-form-profile-dropzone ' {...getRootProps()}>
@@ -181,7 +179,7 @@ function RegisterPage() {
         <div onClick={() => { handlePageChange(1) }} className="right-arrow"><i className="arrow arrow-right bi bi-arrow-right"></i></div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default RegisterPage;
+export default RegisterPage

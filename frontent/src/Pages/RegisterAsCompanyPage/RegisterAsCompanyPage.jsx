@@ -1,6 +1,6 @@
 import React from 'react';
-import RegisterAsCompany from '../../components/RegisterAsCompany/RegisterAsCompany';
 import Header from "../../components/Header/Header"
+import RegisterAsCompany from '../../components/RegisterAsCompany/RegisterAsCompany';
 
 function RegisterAsCompanyPage() {
   return (

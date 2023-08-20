@@ -2,7 +2,7 @@
  /*  Globel Variable Setting  */
 :root {
     --primary: hsl(218, 29%, 11%);
-    --secondery: rgb(127, 74, 143);
+    --secondery: rgb(123, 74, 143);
     --tersiory: #DBE8E1;
     --bs-primary: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
 
@@ -35,7 +35,7 @@
 .HomePage .Homepage-main-bottum {
     background-color: var(--primary);
     width: 100%;
-    height: 55rem;
+    height: 50rem;
 }
 
 .HomePage .trending-products {

@@ -6,10 +6,10 @@ import { useLocation, useNavigate } from 'react-router-dom'
 function LoadingPage() {
     const navigate = useNavigate()
     const location = useLocation();
-    console.log(location.state)
-    let searchedLine = location.state.searchedLine
     let email = location.state.email
+    let searchedLine = location.state.searchedLine
     useEffect(()=>{ navigate("/search", { state: { searchedLine, email } })},[])
+    
     return (
         <div className='LoadingPage'>
             <Header />
