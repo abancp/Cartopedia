@@ -1,0 +1,110 @@
+.IndrestedItems .indrested-container-div {
+    height: 25rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.IndrestedItems .indrested-div {
+    width: 85%;
+    height: 80%;
+    box-shadow: var(--bs-primary);
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.IndrestedItems .indrested-top {
+    width: 95%;
+    height: 43%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    display: flex;
+    box-shadow: var(--bs-primary);
+}
+
+.IndrestedItems .indrested-product-img {
+    height: 100%;
+    width: 35%;
+    border-top-left-radius: 5px;
+    object-fit: cover;
+}
+
+.IndrestedItems .indrested-product-details-div {
+    width: 65%;
+    height: 100%;
+    border-top-right-radius: 5px;
+    padding-left: .6rem;
+    color: white;
+    padding-top: .3rem;
+    padding-right: .4rem;
+}
+
+.IndrestedItems .indrested-product-prize{
+    color: chartreuse;
+    padding-bottom: 0;
+}
+
+.IndrestedItems .indrested-product-striked-prize{
+    color: orangered;
+    margin-left: .5rem;
+    font-size: 17px;
+}
+
+.IndrestedItems .indrested-product-offer-percent{
+    color: dodgerblue;
+    margin-left: .5rem;
+}
+
+.IndrestedItems .indrested-product-company{
+    text-align: end;
+    color: violet;
+}
+.IndrestedItems .indrested-bottum {
+    width: 95%;
+    height: 43%;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    box-shadow: var(--bs-primary);
+    display: flex;
+    gap: 5px;
+}
+
+.IndrestedItems .indrested-company-div{
+    width: 50%;
+    height: 100%;
+    border-bottom-left-radius: 5px;
+    overflow: hidden;
+}
+.IndrestedItems .indrested-company{
+    width:100%;
+    height: 100%;
+    cursor: pointer;
+    transition: 300ms;
+    object-fit: cover;
+    border-bottom-left-radius: 5px;
+}
+.IndrestedItems .indrested-company:hover{
+    scale: 1.1;
+}
+.IndrestedItems .indrested-category-div {
+    width: 50%;
+    height: 100%;
+    border-bottom-right-radius: 5px;
+    overflow: hidden;
+}
+.IndrestedItems .indrested-category{
+    width:100%;
+    height: 100%;
+    cursor: pointer;
+    object-fit: cover;
+    transition: 300ms;
+    border-bottom-right-radius: 5px;
+}
+.IndrestedItems .indrested-category:hover{
+    scale: 1.1;
+}
