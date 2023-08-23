@@ -24,7 +24,7 @@ function RegisterPage() {
   const [firstName, setfirstName] = useState('')
   const [passwordErr, setPasswordErr] = useState(false)
   const [userNameErr, setUserNameErr] = useState(false)
-  const [uploadProfile,setUploadProfile] = useState(false)
+  const [uploadingProfile,setUploadingProfile] = useState(false)
   const [confirmPassword, setConfirmPassword] = useState('')
   if (page === 1)setTimeout(() => { handlePageChange(1) }, 2300)
   const handlePageChange = (change) => {
@@ -51,7 +51,9 @@ function RegisterPage() {
               let formData = new FormData()
               formData.append('email', email)
               formData.append('file', profile)
+              setUploadingProfile(true)
               axios.post(collections.server_base + "/uplaod/user-profile", formData).then((res) => {
+                setUploadingProfile(false)
                 let user={
                   firstName,
                   lastName,
@@ -165,7 +167,7 @@ function RegisterPage() {
                 </div>
               case 8:
                 return <div className="loading-anime">
-                  {uploadProfile?<h4 className='loading-h4'>uploading profile</h4>:<h4 className='loading-h4'>craeting user</h4>}
+                  {uploadingProfile?<h4 className='loading-h4'>uploading profile</h4>:<h4 className='loading-h4'>creating user</h4>}
 
                   <div className="loading-anime-div-1"></div>
                   <div className="loading-anime-div-2"></div>

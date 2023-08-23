@@ -1,0 +1,18 @@
+.ErrorPage{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ErrorPage .main{
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(var(--secondery),var(--primary));
+}
+.ErrorPage .cart-icon{
+    color: white;
+}
+.ErrorPage .error-msg{
+    color: white;
+}

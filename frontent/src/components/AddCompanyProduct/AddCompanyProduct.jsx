@@ -5,8 +5,7 @@ import axios from 'axios';
 import collections from '../../configurations/collections';
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom"
-import { getStorage, ref, uploadBytes } from "firebase/storage";
-import { app } from "../../configurations/firebase"
+
 
 function AddCompanyProduct() {
   const [photo, setPhoto] = useState(null);
@@ -14,18 +13,22 @@ function AddCompanyProduct() {
   const [companyMail, setCompanyMail] = useState(null);
   const [companyName, setCompanyName] = useState(null);
   const navigate = useNavigate();
-  const storage = getStorage(app);
+
 
   var store = useSelector((state) => { return state.user })
   useEffect(() => {
-    store.then((res) => {
-      setCompanyMail(res.email)
-      if (res.companyDetails === undefined) {
-        navigate("/")
-      } else {
-        setCompanyName(res.companyDetails.companyName)
-      }
-    })
+    if (store) {
+      store.then((res) => {
+        setCompanyMail(res.email)
+        if (res.companyDetails === undefined) {
+          navigate("/")
+        } else {
+          setCompanyName(res.companyDetails.companyName)
+        }
+      })
+    } else {
+      navigate("/")
+    }
   }, [navigate, store])
 
   const handleSubmit = (e) => {
@@ -53,8 +56,8 @@ function AddCompanyProduct() {
       let formDataDetailed = new FormData();
       formDataDetailed.append('_id', res.data.id);
       for (let i = 0; i < detailedPhotos.length; i++) {
-        const storageRef = ref(storage, `product-detaileds/${res.data.id}/${res.data.id}[${i}]`);
-        uploadBytes(storageRef, detailedPhotos[i]).then(() => { })
+        formDataDetailed.append("index", i);
+        formDataDetailed.append("files", detailedPhotos[i]);
       }
       axios.post(collections.server_base + "/uplaod/product-details", formDataDetailed, { headers: { 'Authorization': window.localStorage.getItem("token") } }).then((res) => {
         navigate("/")

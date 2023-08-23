@@ -1,0 +1,34 @@
+.AddCompanyProductPage .main{
+    margin-top: 50px;
+    width: 100%;
+    height: calc(100vh - 50px);
+    background-image: linear-gradient(var(--secondery-alpha),0.01%,var(--primary-alpha));
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+.AddCompanyProductPage .heading{
+    margin-top: 3rem;
+    color: var(--tersiory);
+}
+.AddCompanyProductPage .bgimg{
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 50px);
+    object-fit: cover;
+    z-index: -4;
+}
+.AddCompanyProductPage .prices{
+    width: 50rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: .4rem;
+}
+.AddCompanyProductPage .offer{
+    color: white;
+}

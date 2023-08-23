@@ -16,6 +16,9 @@
 
 .Header .left-div {
     width: 33%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .Header .center-div {
@@ -30,6 +33,22 @@
     color: var(--tersiory);
     cursor: pointer;
     width: fit-content;
+    transition: 500ms;
+}
+.Header  .branding:hover{
+    color: var(--secondery);
+}
+.Header .sell{
+    color: var(--tersiory);
+    cursor: pointer;
+    width: fit-content;
+    margin-left: 2rem;
+    font-size: 20px;
+    margin-top: .37rem;
+    transition: 300ms;
+}
+.Header  .sell:hover{
+    color: var(--secondery);
 }
 .Header .search{
     background-color: var(--tersiory);

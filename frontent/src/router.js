@@ -1,14 +1,14 @@
-import { createBrowserRouter } from 'react-router-dom'
 import HomePage from './Pages/HomePage/HomePage'
 import UsedPage from './Pages/UsedPage'
 import LoginPage from './Pages/LoginPage/LoginPage'
 import LoadingPage from './Pages/LoadingPage/LoadingPage'
-import CompanyPage from './Pages/CompanyPage'
 import RegisterPage from './Pages/RegisterPage/RegisterPage'
 import UserProfilePage from './Pages/UserProfilePage'
 import SearchResultPage from './Pages/SearchResultPage/SearchResultPage'
 import VerifyAccountPage from './Pages/VerifyAccountPage'
 import RegisterAsCompanyPage from './Pages/RegisterAsCompanyPage/RegisterAsCompanyPage'
+import AddCompanyProductPage from './Pages/AddCompanyProductPage/AddCompanyProductPage'
+import { createBrowserRouter } from 'react-router-dom'
 
 export default  createBrowserRouter([
     {
@@ -36,8 +36,8 @@ export default  createBrowserRouter([
       element: <RegisterAsCompanyPage/>
     },
     {
-      path: "/company",
-      element: <CompanyPage/>
+      path: "/add-company-product",
+      element: <AddCompanyProductPage/>,
     },
     {
       path: "/verify-email",
@@ -45,7 +45,7 @@ export default  createBrowserRouter([
     },
     {
       path: "/search",
-      element: <SearchResultPage/>
+      element: <SearchResultPage />
     },
     {
       path: "/loading",

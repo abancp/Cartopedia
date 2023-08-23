@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react'
 import "./Header.css"
-import { Link, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 function Header(props) {
   const [userName, setUserName] = useState(null)
-  const [searchedLine, setSearchedLine] = useState('')
   const [email, setEmail] = useState(null)
+  const [company,setCompany] = useState(false)
   const navigate = useNavigate()
   const user = useSelector((reduxState) => (reduxState.user))
+
   if (user) {
     user.then((user) => {
       setUserName(user.firstName + " " + user.lastName)
       setEmail(user.email)
+      setCompany(user.company)
       if (user.firstName === undefined) {
         window.localStorage.clear()
         window.location.reload()
@@ -19,12 +21,13 @@ function Header(props) {
     })
   }
   const handleSearch = (e) => {
-      navigate("/loading", { state: { searchedLine: e.target[0].value, email: email }})
+      navigate("/loading", { state: { loadingCode: 0 ,searchedLine: e.target[0].value, email: email }})
   }
   return (
     <div className='Header'>
       <div className="left-div">
-        <Link className='text-decoration-none' to={"/"}><h3 className='branding'>Cartopedia</h3></Link>
+        <h3 className='branding' onClick={()=>  window.location.pathname !=='/' ? navigate("/") : null}>Cartopedia</h3>
+        <h4 className="sell" onClick={()=>window.location.pathname !=='/add-company-product' ?       navigate("/loading", { state: { loadingCode: 1  }}) : null }> {company?"Sell":""} </h4>
       </div>
       <div className="center-div">
         <div className='search'>
@@ -52,7 +55,7 @@ function Header(props) {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header
