@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import "./RegisterPage.css"
 import axios from 'axios'
-import Input from '../../components/Input/Input'
+import Input from '../../components/Inputs/Input'
 import Header from '../../components/Header/Header'
 import Dropzone from 'react-dropzone'
 import collections from '../../configurations/collections'
@@ -26,6 +26,7 @@ function RegisterPage() {
   const [userNameErr, setUserNameErr] = useState(false)
   const [uploadingProfile,setUploadingProfile] = useState(false)
   const [confirmPassword, setConfirmPassword] = useState('')
+  
   if (page === 1)setTimeout(() => { handlePageChange(1) }, 2300)
   const handlePageChange = (change) => {
     if (page === 7 && change === 1) {

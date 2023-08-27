@@ -11,5 +11,11 @@ export default {
                 resolve(response.insertedId)
             })
         })
+    },
+    getAllCategories: ()=>{
+        return new Promise(async(resolve,reject)=>{
+            let categoryDoc = await db.get().collection(process.env.CATEGORIES_COLLECTION).find().toArray()
+            resolve(categoryDoc[0].categories)
+        })
     }
 }

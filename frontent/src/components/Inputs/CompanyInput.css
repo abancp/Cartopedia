@@ -1,0 +1,27 @@
+.C-CompanyInput{
+    background-color: var(--tersiory);
+    border: 0;
+    border-radius: 2px;
+    box-sizing: border-box;
+    width: 10rem;
+    height:2.5rem;
+    padding: 2px;
+    transition: 500ms;
+    color: var(--primary);
+    font-weight: 600;
+    font-size: large;
+}
+
+.C-CompanyInput:hover{
+    outline: 0;
+}
+.C-CompanyInput:focus{
+    opacity: 1;
+    outline: 0;
+    border: 0;
+}
+.C-CompanyInput::placeholder{
+    color: rgb(37, 31, 31);
+    font-weight: 600;
+    font-size: large;
+}

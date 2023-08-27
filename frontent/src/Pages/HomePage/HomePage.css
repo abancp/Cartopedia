@@ -1,4 +1,5 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
+
  /*  Globel Variable Setting  */
 :root {
     --primary: hsla(218, 29%, 11%);
@@ -7,9 +8,14 @@
     --secondery-alpha: rgba(127, 74, 143,0.989);
     --tersiory: #DBE8E1;
     --bs-primary: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
-
+    --h-display: calc(100vh - 50px)
 }
+
 /* Main top  */
+#Cartopedia{
+    font-family: sans-serif;
+}
+
 .HomePage .Homepage-main-top {
     margin-top: 50px;
     background-image: linear-gradient(var(--secondery), var(--primary));
@@ -37,7 +43,8 @@
 .HomePage .Homepage-main-bottum {
     background-color: var(--primary);
     width: 100%;
-    height: 50rem;
+    min-height: 50rem;
+    max-height: 65rem;
 }
 
 .HomePage .trending-products {

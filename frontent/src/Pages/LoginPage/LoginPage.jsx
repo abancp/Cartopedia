@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import "./LoginPage.css"
 import axios from 'axios';
-import Input from '../../components/Input/Input';
+import Input from '../../components/Inputs/Input';
 import Header from '../../components/Header/Header';
 import Button from '../../components/Button/Button';
 import collections from '../../configurations/collections';

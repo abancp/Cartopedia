@@ -44,11 +44,15 @@
     width: fit-content;
     margin-left: 2rem;
     font-size: 20px;
-    margin-top: .37rem;
     transition: 300ms;
 }
 .Header  .sell:hover{
     color: var(--secondery);
+}
+.Header .search-form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .Header .search{
     background-color: var(--tersiory);
