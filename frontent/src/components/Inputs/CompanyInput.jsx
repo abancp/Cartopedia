@@ -3,15 +3,18 @@ import "./CompanyInput.css"
 
 function CompanyInput(props) {
     return (
-        <input
-            value={props.value ? props.value : null}
-            style={{ width: props.width }}
-            type={props.type}
-            className='C-CompanyInput'
-            placeholder={props.placeholder}
-            name={props.name}
-            onChange={props.onChange}
-        />
+        <div className="CompanyInput-main">
+            <input
+                value={props.value ? props.value : null}
+                style={{ width: props.width }}
+                type={props.type}
+                className='CompanyInput'
+                placeholder={props.placeholder}
+                name={props.name}
+                onChange={props.onChange}
+            />
+            <h6 className="error">{props.error}</h6>
+        </div>
     )
 }
 

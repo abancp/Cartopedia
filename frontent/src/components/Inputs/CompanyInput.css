@@ -1,4 +1,4 @@
-.C-CompanyInput{
+.CompanyInput-main .CompanyInput{
     background-color: var(--tersiory);
     border: 0;
     border-radius: 2px;
@@ -12,16 +12,25 @@
     font-size: large;
 }
 
-.C-CompanyInput:hover{
+.CompanyInput-main .CompanyInput:hover{
     outline: 0;
 }
-.C-CompanyInput:focus{
+.CompanyInput-main .CompanyInput:focus{
     opacity: 1;
     outline: 0;
     border: 0;
 }
-.C-CompanyInput::placeholder{
+.CompanyInput-main .CompanyInput::placeholder{
     color: rgb(37, 31, 31);
     font-weight: 600;
     font-size: large;
+}
+.CompanyInput-main .error{
+    color: red;
+    top: -14px;
+    left: 2px;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    font-size: 13px;
 }
