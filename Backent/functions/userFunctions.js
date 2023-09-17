@@ -1,8 +1,10 @@
 import db from "../configuration/mongodb.js";
+import { ObjectId } from "mongodb";
 import mailer from "../configuration/nodemailer.js";
 import bcrypt from "bcrypt";
 import levenshtein from "fast-levenshtein";
 import fs from "fs";
+import { resolve } from "path";
 
 export default {
     getRandomCoverPicture: () => {
@@ -234,8 +236,9 @@ export default {
             })
             tempProducts.sort((a, b) => b.priority - a.priority)
             result.products = tempProducts
-            if (email !== undefined||email !== null) {
-                switch(true){
+            if (email !== undefined && email !== null) {
+                console.log(email)
+                switch (true) {
                     case tempProducts.length > 2:
                         db.get().collection(process.env.USER_COLLECTION).updateOne({ email: email }, {
                             $set: { indrestedItems: [tempProducts[0]._id, tempProducts[1]._id, tempProducts[2]._id] }
@@ -256,6 +259,18 @@ export default {
                 }
             }
             resolve(result)
+        })
+    },
+    getProduct: (id) => {
+        return new Promise((resolve, reject) => {
+            try {
+                var objId = new ObjectId(id)
+            } catch (BSONError) {
+                resolve('Not a valid Product Id')
+            }
+            db.get().collection(process.env.PRODUCTS_COLLECTION).findOne(objId).then((product) => {
+                resolve(product)
+            })
         })
     }
 }

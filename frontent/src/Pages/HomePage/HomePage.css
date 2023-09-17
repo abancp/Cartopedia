@@ -1,52 +1,67 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
+
+ /*  Globel Variable Setting  */
 :root {
-    --primary: #151B25;
-    --secondery: blue;
+    --primary: hsla(218, 29%, 11%);
+    --primary-alpha:hsla(218, 29%, 11%,0.989);
+    --secondery: rgb(127, 74, 143);
+    --secondery-alpha: rgba(127, 74, 143,0.989);
     --tersiory: #DBE8E1;
+    --bs-primary: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+    --h-display: calc(100vh - 50px)
 }
-.HomePage .Homepage-main{
-    background-image: linear-gradient(var(--secondery),var(--primary));
+
+/* Main top  */
+#Cartopedia{
+    font-family: sans-serif;
+}
+
+.HomePage .Homepage-main-top {
+    margin-top: 50px;
+    background-image: linear-gradient(var(--secondery), var(--primary));
     width: 100%;
-    height: 40rem;
+    height: 30rem;
     display: flex;
 }
-.HomePage .Homepage-main-bottum{
-    background-color:var(--primary) ;
-    width: 100%;
-    height: 50rem;
-}
-.HomePage .coverphoto{
-    width: 70%;
-    height: 600px;
-    padding-top: 8rem;
-    padding-left: 5rem;
-}
-.HomePage .indrested-product{
-    width: 30%;
-    height: 600px;
-    padding-top: 9rem;
-}
-.HomePage .Previews{
-    width: 100%;
+
+.HomePage .cover-photo-div {
+    width: 50%;
+    height: 25rem;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
 }
-.HomePage .trending-products{
-    margin-top: 4rem;
-    width: 89%;
+
+.HomePage .cover-photo {
+    width: 85%;
+    height: 80%;
+    object-fit: cover;
+    box-shadow: var(--bs-primary);
+    border-radius: 5px;
+}
+
+.HomePage .Homepage-main-bottum {
+    background-color: var(--primary);
+    width: 100%;
+    min-height: 50rem;
+    max-height: 65rem;
+}
+
+.HomePage .trending-products {
+    margin-top: 2rem;
+    width: 93%;
     display: flex;
     overflow-x: scroll;
     overflow-y: hidden;
     gap: 1rem;
-    margin-left: 5.5%;
+    margin-left: 3rem;
 }
 
-.HomePage ::-webkit-scrollbar{
+.HomePage ::-webkit-scrollbar {
     display: none;
 }
 
-.home-preview-profile-img{
+.home-preview-profile-img {
     height: 6rem;
     margin-left: -2.16rem;
     margin-top: .09rem;

@@ -2,8 +2,8 @@ import React from 'react'
 import "./Button.css"
 function Button(props) {
     return (
-        <div className='Button' style={{width:props.width}} onClick={props.onClick} >
-            <div className="button-main">
+        <div className='Button' style={{width:props.width}}  onClick={props.onClick} >
+            <div className="button-main" style={{borderRadius:props.borderRadius,height:props.height}}>
                 <div className="left-div">
                     <div className="button-circle">
                         <div style={{color:props.color}} className="button-icon">{props.icon}</div>

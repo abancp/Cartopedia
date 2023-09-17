@@ -1,4 +1,4 @@
-.Input .search-input{
+.C-Input{
     background-color: var(--tersiory);
     border: 0;
     border-radius: 4px;
@@ -11,12 +11,13 @@
     color: var(--primary);
 }
 
-.Input .search-input:hover{
+.C-Input:hover{
     outline: 0;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
 }
-.Input .search-input:focus{
+.C-Input:focus{
     opacity: 1;
     outline: 0;
+    border: 0;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
 }
