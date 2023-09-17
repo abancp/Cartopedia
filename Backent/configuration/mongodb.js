@@ -2,7 +2,7 @@ import {MongoClient} from "mongodb"
 const state={
     db:null
 };
-const url = "mongodb://127.0.0.1:27017"
+const url = "mongodb://127.0.0.1:27017/"
 const dbName = "Cartopedia"
 const client = new MongoClient(url);
 const connect = async (cb) => {

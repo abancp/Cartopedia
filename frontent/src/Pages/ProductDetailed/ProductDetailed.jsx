@@ -43,8 +43,7 @@ function ProductDetailed() {
                     <div className="product-prices">
                         <h5 className='product-price'>{product.price}</h5>
                         <h5 className="product-mrp"><strike>{product.mrp}</strike></h5>
-                        <h5 className="product-off"></h5>
-                        <h5></h5>
+                        <h5 className='product-offer'>{Math.round((parseInt(product.price) * 100) / parseInt(product.mrp))}%  Offer</h5>
                     </div>
                     <div className="product-properties">
                         <Property />
