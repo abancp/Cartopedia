@@ -1,8 +1,10 @@
 import db from "../configuration/mongodb.js";
+import { ObjectId } from "mongodb";
 import mailer from "../configuration/nodemailer.js";
 import bcrypt from "bcrypt";
 import levenshtein from "fast-levenshtein";
 import fs from "fs";
+import { resolve } from "path";
 
 export default {
     getRandomCoverPicture: () => {
@@ -257,6 +259,18 @@ export default {
                 }
             }
             resolve(result)
+        })
+    },
+    getProduct: (id) => {
+        return new Promise((resolve, reject) => {
+            try {
+                var objId = new ObjectId(id)
+            } catch (BSONError) {
+                resolve('Not a valid Product Id')
+            }
+            db.get().collection(process.env.PRODUCTS_COLLECTION).findOne(objId).then((product) => {
+                resolve(product)
+            })
         })
     }
 }

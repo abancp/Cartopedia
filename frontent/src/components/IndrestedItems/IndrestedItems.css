@@ -46,7 +46,9 @@
 .IndrestedItems .indrested-product-img:hover {
     scale: 1.1;
 }
-
+.IndrestedItems .product-details-link{
+    color: white;
+}
 .IndrestedItems .indrested-product-details-div {
     width: 65%;
     height: 100%;

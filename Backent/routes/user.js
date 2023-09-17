@@ -4,6 +4,7 @@ import login from "../auth/login.js";
 import getUserDetails from "../auth/getUserDetails.js";
 import userFunctions from "../functions/userFunctions.js";
 import verifyToken from "../middeleware/verifytoken.js";
+import fs from 'fs';
 
 const router = express.Router();
 
@@ -86,6 +87,16 @@ router.get("/search/:searchedLine/:email",(req,res)=>{
         console.log(result)
         res.json(result)
     })
+})
+
+router.get("/product/:id",(req,res)=>{
+    userFunctions.getProduct(req.params.id).then((product)=>{
+        res.json(product)
+    })
+})
+
+router.get("product-details/folder-size/:id",(req,res)=>{
+    fs.readdir("./public/product-details/"+req.params.id, (err, files) => res.json({folderSize:files.length}))
 })
 
 

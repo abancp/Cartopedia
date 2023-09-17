@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react'
 import './SearchResultPage.css'
 import axios from 'axios'
 import Header from '../../components/Header/Header'
-import Product from '../../components/UserComppnents/Product/Product'
+import Product from '../../components/Product/Product'
 import collections from '../../configurations/collections'
 import { useLocation } from 'react-router-dom'
+import Footer from '../../components/Footer/Footer'
 
 function SearchResultPage() {
   const [products, setProducts] = useState([])
@@ -35,10 +36,11 @@ function SearchResultPage() {
             <Product key={`${i}`} Name={`${company.companyDetails.companyName}`} Website={`${company.companyDetails.website}`} Email={`${company.companyDetails.email}`} Image={`${company.companyDetails.email + ".jpg"}`} Description={`${company.companyDetails.description}`} />
           ))}
           {products.map((product, i) => (
-            <Product key={`${i}`} Name={`${product.name}`} Price={`${product.price}`} Category={`${product.category}`} Image={`${product._id + ".jpg"}`} CompanyName={`${product.companyName}`} Description={`${product.description}`} />
+            <Product key={`${i}`} id={product._id} Name={`${product.name}`} Price={`${product.price}`} Category={`${product.category}`} Image={`${product._id + ".jpg"}`} CompanyName={`${product.companyName}`} Description={`${product.description}`} />
           ))}
         </div>
       </div>
+      <Footer/>
     </div>
   )
 }

@@ -9,6 +9,7 @@ import VerifyAccountPage from './Pages/VerifyAccountPage'
 import RegisterAsCompanyPage from './Pages/RegisterAsCompanyPage/RegisterAsCompanyPage'
 import AddCompanyProductPage from './Pages/AddCompanyProductPage/AddCompanyProductPage'
 import { createBrowserRouter } from 'react-router-dom'
+import ProductDetailed from './Pages/ProductDetailed/ProductDetailed'
 
 export default  createBrowserRouter([
     {
@@ -50,5 +51,9 @@ export default  createBrowserRouter([
     {
       path: "/loading",
       element: <LoadingPage/>
+    },
+    {
+      path:"/product/:id",
+      element:<ProductDetailed/>
     }
 ])

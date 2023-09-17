@@ -19,6 +19,7 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    gap: 2rem;
 }
 
 .Header .center-div {
@@ -34,6 +35,7 @@
     cursor: pointer;
     width: fit-content;
     transition: 500ms;
+    font-size: x-large;
 }
 .Header  .branding:hover{
     color: var(--secondery);
@@ -42,7 +44,6 @@
     color: var(--tersiory);
     cursor: pointer;
     width: fit-content;
-    margin-left: 2rem;
     font-size: 20px;
     transition: 300ms;
 }
@@ -138,7 +139,9 @@
 .Header .account-loginorsignup{
     display: flex;
 }
-
+.Header .account-login-h4{
+    margin-top: .3rem;
+}
 .text-decoration-none{
     text-decoration: none;
 }

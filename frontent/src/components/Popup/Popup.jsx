@@ -36,14 +36,16 @@ function Popup(props) {
           <h5>Your Offer : {(parseInt(props.prize) * 100) / parseInt(props.mrp)}</h5>
           <h5>Category : {props.category}</h5>
           <h5>Stock : {props.stock}</h5>
-          <div className="tags">
-            {props.tags.map((tag, i) => (<div key={i} className="tag">{tag}</div>))}
+          <div className="popup-tags-container">
+            <div className="tags">
+              {props.tags.map((tag, i) => (<div key={i} className="tag">{tag}</div>))}
+            </div>
           </div>
           <div className="description">
             <h6>{props.description}</h6>
           </div>
           <div className="buttons">
-            <Button text="cancel" onClick={props.cancel}/>
+            <Button text="cancel" onClick={props.cancel} />
             <Button text="submit" onClick={props.submit} />
           </div>
         </div>

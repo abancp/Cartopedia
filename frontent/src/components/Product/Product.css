@@ -1,7 +1,13 @@
 .product-display-image-div{
-    background-color: whitesmoke;
+    background-color: var(--tersiory);
     padding: 5px;
     border-radius: 4px;
+}
+.product-link{
+    color: var(--primary);
+}
+.product-link:hover{
+    color: var(--primary);
 }
 .product-display-image{
     width: 20rem;
@@ -17,15 +23,19 @@
     margin-top: 1rem;
 }
 .product-main-div{
-    background-color: whitesmoke;
+    background-color: var(--tersiory);
     border-radius: 4px;
     justify-content: flex-start;
     display: inline-flex;
+    transition: 300ms;
+}
+.product-main-div:hover{
+    opacity: 0.92;
 }
 .product-detailed-addtocart-div{
-    background-color: white;
+    background-color: var(--tersiory);
     width: fit-content;
-    color: darkcyan;
+    color: var(--secondery);
     position: relative;
     right: -50rem;
 }

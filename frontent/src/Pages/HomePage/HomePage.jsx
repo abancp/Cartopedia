@@ -7,6 +7,7 @@ import collections from "../../configurations/collections"
 import IndrestedItems from '../../components/IndrestedItems/IndrestedItems'
 import IndrestedProduct from '../../components/IndrestedProduct/IndrestedProduct'
 import { useSelector } from 'react-redux'
+import Footer from '../../components/Footer/Footer'
 
 function HomePage() {
   const [user, setUser] = useState({})
@@ -42,6 +43,7 @@ function HomePage() {
           {trendingProducts.map((product, i) => (<IndrestedProduct key={i} indrestedItem={product} />))}
         </div>
       </div>
+      <Footer/>
 
 
     </div>

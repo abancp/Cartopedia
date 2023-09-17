@@ -1,12 +1,14 @@
 import React from 'react';
-import collections from '../../../configurations/collections';
+import collections from '../../configurations/collections';
 import "./Product.css"
+import { Link } from 'react-router-dom';
 
 function Product(props) {
   return (
     <div className='product'>
       <div className='container-fluid'>
         <div className='row'>
+          <Link className='product-link' to={'/product/'+props.id}>
           <div className="product-main-div col-12 mb-2">
             <div className="product-display-image-div ">
               <img className='product-display-image' src={`${collections.server_base}/product-displays/${props.Image}`} alt={props.name} />
@@ -21,6 +23,7 @@ function Product(props) {
               {props.Category?<h6>{`${props.Category}`}</h6>:""}
             </div>
           </div>
+          </Link>
         </div>
       </div>
     </div>
