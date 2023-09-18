@@ -3,7 +3,7 @@ import userFunctions from "../functions/userFunctions.js";
 
 const getUserDetails=(req,res)=>{
 jwt.verify(req.body.token,process.env.JWT_SECRET,(err,decoded)=>{
-        if(err){
+        if(err) {
             res.status(401).send({err:err.message});
         }else{
             let {email} =decoded;
