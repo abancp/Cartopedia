@@ -27,7 +27,7 @@ app.use(cookieParser());
 app.use(express.static(path.resolve('./public')));
 app.use(cors({
     origin: 'https://cartopedia-app.netlify.app'
-  }));
+}));
 
 app.use(function (req,res,next){
     res.setHeader('Access-Control-Allow-Origin', 'https://cartopedia-app.netlify.app');
