@@ -20,7 +20,7 @@ function LoginPage() {
       email,
       password
     }
-    axios.post(collections.server_base + "/login", user,{headers: {"Access-Control-Allow-Origin": "*"}}).then(async (res) => {
+    axios.post(collections.server_base + "/login", user).then(async (res) => {
       if (res.data.auth) {
         window.localStorage.setItem("token", res.data.token)
         dispatch({type: "user"})
