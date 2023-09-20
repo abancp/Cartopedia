@@ -70,15 +70,26 @@
     color: var(--secondery);
 }
 .ProductDetailed .product-properties{
-    padding: 3rem;
+    padding: 2rem;
 }
 .ProductDetailed .product-name{
     color: var(--tersiory);
-    margin-top: 3rem;
-    margin-left: 1rem
+    margin-top: 2rem;
+    margin-left: 1rem;
+    text-align: center;
 }
 .ProductDetailed .product-prices{
     display: flex;
     justify-content: space-around;
     align-items: center;
+    margin-top: 2rem;
+}
+.ProductDetailed .product-price{
+    color: greenyellow;
+}
+.ProductDetailed .product-mrp{
+    color: red;
+}
+.ProductDetailed .product-offer{
+    color: yellow;
 }

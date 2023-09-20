@@ -5,7 +5,6 @@ import morgan from 'morgan';
 import dotenv from 'dotenv'
 import path from "path";
 import { fileURLToPath } from "url";
-import db from "./configuration/mongodb.js";
 import adminRouter from "./routes/admin.js";
 import userRouter from "./routes/user.js";
 import companyRouter from "./routes/company.js";
@@ -26,7 +25,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.resolve('./public')));
-app.use(cors());
+app.use(cors({
+    origin: 'https://cartopedia-app.netlify.app'
+  }));
+
+app.use(function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', 'https://cartopedia-app.netlify.app');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
+});
 
 app.use("/", userRouter);
 app.use("/admin", verifyAdmin, adminRouter);
@@ -40,7 +49,7 @@ app.use('/uplaod/product-details', verifyCompany, uplaodProductDetailed.array('f
 
 app.use((req, res) => res.status(404));
 
-db.connect((err) => err ? console.log("Mongo db Not conneted ", err) : console.log("Mongodb Conneted"))
+
 
 app.listen(process.env.PORT, () => console.log("Server Started : ",process.env.PORT));
 
