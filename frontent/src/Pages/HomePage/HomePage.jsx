@@ -18,8 +18,8 @@ function HomePage() {
   useEffect(() => {
     if (store) store.then((user) => setUser(user))
     if (user.email) { axios.get(`${collections.server_base}/get-indrested-item/${user.email}`).then((res) => { res.data.err ? setIntrestedItem({}) : setIntrestedItem(res.data.indrestedItem) }) }
-    axios.get(collections.server_base + "/get-cover-photo").then((res) => setCoverPhotoName(res.data.coverPhotoName))
-    axios.get(collections.server_base + "/get-trending-products").then((res) => setTrendingProducts(res.data.products))
+    axios.get(collections.server_base + "/get-cover-photo",{headers:{"Access-Control-Allow-Origin":"*"}}).then((res) => setCoverPhotoName(res.data.coverPhotoName))
+    axios.get(collections.server_base + "/get-trending-products",{headers:{"Access-Control-Allow-Origin":"*"}}).then((res) => setTrendingProducts(res.data.products))
   }, [store, user])
   return (
     <div className='HomePage'>
