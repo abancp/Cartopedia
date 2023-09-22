@@ -7,11 +7,13 @@
     z-index: 1;
     width: 100%;
     background-color: var(--primary);
-    height: 50px;
+    height: 42px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     transition: 500ms;
+    padding-left: 3rem;
+    padding-right: 2rem;
 }
 
 .Header .left-div {
@@ -24,6 +26,9 @@
 
 .Header .center-div {
     width: 33%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
 }
 
 .Header .rigth-div {
@@ -53,19 +58,20 @@
 .Header .search-form{
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
 }
 .Header .search{
-    background-color: var(--tersiory);
+    /* background-color: var(--tersiory); */
     width: fit-content;
     padding: 5px;
-    border-radius: 4px;
+    border-radius: 2px;
+    transition: 800ms;
 }
 
 .Header .search-input{
     background-color: var(--tersiory);
     border: 0;
-    border-radius: 4px;
+    border-radius: 2px;
     box-sizing: border-box;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19);
     width: 10rem;
@@ -73,7 +79,7 @@
     padding: 4px;
     transition: 500ms;
     color: var(--secondery);
-    opacity: .6;
+    opacity: .91;
 }
 
 .Header .search-input:hover{
@@ -88,7 +94,7 @@
 }
 
 .Header .search-icon{
-    color: var(--secondery);
+    color: var(--tersiory);
     width: fit-content;
     margin-left: 2px;
     padding: 2px;
@@ -98,49 +104,40 @@
 }
 .Header .search-icon:hover{
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2), 0 5px 15px 0 rgba(0, 0, 0, 0.19);
-    
+    color: var(--secondery);
 }
 
 .Header .account{
     display: flex;
-    background-color: var(--tersiory);
-    border-radius: 4px;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 2px;
     text-decoration: none;
+    height: 2.2rem;
+    text-align: center;
 }
 
 .Header .account-login-div ,.Header .account-signup-div{
     background-color: var(--secondery);
     margin: 4px;
-    border-radius: 4px;
+    border-radius: 2px;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19);
     transition: 500ms;
     cursor: pointer;
     color: var(--tersiory);
 }
-.Header .account-login-div:hover{
+.Header .account-login-div:hover , .Header .account-signup-div:hover{
     background-color: var(--secondery);
     margin: 4px;
-    border-radius: 4px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-.Header .account-signup-div:hover{
-    background-color: var(--secondery);
-    margin: 4px;
-    border-radius: 4px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 2px;
 }
 
 .Header .account-login-h4 ,.Header .account-signup-h4{
-    margin: 4px;
-    margin-top: 0;
+    margin-top: .3rem;
     color: var(--tersiory);
+    margin: 4px;
+    text-align: center;
 }
 .Header .account-loginorsignup{
     display: flex;
-}
-.Header .account-login-h4{
-    margin-top: .3rem;
 }
 .text-decoration-none{
     text-decoration: none;

@@ -2,7 +2,7 @@
     width: 100%;
     min-height: 45rem;
     max-height: max-content;
-    margin-top: 50px;
+    margin-top: 42px;
     padding-top: 20px;
     background-image: linear-gradient(var(--secondery-alpha),0.01%,var(--primary-alpha));
     display: flex;

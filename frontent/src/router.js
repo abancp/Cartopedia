@@ -10,6 +10,7 @@ import RegisterAsCompanyPage from './Pages/RegisterAsCompanyPage/RegisterAsCompa
 import AddCompanyProductPage from './Pages/AddCompanyProductPage/AddCompanyProductPage'
 import { createBrowserRouter } from 'react-router-dom'
 import ProductDetailed from './Pages/ProductDetailed/ProductDetailed'
+import AdminHome from './Pages/AdminHome/AdminHome'
 
 export default  createBrowserRouter([
     {
@@ -55,5 +56,9 @@ export default  createBrowserRouter([
     {
       path:"/product/:id",
       element:<ProductDetailed/>
+    },
+    {
+      path:"/admin/dashboard",
+      element:<AdminHome/>
     }
 ])

@@ -1,0 +1,9 @@
+.AdminHeader{
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+}
+.AdminHeader .center-div{
+    display: flex;
+    justify-content: center;
+}

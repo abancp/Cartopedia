@@ -6,6 +6,7 @@ function Header(props) {
   const [userName, setUserName] = useState(null)
   const [email, setEmail] = useState(null)
   const [company,setCompany] = useState(false)
+  const [admin,setAdmin] = useState(false)
   const navigate = useNavigate()
   const store = useSelector((reduxState) => (reduxState.user))
 
@@ -15,6 +16,7 @@ function Header(props) {
         setUserName(user.firstName + " " + user.lastName)
         setEmail(user.email)
         setCompany(user.company)
+        setAdmin(user.admin)
         if (user.firstName === undefined) {
           window.localStorage.clear()
           window.location.reload()
@@ -29,7 +31,8 @@ function Header(props) {
     <div className='Header'>
       <div className="left-div">
         <h3 className='branding' onClick={()=>  window.location.pathname !=='/' ? navigate("/") : null}>Cartopedia</h3>
-        <h4 className="sell" onClick={()=>window.location.pathname !== '/add-company-product' ? navigate("/loading", { state: { loadingCode: 1  }}) : null }> {company?"Sell":""} </h4>
+        <h5 className="sell" onClick={()=>window.location.pathname !== '/add-company-product' ? navigate("/loading", { state: { loadingCode: 1  }}) : null }> {company || admin ?"Sell":""} </h5>
+        <Link to={"/admin/dashboard"} className='text-decoration-none'><h5 className="sell"> { admin ?"Panel":""} </h5></Link>
       </div>
       <div className="center-div">
         <div className='search'>
