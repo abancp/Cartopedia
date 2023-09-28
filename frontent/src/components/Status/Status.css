@@ -1,0 +1,25 @@
+.Status {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    height: 90px;
+    width: 200px;
+    background-color: rgba(var(--secondery-alpha),0.6);
+    border-radius: 3px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 7px;
+}
+.Status .status-left-div{
+    width: 50%;
+    text-align: center;
+}
+.Status .status-title{
+    color: var(--tersiory);
+}
+.Status .status-graph{
+    color: var(--primary);
+}
+.Status .status-number{
+    color: var(--primary);
+    font-weight: 600;
+}
