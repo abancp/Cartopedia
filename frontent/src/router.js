@@ -58,7 +58,11 @@ export default  createBrowserRouter([
       element:<ProductDetailed/>
     },
     {
-      path:"/admin/dashboard",
+      path:"admin",
+      element:<h1>Admin</h1>
+    },
+    {
+      path:"/admin/:page",
       element:<AdminHome/>
-    }
+    },
 ])

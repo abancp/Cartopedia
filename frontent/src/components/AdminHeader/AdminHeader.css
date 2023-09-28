@@ -7,3 +7,6 @@
     display: flex;
     justify-content: center;
 }
+.AdminHeader .left-div{
+    gap: 5px;
+}

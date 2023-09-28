@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import "./AdminHome.css"
 import axios, { all } from 'axios';
-import collections from '../../configurations/collections';
+import collections from '../../../configurations/collections';
 
 function AdminHome() {
   const [companyRequiests, setCompanyReqiuests] = useState([]);
@@ -51,6 +51,7 @@ function AdminHome() {
                         </svg>
                       </td>
                     </tr>
+                    
                   ))
                 }
               </tbody>

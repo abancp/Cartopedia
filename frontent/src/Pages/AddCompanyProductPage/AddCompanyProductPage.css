@@ -3,7 +3,7 @@
     width: 100%;
     min-height: 45rem;
     max-height: max-content;
-    background-image: linear-gradient(var(--secondery-alpha),0.01%,var(--primary-alpha));
+    background-color: var(--primary);
     display: flex;
     justify-content: flex-start;
     flex-direction: column;

@@ -4,7 +4,7 @@
     max-height: max-content;
     margin-top: 42px;
     padding-top: 20px;
-    background-image: linear-gradient(var(--secondery-alpha),0.01%,var(--primary-alpha));
+    background-color:var(--primary);
     display: flex;
     align-items: flex-start;
     justify-content: center;
