@@ -40,7 +40,7 @@ function LoginPage() {
             {loginErr?<h6 className='loginerr'>incorrect email or password</h6>:""}
             <Input type="email" placeholder="Email" name="email" width="15rem" onChange={(e) =>{ setEmail(e.target.value) }} />
             <Input type="password" placeholder="Password" name="password" width="15rem" onChange={(e) => { setPassword(e.target.value)  }} />
-            <Button text="submit"  color="green" width="16rem" icon={<i class="bi bi-check2-circle"></i>} onClick={handleSubmit} />
+            <Button text="submit"  color="green" width="15.2rem" icon={<i class="bi bi-check2-circle"></i>} onClick={handleSubmit} />
           </div>
         </form>
       </div>

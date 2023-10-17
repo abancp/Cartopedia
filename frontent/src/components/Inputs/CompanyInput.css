@@ -21,7 +21,7 @@
     border: 0;
 }
 .CompanyInput-main .CompanyInput::placeholder{
-    color: rgb(37, 31, 31);
+    color: var(--secondery);
     font-weight: 600;
     font-size: large;
 }

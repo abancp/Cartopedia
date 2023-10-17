@@ -7,8 +7,9 @@
     --primary-beeta: rgba(0, 195, 255,0.1);
     --secondery: rgb(0, 195, 255);
     --secondery-alpha: 0, 195, 255;
-    --secondery-beeta:rgba( 0, 195, 255,0.1);
+    --secondery-beeta:rgba(9, 61, 77, 0.1);
     --tersiory: #DBE8E1;
+    --error-color:red;
     --bs-primary: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
     --h-display: calc(100vh - 50px);
     --header-H:40px;

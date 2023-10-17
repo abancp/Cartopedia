@@ -59,7 +59,7 @@
 .AddCompanyProductPage .category-selector{
     width: 70rem;
     height: 2.5rem;
-    background-color: var(--tersiory);
+    background-color: var(--primary);
     border-radius: 2px;
     font-weight: 600;
     font-size: large;
@@ -85,7 +85,7 @@
     outline: 0;
 }
 .AddCompanyProductPage .description-text-area::placeholder{
-    color: var(--primary);
+    color: var(--secondery);
 }
 .AddCompanyProductPage .description-error{
     color: red;

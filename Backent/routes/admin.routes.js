@@ -1,12 +1,12 @@
 import express from "express";
-import adminFunctions from "../functions/adminFunctions.js";
+import adminFunctions from "../helpers/adminHelpers.js";
 const router = express.Router();
 
 router.get("/",(req,res)=>{
     adminFunctions.getCompanyRequiests().then((requests)=>{
         res.json({requests:requests})
     })
-})
+}) 
 
 router.get("/permission-company/:email/:permission",(req,res)=>{
     if(req.params.permission==="true"){

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState , useEffect } from 'react'
 import "./AddCompanyProductPage.css"
 import axios from "axios"
 import Popup from '../../components/Popup/Popup'
@@ -14,10 +14,10 @@ import Footer from '../../components/Footer/Footer'
 function AddCompanyProductPage() {
   const [showBlock, setShowBlock] = useState(true)
   // product state
-  const [productMrp, setProductMrp] = useState(0)
+  const [productMrp, setProductMrp] = useState('')
   const [productTags, setProductTags] = useState([])
   const [productName, setProductName] = useState('')
-  const [productPrice, setProductPrice] = useState(0)
+  const [productPrice, setProductPrice] = useState('')
   const [productStock, setProductStock] = useState('')
   const [productCategory, setProductCategory] = useState('')
   const [productDescription, setProductDescription] = useState('')
@@ -45,7 +45,7 @@ function AddCompanyProductPage() {
   const store = useSelector((reduxState) => (reduxState.user))
   const navigate = useNavigate()
   //useState function 
-  React.useEffect(() => {
+  useEffect(() => {
     if (store) {
       store.then((user) => {
         setCompanyMail(user.email)
@@ -133,15 +133,15 @@ function AddCompanyProductPage() {
           <h3 className='heading-h6'>Add Company products here...</h3>
         </div>
         <div className="product-main">
-          <CompanyInput value={productName} error={productNameErr} onChange={(e) => { setProductName(e.target.value) }} width="70rem" type="text" placeholder="Product Name ( Unique ) [ Max 50 Charectors ]" className="product-name" />
+          <CompanyInput value={productName} error={productNameErr} onChange={(e) => { setProductName(e.target.value) }} width="70rem" type="text" placeholder="Product Name ( Unique ) [ Max 50 Charectors ]" />
         </div>
         <div className='prices'>
           <CompanyInput value={productPrice} error={productPriceErr} onChange={(e) => { setProductPrice(e.target.value) }} width="34.8rem" type="text" placeholder="Your Price ( in Rupees '₹' ) [ Max 1,000,000 ₹ ]" />
           <CompanyInput value={productMrp} error={productMrpErr} onChange={(e) => { setProductMrp(e.target.value) }} width="34.8rem" type="text" placeholder="Maximum Retail Price ( in Rupees '₹' ) [ Max 1,000,000 ₹ ] " />
         </div>
         <div className="product-main">
-          <select value={productCategory} onChange={(e) => { setProductCategory(e.target.value); console.log(e.target.value) }} className='category-selector'  >
-            <option value="0" className='select'>Category ( Select One )</option>
+          <select value={productCategory} onChange={(e) => { setProductCategory(e.target.value) }} className='category-selector'  >
+            <option style={{ "color": 'var(--secondery)' }} value="0" className='select'>Category ( Select One )</option>
             {
               categories.map((category, i) => (
                 <option key={i} value={category}>{category}</option>

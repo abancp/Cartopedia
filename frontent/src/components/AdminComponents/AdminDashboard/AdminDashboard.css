@@ -1,0 +1,13 @@
+.AdminDashboard .admindashboard-main{
+    width: 100%;
+    height: 100%;
+    background-color: var(--primary);
+    padding-top: 3rem;
+}
+.AdminDashboard .status-board{
+    height: 90px;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    gap: 1rem;
+}

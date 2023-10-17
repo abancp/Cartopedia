@@ -1,0 +1,22 @@
+.AdminSidebar{
+    position: fixed;
+    top: 40px;
+    left: 0;
+    width: 220px;
+    box-shadow: var(--bs-primary);
+}
+.AdminSidebar .adminsidebar-main{
+    width: 100%;
+    height: calc(100vh - 40px);
+    overflow-y: scroll;
+    background-color: var(--primary);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-left: 10px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+.AdminSidebar .adminsidebar-main::-webkit-scrollbar{
+    display: none;
+}

@@ -30,7 +30,7 @@
     cursor: pointer;
     transition: 500ms;
     text-align: center;
-    padding-top: .3rem;
+    padding-top: .45rem;
 }
 
 .RegisterPage .left-arrow {
@@ -73,12 +73,12 @@
 
 .RegisterPage .arrow {
     font-size: 40px;
-    color: white;
+    color: var(--tersiory);
     transition: 200ms;
 }
 
 .RegisterPage .inner {
-    color: white;
+    color: var(--tersiory);
 }
 
 .RegisterPage .first-page-text {
@@ -114,7 +114,6 @@
 .RegisterPage .f-t-5 {
     animation-delay: .8s;
 }
-
 @keyframes textcome {
     0% {
         opacity: 0.0;
@@ -227,10 +226,21 @@
     justify-content: center;
     align-items: center;
 }
-
+@keyframes error_blink{
+    0%{
+        color: var(--error-color);
+    }
+    50%{
+        color: var(--tersiory);
+    }
+    100%{
+        color: var(--error-color);
+    }
+}
 .RegisterPage .error {
-    color: red;
+    color: var(--error-color);
     text-align: center;
+    animation: error_blink infinite 0s ease-in-out;
 }
 
 .RegisterPage .loading-h4 {

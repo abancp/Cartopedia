@@ -1,9 +1,7 @@
 import React from 'react'
 import "./Status.css"
-import shortNumber from "short-number"
 
 function Status({title,number}) {
-  console.log(shortNumber(2891372))
   return (
     <div className='Status'>
       <div className="status-left-div">

@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import userFunctions from "../functions/userFunctions.js";
+import userFunctions from "../helpers/userHelpers.js";
 
 const verifyCompany = (req, res, next) => {
     jwt.verify(req.headers.authorization, process.env.JWT_SECRET, (err, decoded) => {
