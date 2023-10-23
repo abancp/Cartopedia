@@ -68,11 +68,3 @@
 .HomePage ::-webkit-scrollbar {
     display: none;
 }
-
-.home-preview-profile-img {
-    height: 6rem;
-    margin-left: -2.16rem;
-    margin-top: .09rem;
-    object-fit: cover;
-    clip-path: circle();
-}

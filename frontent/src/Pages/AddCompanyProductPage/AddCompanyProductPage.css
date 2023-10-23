@@ -59,13 +59,15 @@
 .AddCompanyProductPage .category-selector{
     width: 70rem;
     height: 2.5rem;
-    background-color: var(--primary);
+    background-color: var(--tersiory);
     border-radius: 2px;
     font-weight: 600;
     font-size: large;
-    color: var(--primary);
     border: 0;
     transition: 200ms;
+}
+.AddCompanyProductPage .category-options{
+    color: var(--primary);
 }
 .AddCompanyProductPage .category-selector:focus{
     outline: 0;

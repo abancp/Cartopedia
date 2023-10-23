@@ -9,7 +9,7 @@ const login = async (req, res) => {
             let {password,otp,...filterdUser} = user
             res.status(200).json({ auth: true, token, user:filterdUser })
         } else res.json({ auth: false })
-    } else res.status(401).json({ auth: false })
+    } else res.json({ auth: false })
 }
 
 export default login

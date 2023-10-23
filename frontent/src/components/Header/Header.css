@@ -36,32 +36,37 @@
     width: 33%;
 }
 
-.Header  .branding {
+.Header .branding {
     color: var(--tersiory);
     cursor: pointer;
     width: fit-content;
     transition: 500ms;
     font-size: x-large;
 }
-.Header  .branding:hover{
+
+.Header .branding:hover {
     color: var(--secondery);
 }
-.Header .sell{
+
+.Header .sell {
     color: var(--tersiory);
     cursor: pointer;
     width: fit-content;
     font-size: 20px;
     transition: 300ms;
 }
-.Header  .sell:hover{
+
+.Header .sell:hover {
     color: var(--secondery);
 }
-.Header .search-form{
+
+.Header .search-form {
     display: flex;
     align-items: center;
     justify-content: flex-end;
 }
-.Header .search{
+
+.Header .search {
     /* background-color: var(--tersiory); */
     width: fit-content;
     padding: 5px;
@@ -69,32 +74,33 @@
     transition: 800ms;
 }
 
-.Header .search-input{
+.Header .search-input {
     background-color: var(--tersiory);
     border: 0;
     border-radius: 2px;
     box-sizing: border-box;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: var(--bs-primary);
     width: 10rem;
-    height:1.5rem;
+    height: 1.5rem;
     padding: 4px;
     transition: 500ms;
     color: var(--secondery);
     opacity: .91;
 }
 
-.Header .search-input:hover{
-    opacity: 1;
-    outline: 0;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
-}
-.Header .search-input:focus{
+.Header .search-input:hover {
     opacity: 1;
     outline: 0;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
 }
 
-.Header .search-icon{
+.Header .search-input:focus {
+    opacity: 1;
+    outline: 0;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+}
+
+.Header .search-icon {
     color: var(--tersiory);
     width: fit-content;
     margin-left: 2px;
@@ -103,37 +109,76 @@
     transition: 500ms;
     border-radius: 4px;
 }
-.Header .search-icon:hover{
+
+.Header .search-icon:hover {
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2), 0 5px 15px 0 rgba(0, 0, 0, 0.19);
     color: var(--secondery);
 }
 
-.Header .account{
+.Header .account {
     display: flex;
-    border-radius: 2px;
     text-decoration: none;
     height: 2.2rem;
     text-align: center;
 }
 
-.Header .account-login-div ,.Header .account-signup-div{
+.Header .account-loggedin-div {
+    background-color: var(--secondery);
+    margin-top: 4px;
+    margin-bottom: 4px;
+    margin-right: 4px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    box-shadow: var(--bs-primary);
+    transition: 500ms;
+    cursor: pointer;
+    color: var(--tersiory);
+    display: flex;
+    align-items: center;
+    height: 2rem;
+}
+
+.Header .profile-image {
+    width: 40px;
+    background-color: var(--secondery);
+    margin-top: 4px;
+    margin-left: 4px;
+    margin-bottom: 4px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    object-fit: cover;
+    height: 2rem;
+}
+
+.Header .user-profile-img {
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    width: 100%;
+    height: 100%;
+}
+
+.Header .account-login-div,
+.Header .account-signup-div {
     background-color: var(--secondery);
     margin: 4px;
     border-radius: 2px;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: var(--bs-primary);
     transition: 500ms;
     cursor: pointer;
     color: var(--tersiory);
     display: flex;
     align-items: center;
 }
-.Header .account-login-div:hover , .Header .account-signup-div:hover{
+
+.Header .account-login-div:hover,
+.Header .account-signup-div:hover {
     background-color: var(--secondery);
     margin: 4px;
     border-radius: 2px;
 }
 
-.Header .account-login-h4 ,.Header .account-signup-h4{
+.Header .account-login-h4,
+.Header .account-signup-h4 {
     margin-top: .3rem;
     color: var(--tersiory);
     margin: 4px;
@@ -141,17 +186,21 @@
     opacity: 0.9;
     transition: 300ms;
 }
-.Header .account-login-h4:hover ,.Header .account-signup-h4:hover{
+
+.Header .account-login-h4:hover,
+.Header .account-signup-h4:hover {
     opacity: 1;
 }
-.Header .account-loginorsignup{
+
+.Header .account-loginorsignup {
     display: flex;
 }
-.text-decoration-none{
+
+.text-decoration-none {
     text-decoration: none;
 }
 
-.Header .search-btn{
+.Header .search-btn {
     border: 0;
     background-color: transparent;
 }

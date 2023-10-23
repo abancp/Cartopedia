@@ -22,7 +22,7 @@ function Previews(props) {
           />
           <Preview
             heading="Check  Used Items"
-            icon={props.user.firstName ? <img className='home-preview-profile-img' src={`${collections.server_base}/user-profiles/${props.user.email}.jpg`} alt='' /> : <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" className="preview-icon bi bi-person" viewBox="0 0 16 16"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z" /></svg>}
+            icon={props.user.firstName ?  <div className='preview-user-profile-div'><img className='home-preview-profile-img' src={`${collections.server_base}/user-profiles/${props.user.email}.jpg`} alt='' /> </div> : <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" className="preview-icon bi bi-person" viewBox="0 0 16 16"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z" /></svg>}
             text1="10000+ items"
             text2="230000+ trusted sales"
             etc="true"

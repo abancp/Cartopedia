@@ -3,7 +3,7 @@
     border: 0;
     border-radius: 4px;
     box-sizing: border-box;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: var(--bs-primary);
     width: 10rem;
     height:1.5rem;
     padding: 4px;
