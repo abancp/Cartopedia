@@ -1,0 +1,50 @@
+.UserProfilePage-main {
+    width: 100%;
+    height: 100vh;
+    max-height: fit-content;
+    background-color: var(--primary);
+    padding-left: 5rem;
+    padding-top: var(--header-H);
+}
+
+.UserProfilePage-main .left {
+    width: 30%;
+    height: 30rem;
+    border: 1px var(--secondery) solid;
+    margin-top: 2rem;
+    border-radius: 4px;
+    background-color: var(--secondery);
+}
+
+.UserProfilePage-main .user-profile-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+    transition: 300ms;
+}
+
+.UserProfilePage-main .user-profile-img {
+    height: 8rem;
+    width: 8rem;
+    object-fit: cover;
+    clip-path: circle();
+    cursor: pointer;
+    transition: 300ms;
+    margin-top: 1rem;
+}
+.UserProfilePage-main .user-details-div{
+    text-align: center;
+    color: var(--tersiory);
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+.UserProfilePage-main .user-name-h3{
+    font-weight: 600;
+    color: var(--secondery);
+}
+.UserProfilePage-main .user-username-h5{
+    opacity: 0.9;
+}

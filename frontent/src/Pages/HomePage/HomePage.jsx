@@ -14,7 +14,7 @@ function HomePage() {
   const [indrestedItem, setIntrestedItem] = useState({})
   const [coverPhotoname, setCoverPhotoName] = useState('')
   const [trendingProducts, setTrendingProducts] = useState([{}])
-  let store = useSelector((state) => (state.user))
+  const store = useSelector((state) => (state.user))
   useEffect(() => {
     if (store) store.then((user) => setUser(user))
     if (user.email) { axios.get(`${collections.server_base}/get-indrested-item/${user.email}`).then((res) => { res.data.err ? setIntrestedItem({}) : setIntrestedItem(res.data.indrestedItem) }) }

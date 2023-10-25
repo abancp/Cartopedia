@@ -22,8 +22,6 @@ function ProductDetailed() {
         }
 
     }, [id, product.numberOfDetailed])
-    console.log(images)
-    console.log(product)
     return (
         <div className='ProductDetailed'>
             <Header />

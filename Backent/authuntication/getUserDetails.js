@@ -6,10 +6,11 @@ jwt.verify(req.body.token,process.env.JWT_SECRET,(err,decoded)=>{
         if(err){
             res.status(401).send({err:err.message})
         }else{
-            let {email} =decoded
+            let {email} = decoded
             userFunctions.getUserDetails(email).then((user)=>{
-                res.send(user)
-                return(user)
+                const { password , emailOtp , ...filteredUser } = user
+                res.send(filteredUser)
+                return(filteredUser)
             })
         }
     })
