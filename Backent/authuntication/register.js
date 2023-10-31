@@ -12,6 +12,7 @@ const register=async(req,res)=>{
         phone:phone,
         email:email,
         password:await bcrypt.hash(""+password,10),
+        theme:'dark',
         company:false,
         companyPending:false,
         admin:false,
