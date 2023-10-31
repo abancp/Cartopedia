@@ -30,7 +30,7 @@ export default  createBrowserRouter([
       element: <RegisterPage/>,
     },
     {
-      path:"/user-profile",
+      path:"/user-profile/:type",
       element:<UserProfilePage/>,
     },
     {

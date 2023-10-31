@@ -4,7 +4,7 @@
 .Header {
     position: fixed;
     top: 0;
-    z-index: 1;
+    z-index: 100;
     width: 100%;
     background-color: var(--primary);
     height: 42px;
@@ -32,8 +32,25 @@
     align-items: center;
 }
 
-.Header .rigth-div {
+.Header .right-div{
     width: 33%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.Header .cart-icon-div{
+    color: var(--primary);
+    border-radius: 10px;
+    background-color: var(--secondery);
+    height: fit-content;
+    cursor: pointer;
+    transition: 300ms;
+}
+.Header .cart-icon-div:hover{
+    opacity: 0.8;
+}
+.Header .cart-svg{
+    margin: 4px;
 }
 
 .Header .branding {
@@ -81,10 +98,10 @@
     box-sizing: border-box;
     box-shadow: var(--bs-primary);
     width: 10rem;
-    height: 1.5rem;
+    height: 1.6rem;
     padding: 4px;
     transition: 500ms;
-    color: var(--secondery);
+    color: var(--primary);
     opacity: .91;
 }
 

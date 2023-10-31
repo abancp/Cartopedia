@@ -1,7 +1,7 @@
 import React from 'react'
 import "./IndrestedItems.css"
 import collections from '../../configurations/collections'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 function IndrestedItems(props) {
   console.log(props)
@@ -9,22 +9,22 @@ function IndrestedItems(props) {
     <div className='IndrestedItems'>
       <div className="indrested-container-div">
         <div className="indrested-div">
-          
+
           <div className="indrested-top">
             <div className="indrested-prodect-img-div">
-            <Link to={'product/'+props.item?._id} >
-            <img className="indrested-product-img" src={`${collections.server_base}/product-displays/${props.item?._id}.jpg`} alt={props.item?.name}  />
-            </Link>
+              <Link to={'product/' + props.item?._id} >
+                <img className="indrested-product-img" src={`${collections.server_base}/product-displays/${props.item?._id}.jpg`} alt={props.item?.name} />
+              </Link>
             </div>
             <div className="indrested-product-details-div">
-            <Link className='product-details-link text-decoration-none' to={'product/'+props.item?._id} >
-              <h5 className='indrested-product-title'>{props.item?.name}</h5>
-              <h6 className='indreste-product-description'>{props.item?.description}</h6>
-              <h5 className='indrested-product-prize'>{props.item?.price}<span className='indrested-product-striked-prize'><strike>15000$</strike><span className='indrested-product-offer-percent'>{(13200 * 100) / 15000}% offer</span></span></h5>
-              <div className="company-category-div">
-              <h6 className='indrested-product-company'>{props.item?.companyName}</h6>
-              <h6 className='indrested-product-category'>{props.item?.category}</h6>
-              </div>
+              <Link className='product-details-link text-decoration-none' to={'product/' + props.item?._id} >
+                <h5 className='indrested-product-title'>{props.item?.name}</h5>
+                <h6 className='indreste-product-description'>{props.item?.description}</h6>
+                <h5 className='indrested-product-prize'>{props.item?.price}<span className='indrested-product-striked-prize'><strike>15000$</strike><span className='indrested-product-offer-percent'>{(13200 * 100) / 15000}% offer</span></span></h5>
+                <div className="company-category-div">
+                  <h6 className='indrested-product-company'>{props.item?.companyName}</h6>
+                  <h6 className='indrested-product-category'>{props.item?.category}</h6>
+                </div>
               </Link>
             </div>
           </div>

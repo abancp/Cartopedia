@@ -35,6 +35,7 @@
 .Popup .display-img{
     width: 100%;
     height: 100%;
+    object-fit: cover;
 }
 .Popup .display-div ,.Popup .detailds-div{
     width: 49.75%;

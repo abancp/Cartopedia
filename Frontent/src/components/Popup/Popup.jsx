@@ -19,15 +19,6 @@ function Popup(props) {
         </div>
         <div className="dots">
           <div className="dot"></div>
-          <div className="dot"></div>
-          <div className="dot"></div>
-          <div className="dot"></div>
-          <div className="dot"></div>
-          <div className="dot"></div>
-          <div className="dot"></div>
-          <div className="dot"></div>
-          <div className="dot"></div>
-          <div className="dot"></div>
         </div>
         <div className="propedrties-div">
           <h5>Name : {props.name}</h5>
