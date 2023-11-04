@@ -69,7 +69,7 @@ export default {
         })
     },
     requestAddDetailsToOtp: (companyDetails) => {
-        return new Promise(async(resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             let { companyName, website, location, categories, description, email } = companyDetails
             db.get().collection(process.env.USER_COLLECTION).updateOne({ email: email }, {
                 $set: {
@@ -187,7 +187,8 @@ export default {
                         "trend": 1,
                         "comapanyId": 1,
                         "companyName": 1,
-                        "stock": 1
+                        "stock": 1,
+                        "mrp": 1
                     }
                 }
             ]).toArray()
@@ -271,6 +272,45 @@ export default {
             db.get().collection(process.env.PRODUCTS_COLLECTION).findOne(objId).then((product) => {
                 resolve(product)
             })
+        })
+    },
+    addToCart: (proId, count, userId) => {
+        count = Number(count)
+        return new Promise(async (resolve, reject) => {
+            const cart = await db.get().collection(process.env.CART_COLLECTION).findOne({ userId })
+            let productCount
+            if (cart.cartItems) productCount = cart?.cartItems[proId]
+            const key = "cartItems." + proId
+            const setingObj = {}
+            if (!cart) {
+                await db.get().collection(process.env.CART_COLLECTION).insertOne({ userId, cartItems: {} })
+            }
+            if (productCount) {
+                setingObj[key] = productCount + count
+            } else {
+                setingObj[key] = count
+            }
+            db.get().collection(process.env.CART_COLLECTION).updateOne({ userId }, {
+                $set: setingObj
+            })
+            resolve({ ok: 'ok' })
+        })
+    },
+    getCartProducts: (userId) => {
+        return new Promise(async (resolve, reject) => {
+            const cart = await db.get().collection(process.env.CART_COLLECTION).findOne({ userId })
+            var products;
+            if (cart) {
+                const productIds = Object.keys(cart.cartItems)
+                products = []
+                for (var i = 0; i < productIds.length; i++) {
+                    let product = await db.get().collection(process.env.PRODUCTS_COLLECTION).findOne({ _id: new ObjectId(productIds[i]) })
+                    products.push(product)
+                }
+            } else {
+                resolve([])
+            }
+            resolve(products)
         })
     }
 }

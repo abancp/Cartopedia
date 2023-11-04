@@ -39,7 +39,6 @@ function UserProfilePage() {
     document.documentElement.style.setProperty('--tersiory', theme === 'dark' ? themes['light'] : themes['dark']);
     console.log(theme)
   }
-
   return (
     <div className='UserProfilePage'>
       <Header />

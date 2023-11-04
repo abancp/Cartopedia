@@ -1,41 +1,65 @@
-.product-display-image-div{
-    background-color: var(--tersiory);
-    padding: 5px;
-    border-radius: 4px;
-}
-.product-link{
-    color: var(--primary);
-}
-.product-link:hover{
-    color: var(--primary);
-}
-.product-display-image{
-    width: 20rem;
-    border-radius: 5px;
-    margin-top: .5rem;
-}
-.product-details-div{
+.Product .product-main-div {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     justify-content: start;
     width: 100%;
-    margin: 1rem;
-    margin-left: 2rem;
-    margin-top: 1rem;
-}
-.product-main-div{
-    background-color: var(--tersiory);
-    border-radius: 4px;
+    margin-bottom: 0.8rem;
+    height: 12rem;
+    gap: 1rem;
+    background-color: var(--primary-beeta);
+    border-radius: 1px;
     justify-content: flex-start;
     display: inline-flex;
-    transition: 300ms;
+    transition: 200ms;
 }
-.product-main-div:hover{
-    opacity: 0.92;
+.Product .product-main-div:hover {
+    background-color: rgba(var(--primary-alpha),0.8)
 }
-.product-detailed-addtocart-div{
-    background-color: var(--tersiory);
+
+.Product .product-display-image-div {
+    border-radius: 4px;
+    color: var(--tersiory);
+    margin: 8px;
+    height: 100%;
+}
+
+.Product .product-display-image {
+    object-fit: cover;
+    height: 92%;
+    width: 15rem;
+    border-radius: 5px;
+}
+.Product .product-details-div{
+    padding-top: 1rem;
+}
+.Product .product-link {
+    color: var(--tersiory);
+}
+
+.Product .product-link:hover {
+    color: var(--tersiory);
+}
+
+.Product .product-detailed-addtocart-div {
+    background-color: var(--primary-beeta);
     width: fit-content;
     color: var(--secondery);
     position: relative;
     right: -50rem;
+}
+
+.Product .product-mrp {
+    color: var(--error-color);
+    margin-left: 3rem;
+    text-decoration: line-through;
+}
+
+.Product .product-offer {
+    color: yellow;
+    margin-left: 2.8rem;
+    font-size: 20px;
+    background-color: blue;
+}
+
+.Product .product-price {
+    color: greenyellow;
 }

@@ -1,7 +1,7 @@
 .CartPreview .main{
     height: 380px;
     background-image: linear-gradient(var(--primary),var(--primary));
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: var(--bs-primary);
     width: 330px;
     border-radius: 4px;
     padding: 1.3rem;
@@ -10,7 +10,7 @@
     background-color: var(--secondery);
     width:100px;
     height:100px ;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: var(--bs-primary);
     border-radius: 100px;
     margin-left: 33%;
     margin-top: 1rem;

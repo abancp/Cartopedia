@@ -3,26 +3,26 @@ import collections from '../../configurations/collections';
 import "./Product.css"
 import { Link } from 'react-router-dom';
 
-function Product(props) {
+function Product(product) {
   return (
-    <div className='product'>
+    <div className='Product'>
       <div className='container-fluid'>
         <div className='row'>
-          <Link className='product-link' to={'/product/'+props.id}>
-          <div className="product-main-div col-12 mb-2">
-            <div className="product-display-image-div ">
-              <img className='product-display-image' src={`${collections.server_base}/product-displays/${props.Image}`} alt={props.name} />
+          <Link className='product-link' to={'/product/' + product._id}>
+            <div className="product-main-div">
+              <div className="product-display-image-div ">
+                <img className='product-display-image' src={`${collections.server_base}/product-displays/${product._id + '.jpg'}`} alt={product.name} />
+              </div>
+              <div className='product-details-div'>
+                {<h5 className='product-details-name'>{product.name}</h5>}
+                {<h6 className='product-details-description '>{product.description}</h6>}
+                {<h6>{product.companyName}</h6>}
+                {<h6 >{product.email}</h6>}
+                {<h6>{product.webSite}</h6>}
+                {<h5 className='product-price'>₹ {product.price}/-<span className='product-mrp'>₹ {product.mrp}/-</span></h5>}
+                {<h5>{product.category} <span className='product-offer' >{100 - (Math.round((parseInt(product.price) * 100) / parseInt(product.mrp)))}%  Offer</span> </h5>}
+              </div>
             </div>
-            <div className='product-details-div'>
-              {props.Name ? <h3 className='product-details-name'>{props.Name}</h3> : ''}
-              {props.Description ? <h5 className='product-details-description '>{props.Description}</h5> : ""}
-              {props.CompanyName ? <h6>{props.CompanyName}</h6> : ""}
-              {props.Email ? <h6 >{props.Email}</h6> : ""}
-              {props.Website ? <h6>{props.Website}</h6> : ""}
-              {props.Price ? <h2 className='text-success'>${`${props.Price}`}<span className='text-danger'></span></h2> : ""}
-              {props.Category?<h6>{`${props.Category}`}</h6>:""}
-            </div>
-          </div>
           </Link>
         </div>
       </div>

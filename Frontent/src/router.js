@@ -11,6 +11,7 @@ import AddCompanyProductPage from './Pages/AddCompanyProductPage/AddCompanyProdu
 import { createBrowserRouter } from 'react-router-dom'
 import ProductDetailed from './Pages/ProductDetailed/ProductDetailed'
 import AdminHome from './Pages/AdminHome/AdminHome'
+import CartPage from './Pages/CartPage/CartPage'
 
 export default  createBrowserRouter([
     {
@@ -65,4 +66,8 @@ export default  createBrowserRouter([
       path:"/admin/:page",
       element:<AdminHome/>
     },
+    {
+      path:"/cart",
+      element:<CartPage/>
+    }
 ])

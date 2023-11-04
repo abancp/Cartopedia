@@ -49,6 +49,10 @@
 .ProductDetailed .product-right{
     width: 48%;
     height: max-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .ProductDetailed .product-img{
     width: 100%;
@@ -83,13 +87,63 @@
     justify-content: space-around;
     align-items: center;
     margin-top: 2rem;
+    width: 100%;
 }
 .ProductDetailed .product-price{
     color: greenyellow;
+    font-size: x-large;
 }
 .ProductDetailed .product-mrp{
     color: red;
+    font-size: x-large;
 }
 .ProductDetailed .product-offer{
     color: yellow;
+    font-size: x-large;
+}
+.ProductDetailed .add-to-cart{
+    width: 50%;
+}
+.ProductDetailed .product-buy{
+    display: flex;
+    width: 90%;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--tersiory);
+    border-radius: 2px;
+    /* box-shadow: var(--bs-primary); */
+    margin-bottom: 2rem;
+    padding:0.6rem;
+    gap: 1.5rem;
+    transition: 300ms;
+}
+.ProductDetailed .add-to-cart{
+    background-color: var(--secondery);
+    width: 50%;
+    height: 100%;
+    text-align: center;
+    padding-top: 0.2rem;
+    border-radius: 10rem;
+    color: var(--primary);
+    cursor: pointer;
+    transition: 300ms;
+    box-shadow: var(--bs-primary);
+}
+.ProductDetailed .buy-now{
+    background-color: blueviolet;
+    width: 50%;
+    height: 100%;
+    text-align: center;
+    padding-top: 0.2rem;
+    border-radius: 10rem;
+    cursor: pointer;
+    transition: 300ms;
+    box-shadow: var(--bs-primary);
+}
+.ProductDetailed .add-to-cart:hover , .ProductDetailed .buy-now:hover{
+    opacity: 0.8;
+    color:darkmagenta;
+}
+.ProductDetailed .company-div{
+    width: 90%;
 }

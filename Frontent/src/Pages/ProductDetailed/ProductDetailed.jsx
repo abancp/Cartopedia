@@ -7,11 +7,16 @@ import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import CompanyMiniView from '../../components/CompanyMiniView/CompanyMiniView'
 import Property from '../../components/Property/Property'
+import { useSelector } from 'react-redux'
 
 function ProductDetailed() {
     const { id } = useParams()
     const [product, setProduct] = useState({})
     const [images, setImages] = useState([])
+
+    const store = useSelector((state) => (state.user))
+    const [userId, setUserId] = useState(store?.then((user) => (user._id)))
+
     useEffect(() => {
         axios.get(collections.server_base + '/product/' + id).then((res) => setProduct(res.data))
         setImages(['/product-displays/' + id + '.jpg'])
@@ -20,8 +25,18 @@ function ProductDetailed() {
                 setImages(images => [...images, '/product-details/' + id + '/' + id + '(' + i + ').jpg'])
             }
         }
-
     }, [id, product.numberOfDetailed])
+
+    useEffect(() => {
+        store?.then((user) => (setUserId(user._id)))
+    }, [store])
+
+    const handleClickAddToCart = () => {
+        axios.patch(`${collections.server_base}/add-to-cart/${id}/${1}/${userId}`).then((res) => {
+            alert("Iterm added to Cart")
+        })
+    }
+
     return (
         <div className='ProductDetailed'>
             <Header />
@@ -39,12 +54,20 @@ function ProductDetailed() {
                 <div className="product-right">
                     <h3 className='product-name'>{product.name}</h3>
                     <div className="product-prices">
-                        <h5 className='product-price'>{product.price}</h5>
-                        <h5 className="product-mrp"><strike>{product.mrp}</strike></h5>
-                        <h5 className='product-offer'>{Math.round((parseInt(product.price) * 100) / parseInt(product.mrp))}%  Offer</h5>
+                        <h5 className='product-price'>₹ {product.price} </h5>
+                        <h5 className="product-mrp">₹ <strike>{product.mrp}</strike></h5>
+                        <h5 className='product-offer'>{100 - Math.round((parseInt(product.price) * 100) / parseInt(product.mrp))}%  Offer</h5>
                     </div>
                     <div className="product-properties">
                         <Property />
+                    </div>
+                    <div className="product-buy">
+                        <div className="add-to-cart" onClick={handleClickAddToCart} >
+                            <h3>Add to Cart </h3>
+                        </div>
+                        <div className="buy-now">
+                            <h3>Buy  Now</h3>
+                        </div>
                     </div>
                     <div className="company-div">
                         <CompanyMiniView {...product} />

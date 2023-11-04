@@ -28,7 +28,6 @@ function SearchResultPage() {
     <div className='SearchResultPage'>
       <Header searchedLine={searchedLine}/>
       <div className='search-result-container'>
-        <div className='reults-row'>
           {categories.map((category, i) => (
             <Product key={`${i}`} Name={`${category}`} />
           ))}
@@ -36,9 +35,8 @@ function SearchResultPage() {
             <Product key={`${i}`} Name={`${company.companyDetails.companyName}`} Website={`${company.companyDetails.website}`} Email={`${company.companyDetails.email}`} Image={`${company.companyDetails.email + ".jpg"}`} Description={`${company.companyDetails.description}`} />
           ))}
           {products.map((product, i) => (
-            <Product key={`${i}`} id={product._id} Name={`${product.name}`} Price={`${product.price}`} Category={`${product.category}`} Image={`${product._id + ".jpg"}`} CompanyName={`${product.companyName}`} Description={`${product.description}`} />
+            <Product {...product} key={i} />
           ))}
-        </div>
       </div>
       <Footer/>
     </div>

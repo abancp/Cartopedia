@@ -1,6 +1,8 @@
 import axios from "axios";
 import { legacy_createStore as createStore } from "redux";
 import collections from "./configurations/collections";
+
+
 const token = window.localStorage.getItem("token")
 
 
@@ -24,5 +26,6 @@ const appReducer = (prevState = initialState, action) => {
     return prevState
 };
 const store = createStore(appReducer);
+
 
 export default store;

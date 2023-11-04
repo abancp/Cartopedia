@@ -15,7 +15,7 @@
    transition: 400ms;
 }
 .Button .button-main:hover{
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: var(--bs-primary);
 }
 
 .Button .button-text{
@@ -31,7 +31,7 @@
     border-radius: 100%;
     background-color: var(--primary);
     margin: 3px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: var(--bs-primary);
     display: flex;
     justify-content: center;
     align-items: center;
