@@ -1,0 +1,34 @@
+.EditButton-main {
+    width: 100%;
+    height: 30px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 0.5rem;
+}
+
+.EditButton-main .edit-button {
+    background-color: var(--secondery);
+    width: 21px;
+    height: 21px;
+    box-shadow: var(--bs-primary);
+    transition: 300ms;
+    border-radius: 5px;
+    padding-left: 0.25rem;
+    cursor: pointer;
+    display: flex;
+    gap: 0.2rem;
+    overflow: hidden;
+}
+
+.EditButton-main .edit-profile-h6{
+    display: none;
+}
+.EditButton-main .edit-button:hover  .edit-profile-h6{
+    display: flex;
+}
+
+.EditButton-main .edit-bottun-svg{
+    margin-top: 0.2rem;
+    color: var(--primary);
+}

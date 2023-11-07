@@ -15,6 +15,9 @@
     --h-display: calc(100vh - 50px);
     --header-H:40px;
 }
+.text-decoration-none{
+    text-decoration: none;
+}
 .color-tersiory{
     color: var(--tersiory);
     transition: 300ms;
@@ -62,7 +65,6 @@
     display: flex;
     overflow-x: scroll;
     overflow-y: hidden;
-    gap: 1rem;
     margin-left: 3rem;
 }
 

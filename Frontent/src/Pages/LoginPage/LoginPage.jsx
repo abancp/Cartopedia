@@ -14,8 +14,7 @@ function LoginPage() {
   const [loginErr, setLoginErr] = useState(false)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleSubmit = () => {
     let user = {
       email,
       password
@@ -23,7 +22,7 @@ function LoginPage() {
     axios.post(collections.server_base + "/login", user).then(async (res) => {
       if (res.data.auth) {
         window.localStorage.setItem("token", res.data.token)
-        dispatch({type: "user"})
+        dispatch({ type: "user" })
         navigate("/")
       } else {
         setLoginErr(true)
@@ -34,15 +33,21 @@ function LoginPage() {
     <div className='LoginPage'>
       <Header />
       <div className="login-div">
-        <h3 className="login-heading">Login</h3>
-        <form action="" onSubmit={handleSubmit} >
-          <div className="form-div">
-            {loginErr?<h6 className='loginerr'>incorrect email or password</h6>:""}
-            <Input autoFocus type="email" placeholder="Email" name="email" width="15rem" onChange={(e) =>{ setEmail(e.target.value) }} />
-            <Input type="password" placeholder="Password" name="password" width="15rem" onChange={(e) => { setPassword(e.target.value)  }} />
-            <Button text="submit"  color="green" width="15.2rem" icon={<i class="bi bi-check2-circle"></i>} onClick={handleSubmit} />
+        {loginErr &&
+          <div className="login-err-div">
+            <h6 className='loginerr'>incorrect email or password</h6>
           </div>
-        </form>
+        }
+        <h3 className="login-heading">Login</h3>
+        <div className="login-form-div">
+          <form action="" onSubmit={handleSubmit} >
+            <div className="form-div">
+              <Input autoFocus type="email" onKeyDown={(e) => { e.code === "Enter" && document.getElementById('login-password').focus() }} placeholder="Email" name="email" width="15rem" onChange={(e) => { setEmail(e.target.value) }} />
+              <Input type="password" onKeyDown={(e) => { e.code === 'Enter' && handleSubmit() }} placeholder="Password" id="login-password" name="password" width="15rem" onChange={(e) => { setPassword(e.target.value) }} />
+              <Button text="submit" color="green" width="15.2rem" icon={<i class="bi bi-check2-circle"></i>} onClick={handleSubmit} />
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   )

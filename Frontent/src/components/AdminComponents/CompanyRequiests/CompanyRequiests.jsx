@@ -4,21 +4,28 @@ import axios from 'axios';
 import collections from '../../../configurations/collections';
 
 function CompanyRequiests() {
-  const [companyRequiests, setCompanyReqiuests] = useState([]);
+  const [companyRequiests, setCompanyReqiuests] = useState([])
   const headers = useMemo(() => {
+
     return {
       'Authorization': window.localStorage.getItem("token")
     }
   }, [])
+
   useEffect(() => {
-    axios.get(collections.server_base + "/admin", { headers }).then((res) => {
+
+    axios.get(collections.server_base + "/admin/company-requiests", { headers }).then((res) => {
       setCompanyReqiuests(res.data.requests)
     })
+    
   }, [headers])
   const handleAccept = (allow, email) => {
+
     axios.get(collections.server_base + "/admin/permission-company/" + email + "/" + allow, { headers })
-    setCompanyReqiuests((products) => products.filter((request) => request.email !== email));
+    setCompanyReqiuests((products) => products.filter((request) => request.email !== email))
+
   }
+
   return (
     <div className='admin'>
       <div className='container-fluid'>

@@ -7,14 +7,14 @@ const token = window.localStorage.getItem("token")
 
 
 let initialState = {
-    user: token ? axios.post(collections.server_base + "/get-user-details", { token: token }).then((res) => { return res.data }) : null,
+    user: window.localStorage.getItem("token") ? axios.post(collections.server_base + "/get-user-details", { token: window.localStorage.getItem("token") }).then((res) => { return res.data }) : null,
     theme: 'light'
 };
 
 const appReducer = (prevState = initialState, action) => {
     switch (action.type) {
         case "user": {
-            return { ...prevState , user: token ? axios.post(collections.server_base + "/get-user-details", { token: token }).then((res) => { return res.data }) : null };
+            return { ...prevState , user: window.localStorage.getItem("token") ? axios.post(collections.server_base + "/get-user-details", { token: window.localStorage.getItem("token") }).then((res) => { return res.data }) : null };
         }
         case 'dark':{
             return {...prevState ,theme:'dark'}

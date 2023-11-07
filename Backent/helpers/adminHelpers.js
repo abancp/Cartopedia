@@ -1,30 +1,36 @@
- import db from "../configuration/mongodb.js";
+import db from "../configuration/mongodb.js";
 
-export default{
-    getCompanyRequiests:async()=>{
-      return new Promise(async(resolve,reject)=>{
-        let companyRequiests= await db.get().collection(process.env.COMPANY_REQUIEST_COLLLECTION).find().toArray();
-        resolve(companyRequiests)
-      })
-    },
-    allowCompany:async(email)=>{
-        let request = await db.get().collection(process.env.COMPANY_REQUIEST_COLLLECTION).findOne({email:email})
-        db.get().collection(process.env.COMPANY_REQUIEST_COLLLECTION).deleteOne({email:email})
-        db.get().collection(process.env.USER_COLLECTION).updateOne({email:email},{
-          $set: {
-            companyPending:false,
-            company:true,
-            companyDetails:request
-        }
-        })
-    },
-    denieCompany:(email)=>{
-        db.get().collection(process.env.USER_COLLECTION).updateOne({email:email},{
-          $set:{
-            companyPending:false,
-            company:false
-          }
-        })
-        db.get().collection(process.env.COMPANY_REQUIEST_COLLLECTION).deleteOne({email:email})
-    }
+export default {
+  getCompanyRequiests: async () => {
+    return new Promise(async (resolve, reject) => {
+      let companyRequiests = await db.get().collection(process.env.COMPANY_REQUIEST_COLLLECTION).find().toArray();
+      resolve(companyRequiests)
+    })
+  },
+  allowCompany: async (email) => {
+    let request = await db.get().collection(process.env.COMPANY_REQUIEST_COLLLECTION).findOne({ email: email })
+    db.get().collection(process.env.COMPANY_REQUIEST_COLLLECTION).deleteOne({ email: email })
+    db.get().collection(process.env.USER_COLLECTION).updateOne({ email: email }, {
+      $set: {
+        companyPending: false,
+        company: true,
+        companyDetails: request
+      }
+    })
+  },
+  denieCompany: (email) => {
+    db.get().collection(process.env.USER_COLLECTION).updateOne({ email: email }, {
+      $set: {
+        companyPending: false,
+        company: false
+      }
+    })
+    db.get().collection(process.env.COMPANY_REQUIEST_COLLLECTION).deleteOne({ email: email })
+  },
+  getAllProducts: (skip) => {
+    return new Promise(async(resolve,reject)=>{
+       let products = await db.get().collection(process.env.PRODUCTS_COLLECTION).find().sort({_id:1}).skip(Number(skip)).limit(20).toArray()
+       resolve(products)
+    })
+  }
 }

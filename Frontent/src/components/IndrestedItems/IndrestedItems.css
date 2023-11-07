@@ -19,6 +19,7 @@
     align-items: center;
     flex-direction: column;
     gap: 15px;
+    background-color: var(--primary-beeta);
 }
 
 .IndrestedItems .indrested-top {
@@ -47,20 +48,20 @@
     scale: 1.1;
 }
 .IndrestedItems .product-details-link{
-    color: white;
+    color: var(--tersiory);
 }
 .IndrestedItems .indrested-product-details-div {
     width: 65%;
     height: 100%;
     border-top-right-radius: 5px;
     padding-left: .6rem;
-    color: white;
+    color: var(--tersiory);
     padding-top: .3rem;
     padding-right: .4rem;
 }
 
 .IndrestedItems .indrested-product-prize{
-    color: chartreuse;
+    color: rgb(143, 221, 26);
     padding-bottom: 0;
 }
 
@@ -83,7 +84,7 @@
 
 .IndrestedItems .indrested-product-company{
     text-align: end;
-    color: violet;
+    color: var(--tersiory);
 
 }.IndrestedItems .indrested-product-category{
     text-align: start;

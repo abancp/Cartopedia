@@ -1,9 +1,8 @@
 .CoverPhoto .main{
     width: 80%;
     height: 450px;
-    box-shadow: var(--bs-primary);
-    border-radius: 4px;
-    background-color:gray;
+    /* box-shadow: var(--bs-primary); */
+    border-radius: 2px;
 }
 .CoverPhoto .cover-image{
     width: 100%;

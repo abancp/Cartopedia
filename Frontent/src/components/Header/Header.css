@@ -157,17 +157,17 @@
 
 .Header .profile-image {
     width: 40px;
-    background-color: var(--secondery);
+    background-color: var(--secondery); 
     margin-top: 4px;
     margin-left: 4px;
     margin-bottom: 4px;
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
-    object-fit: cover;
     height: 2rem;
 }
 
 .Header .user-profile-img {
+    object-fit: cover;
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
     width: 100%;

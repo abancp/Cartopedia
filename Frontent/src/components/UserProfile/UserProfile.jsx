@@ -62,7 +62,7 @@ function UserProfile() {
               {company ? <h4 className='userprofile-userdetails-comapnyname text-center'>{companyDetails.description}</h4> : ""}
             </div>
             {!company ? <Link to={`${companyPending ? "" : '/register-as-company'}`}><button className='text-white btn userprofile-registerascompany-button'>{companyPending ? 'Waiting for Admin Response' : 'Register As Company'}</button></Link> : ""}
-            {email==null?"": <button onClick={()=>{window.localStorage.clear();let user=null;dispatch({type: user});navigate("/");}} className='btn text-white userprofile-logoutorlogin-button '>Logout</button>}
+            {email==null?"": <button onClick={()=>{window.localStorage.clear();let user=null;dispatch({type: user});window.location.reload();}} className='btn text-white userprofile-logoutorlogin-button '>Logout</button>}
           </div>
         </div>
       </div>

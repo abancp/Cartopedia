@@ -24,7 +24,6 @@ export default {
         return new Promise(async (resolve, reject) => {
             let productNameErr = []
             if (product.productName.length > 100) productNameErr.push(" More than 50 charectors ")
-            if (!/^[\w_ ]+$/i.test(product.productName)) productNameErr.push(" Enter a valid name ")
             if (await db.get().collection(process.env.PRODUCTS_COLLECTION).findOne({ name: product.productName })) productNameErr.push("  This product allready registerd  ")
 
             let productPriceErr = []

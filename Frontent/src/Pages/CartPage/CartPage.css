@@ -15,16 +15,26 @@
 .CartPage-main .cart-products-container {
     width: 79%;
 }
-
-.CartPage-main .cart-order-container {
+.CartPage-main .cart-left-div{
     width: 21%;
+    padding-bottom: 1rem;
+}
+.CartPage-main .cart-order-container {
+    width: 100%;
     height: fit-content;
     padding: 1rem;
     text-align: center;
     color: var(--tersiory);
     background-color: var(--primary-beeta);
 }
+.CartPage-main .cart-relative-products-div{
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    background-color: var(--primary-beeta);
+    width: 100%;
+    margin-top: 1rem;
 
+}
 .CartPage-main .cart-controls-div {
     display: flex;
     justify-content: center;

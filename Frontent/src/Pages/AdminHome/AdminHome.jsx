@@ -4,13 +4,15 @@ import AdminHeader from '../../components/AdminComponents/AdminHeader/AdminHeade
 import AdminSidebar from '../../components/AdminComponents/AdminSidebar/AdminSidebar'
 import AdminDashboard from '../../components/AdminComponents/AdminDashboard/AdminDashboard'
 import CompanyRequiests from '../../components/AdminComponents/CompanyRequiests/CompanyRequiests'
+import AllProducts from '../../components/AdminComponents/AllProducts/AllProducts'
 import { useParams } from 'react-router-dom'
 
 function AdminHome() {
     const { page } = useParams()
     const adminPages = {
         dashboard: <AdminDashboard/>,
-        requisites: <CompanyRequiests />
+        requisites: <CompanyRequiests />,
+        products:<AllProducts/>
     }
     return (
         <div className='AdminHome'>

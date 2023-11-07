@@ -89,6 +89,7 @@ export default {
         })
     },
     getEmailOtp: async (email, otp) => {
+        console.log("otp-",otp)
         let mailDetails = {
             from: 'cartopediaa@gmail.com',
             to: email,
@@ -279,12 +280,12 @@ export default {
         return new Promise(async (resolve, reject) => {
             const cart = await db.get().collection(process.env.CART_COLLECTION).findOne({ userId })
             let productCount
-            if (cart.cartItems) productCount = cart?.cartItems[proId]
             const key = "cartItems." + proId
             const setingObj = {}
             if (!cart) {
                 await db.get().collection(process.env.CART_COLLECTION).insertOne({ userId, cartItems: {} })
             }
+            if (cart?.cartItems) productCount = cart?.cartItems[proId]
             if (productCount) {
                 setingObj[key] = productCount + count
             } else {

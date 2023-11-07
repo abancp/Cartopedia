@@ -3,9 +3,10 @@ import Header from '../../components/Header/Header'
 import "./UserProfilePage.css"
 import { useDispatch, useSelector } from 'react-redux'
 import UserProfileLeft from '../../components/UserProfileLeft/UserProfileLeft'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import collections from '../../configurations/collections'
+import UserProfile from '../../components/UserProfile/UserProfile'
 
 function UserProfilePage() {
   //getting theme and user from store
@@ -16,6 +17,8 @@ function UserProfilePage() {
   const [theme, setTheme] = useState(storeTheme)
   //getting profile type from url
   const { type } = useParams()
+  // useNavigate 
+  const navigate = useNavigate()
   //declaring dispatch from store
   const dispatch = useDispatch()
   //setting theme object
@@ -26,6 +29,9 @@ function UserProfilePage() {
   //useEfect to gett user from promise
   useEffect(() => {
     store && store.then((user) => { setUser(user) })
+    if(!user){
+      navigate('/')
+    }
     //dispatch theme
     dispatch({ type: theme })
   })
@@ -67,6 +73,7 @@ function UserProfilePage() {
           </div>
         </div>
       </div>
+      <UserProfile/>
     </div>
   )
 }

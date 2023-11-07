@@ -1,0 +1,7 @@
+.AllProducts-main{
+    width: 100%;
+    min-height: 100vh;
+    max-height: max-content;
+    padding-top: 1.9rem;
+    background-color: var(--primary);
+}

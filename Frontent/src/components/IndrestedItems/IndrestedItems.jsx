@@ -4,7 +4,6 @@ import collections from '../../configurations/collections'
 import { Link } from 'react-router-dom'
 
 function IndrestedItems(props) {
-  console.log(props)
   return (
     <div className='IndrestedItems'>
       <div className="indrested-container-div">
@@ -20,7 +19,7 @@ function IndrestedItems(props) {
               <Link className='product-details-link text-decoration-none' to={'product/' + props.item?._id} >
                 <h5 className='indrested-product-title'>{props.item?.name}</h5>
                 <h6 className='indreste-product-description'>{props.item?.description}</h6>
-                <h5 className='indrested-product-prize'>{props.item?.price}<span className='indrested-product-striked-prize'><strike>15000$</strike><span className='indrested-product-offer-percent'>{(13200 * 100) / 15000}% offer</span></span></h5>
+                <h5 className='indrested-product-prize'>{props.item?.price}<span className='indrested-product-striked-prize'><strike>{props.item?.mrp}$</strike><span className='indrested-product-offer-percent'>{100 - (Math.round((parseInt(props.item?.price) * 100) / parseInt(props.item?.mrp)))}%offer</span></span></h5>
                 <div className="company-category-div">
                   <h6 className='indrested-product-company'>{props.item?.companyName}</h6>
                   <h6 className='indrested-product-category'>{props.item?.category}</h6>

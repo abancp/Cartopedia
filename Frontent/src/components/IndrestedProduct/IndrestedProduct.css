@@ -1,67 +1,65 @@
-.Product .main{
-    border-radius: 5px;
-    box-shadow: var(--bs-primary);
+.IndrustedProduct .main{
+    border-radius: 1px;
+    /* box-shadow: var(--bs-primary); */
     width: 250px;
-    background-image:linear-gradient(var(--secondery),var(--primary));
+    /* background-image:linear-gradient(var(--secondery),var(--primary)); */
+    background-color: var(--primary-beeta);
     height: 300px;
-    padding: 1rem;
+    padding: 0.25rem;
 }
-.Product .product-image-div{
-    background-color: aqua;
+.IndrustedProduct .product-image-div{
+    background-color: transparent;
     width: 100%;
-    height: 100px;
-    border-radius: 4px;
-    box-shadow: var(--bs-primary);
+    height: 240px;
+    border-radius: 1px;
+    /* box-shadow: var(--bs-primary); */
 }
 
-.Product .image{
-    object-fit: cover;
+.IndrustedProduct .image{
+    object-fit:contain ;
     width: 100%;
-    height: 100px;
+    height: 100%;
     border-radius: 4px;
 }
 
-.Product .details{
-    margin-top: 1rem;
+.IndrustedProduct .details{
+    margin-top: 0.3rem;
     text-align: center;
 }
 
-.Product .name{
-    color: white;
+.IndrustedProduct .name{
+    color: var(--tersiory);
     font-family:Verdana, Geneva, Tahoma, sans-serif ;
     font-size: 400;
+    overflow: hidden;
+    height: 20px;
 }
-
-.Product .prices{
-    display: flex;
-    margin-top: 1rem;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.Product .cartopedia-price{
+.IndrustedProduct .cartopedia-price{
     color: lime;
+    font-size: 15px;
 }
 
-.Product .mrp{
+.IndrustedProduct .mrp{
     color: red;
     text-decoration: line-through;
+    font-size: 15px;
+}
+.IndrustedProduct .offer{
+    color: var(--tersiory);
+    font-size: 15px;
 }
 
-.Product .description{
-    color: white;
-}
 
-.Product .end-items{
-    margin-top: 1rem;
+.IndrustedProduct .end-items{
+    margin-top: 0.3rem;
     display: flex;
-    justify-content: space-between;
+    gap: 0.3rem;
 }
 
-.Product .company{
+.IndrustedProduct .company{
     color: var(--tersiory);
 }
-.Product .trending{
+.IndrustedProduct .trending{
     color: blueviolet;
 }
 .margin-1rem{
