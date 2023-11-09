@@ -15,6 +15,7 @@ function UserProfileLeft({ user, type }) {
                         </svg>}
                         title="edit profile"
                         width = '6.2rem'
+                        link="/user-profile/editv "
                     />
                 </div>
             }

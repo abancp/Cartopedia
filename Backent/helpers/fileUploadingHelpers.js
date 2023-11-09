@@ -35,6 +35,7 @@ const uploadCoverPhoto = multer({
         filename: (req, file, cb) => cb(null, req.body.photoname + ".jpg")
     })
 })
+
 export default {
     uploadProfile,
     uploadProfile,

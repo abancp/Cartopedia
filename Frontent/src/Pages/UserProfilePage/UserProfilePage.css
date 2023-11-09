@@ -5,7 +5,7 @@
     background-color: var(--primary);
     padding-left: 3rem;
     padding-right: 3rem;
-    padding-top: var(--header-H);
+    padding-top:4rem;
     display: flex;
     margin-top: 1rem;
     gap: 2rem;

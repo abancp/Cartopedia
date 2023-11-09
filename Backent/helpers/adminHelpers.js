@@ -1,4 +1,6 @@
+import { ObjectId } from "mongodb";
 import db from "../configuration/mongodb.js";
+import fs from 'fs'
 
 export default {
   getCompanyRequiests: async () => {
@@ -18,19 +20,28 @@ export default {
       }
     })
   },
-  denieCompany: (email) => {
-    db.get().collection(process.env.USER_COLLECTION).updateOne({ email: email }, {
+  denieCompany: async (email) => {
+    await db.get().collection(process.env.USER_COLLECTION).updateOne({ email: email }, {
       $set: {
         companyPending: false,
         company: false
       }
     })
-    db.get().collection(process.env.COMPANY_REQUIEST_COLLLECTION).deleteOne({ email: email })
+    await db.get().collection(process.env.COMPANY_REQUIEST_COLLLECTION).deleteOne({ email: email })
   },
   getAllProducts: (skip) => {
-    return new Promise(async(resolve,reject)=>{
-       let products = await db.get().collection(process.env.PRODUCTS_COLLECTION).find().sort({_id:1}).skip(Number(skip)).limit(20).toArray()
-       resolve(products)
+    return new Promise(async (resolve, reject) => {
+      let products = await db.get().collection(process.env.PRODUCTS_COLLECTION).find().sort({ _id: 1 }).skip(Number(skip)).limit(20).toArray()
+      resolve(products)
     })
+  },
+  deleteCompanyProduct:  (proId) => {
+     db.get().collection(process.env.PRODUCTS_COLLECTION).deleteOne({ _id: new ObjectId(proId) })
+     fs.unlink('./public/product-displays/'+proId+".jpg",(err)=>{
+      if(err){
+        throw err
+      }
+      console.log('file deleted')
+     })
   }
 }

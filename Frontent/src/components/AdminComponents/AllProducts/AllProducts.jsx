@@ -1,11 +1,16 @@
-import React, { useEffect, useState,useMemo } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import "./AllProducts.css"
 import axios from 'axios'
 import Product from '../../Product/Product'
 import collections from '../../../configurations/collections'
 
 function AllProducts() {
-  const [products, setProducts] = useState([{}])
+  const [products, setProducts] = useState([])
+  const [deleted,setDeleted] = useState(Date.now())
+
+  const handleDeleteCallback = (date) => {
+    setDeleted(date)
+  }
 
   const headers = useMemo(() => ({
     'Authorization': window.localStorage.getItem("token")
@@ -15,14 +20,14 @@ function AllProducts() {
     axios.get(collections.server_base + "/admin/products/all/" + 0, { headers }).then((res) => {
       setProducts(res.data.products)
     })
-  }, [])
+  }, [deleted])
 
   return (
 
     <div className='AllProducts-main'>
       {
-        products.map((product,i) => (
-          <Product key={i} {...product} />
+        products?.map((product, i) => (
+          <Product removeLink={'/admin/delete/company-product/' + product._id} allProductForAdminPanel key={i} {...product} handleDeleteCallback={handleDeleteCallback} />
         ))
       }
     </div>

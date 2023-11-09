@@ -18,10 +18,17 @@ router.get("/permission-company/:email/:permission",(req,res)=>{
 })
 
 router.get("/products/all/:skip",(req,res)=>{
-    const {skip} = req.params.skip
+    const {skip} = req.params
     adminFunctions.getAllProducts(skip).then((products)=>{
         res.json({products})
     })
+})
+
+router.delete("/delete/company-product/:id",(req,res)=>{
+    const {id} = req.params
+    adminFunctions.deleteCompanyProduct(id)
+    console.log(id)
+    res.status(200)
 })
 
 export default router;

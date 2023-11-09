@@ -1,8 +1,8 @@
 .UserProfileLeft{
     width: 30%;
     height: fit-content;
-    border: 1px var(--secondery) solid;
     border-radius: 4px;
+    background-color: var(--primary-beeta);
 }
 .UserProfileLeft .editbutten-div{
     position: relative;

@@ -122,8 +122,13 @@ router.patch("/add-to-cart/:proId/:count/:userId", (req, res) => {
 router.get("/cart-items/:userId",(req,res)=>{
     const {userId} = req.params
     userFunctions.getCartProducts(userId).then((products)=>{
-        console.log("products",products)
         res.json({products:products})
     })
+})
+
+router.delete("/remove/cart-product",(req,res)=>{
+    const {userId,proId} = req.query
+    userFunctions.removeCartProduct(userId,proId)
+    res.json({ok:"ok"})
 })
 export default router;

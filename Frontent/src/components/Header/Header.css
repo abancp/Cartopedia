@@ -14,7 +14,7 @@
     transition: 500ms;
     padding-left: 3rem;
     padding-right: 2rem;
-    box-shadow: var(--bs-primary);
+    /* box-shadow: var(--bs-primary); */
 }
 
 .Header .left-div {

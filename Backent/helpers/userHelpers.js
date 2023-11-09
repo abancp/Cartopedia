@@ -306,12 +306,21 @@ export default {
                 products = []
                 for (var i = 0; i < productIds.length; i++) {
                     let product = await db.get().collection(process.env.PRODUCTS_COLLECTION).findOne({ _id: new ObjectId(productIds[i]) })
-                    products.push(product)
+                    let resProduct = product ? product: {_id:productIds[i],deleted:true}
+                    products.push(resProduct)
                 }
             } else {
                 resolve([])
             }
             resolve(products)
+        })
+    },
+    removeCartProduct:(userId,proId)=>{
+        let key = "cartItems."+proId
+        db.get().collection(process.env.CART_COLLECTION).updateOne({userId},{
+            "$unset":{
+                [key]:1
+            }
         })
     }
 }
