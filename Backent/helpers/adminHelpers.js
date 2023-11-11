@@ -35,13 +35,8 @@ export default {
       resolve(products)
     })
   },
-  deleteCompanyProduct:  (proId) => {
-     db.get().collection(process.env.PRODUCTS_COLLECTION).deleteOne({ _id: new ObjectId(proId) })
-     fs.unlink('./public/product-displays/'+proId+".jpg",(err)=>{
-      if(err){
-        throw err
-      }
-      console.log('file deleted')
-     })
+  deleteCompanyProduct: (proId) => {
+    db.get().collection(process.env.PRODUCTS_COLLECTION).deleteOne({ _id: new ObjectId(proId) })
+    fs.unlink('./public/product-displays/' + proId + ".jpg")
   }
 }

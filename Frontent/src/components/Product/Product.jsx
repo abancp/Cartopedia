@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import collections from '../../configurations/collections';
 import "./Product.css"
 import { Link } from 'react-router-dom';
@@ -11,7 +11,6 @@ function Product(product) {
   const headers = useMemo(() => ({
     'Authorization': window.localStorage.getItem("token")
   }), [])
-  console.log("product", product)
   const deleteProduct = () => {
     console.log(collections.server_base + product.removeLink)
     axios.delete(collections.server_base + product.removeLink, { headers })

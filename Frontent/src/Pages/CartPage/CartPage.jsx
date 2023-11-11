@@ -13,31 +13,27 @@ function CartPage() {
   const [user, setUser] = useState({})
   const [price, setPrice] = useState(0)
   const [mrp, setMrp] = useState(0)
-  const [removed,setRemoved] = useState(Date.now())
+  const [removed, setRemoved] = useState(Date.now())
   const store = useSelector((state) => (state.user))
 
   useEffect(() => {
-
-    store?.then((res) => { setUser(res) })
-    axios.get(`${collections.server_base}/cart-items/${user._id}`).then(res => setProducts(res.data.products))
-
-  }, [user,removed,store])
-
-  useEffect(() => {
-    var price = {}
-    var mrp = {}
-    if (products) {
-      for (var i = 0; i < products.length; i++) {
-        price[i] = products[i] ? Number(products[i]?.price) : 0
-        mrp[i] = products[i] ? Number(products[i]?.mrp) : 0
+    store && store.then((res) => { setUser(res) })
+    axios.get(`${collections.server_base}/cart-items/${user._id}`).then((res) => {
+      setProducts(res.data.products)
+      var price = {}
+      var mrp = {}
+      if (products) {
+        for (var i = 0; i < products.length; i++) {
+          price[i] = products[i] ? Number(products[i]?.price) : 0
+          mrp[i] = products[i] ? Number(products[i]?.mrp) : 0
+        }
+        setPrice(Object.values(price).reduce((a, b) => a + b, 0))
+        setMrp(Object.values(mrp).reduce((a, b) => a + b, 0))
       }
-      setPrice(Object.values(price).reduce((a, b) => a + b, 0))
-      setMrp(Object.values(mrp).reduce((a, b) => a + b, 0))
-    }
+    })
+  },[])
 
-  }, [products,removed,user,store])
-
-  const handleRevoveCallback = (date)=>{
+  const handleRevoveCallback = (date) => {
     setRemoved(date)
   }
 
@@ -53,9 +49,9 @@ function CartPage() {
           <div className="cart-products-container">
             {products.map((product, i) => {
               if (!product.deleted) {
-               return <Product handleDeleteCallback={handleRevoveCallback} cartItem removeLink={"/remove/cart-product?userId="+user._id+"&proId="+product._id}  {...product} key={i} />
-              }else{
-                return <Product handleDeleteCallback={handleRevoveCallback} cartItem removeLink={"/remove/cart-product?userId="+user._id+"&proId="+product?._id} deletedItem name="This Delete Was Delete from Owner" description="Please remove from cart" key={i} />
+                return <Product handleDeleteCallback={handleRevoveCallback} cartItem removeLink={"/remove/cart-product?userId=" + user._id + "&proId=" + product._id}  {...product} key={i} />
+              } else {
+                return <Product handleDeleteCallback={handleRevoveCallback} cartItem removeLink={"/remove/cart-product?userId=" + user._id + "&proId=" + product?._id} deletedItem name="This Delete Was Delete from Owner" description="Please remove from cart" key={i} />
               }
             })}
           </div>

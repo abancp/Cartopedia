@@ -17,33 +17,67 @@
 
 .UserProfilePage-main .right-top {
     width: 100%;
-    height: 1.7rem;
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
+    height: 0;
 }
 
-.UserProfilePage-main .theme-selector {
-    height: 100%;
+/* .UserProfilePage-main .theme-selector {
+     height: 100%;
     background-color: var(--secondery);
     border-radius: 15px;
     padding: 3px;
     cursor: pointer;
-}
+    position: relative;
+} */
 
-.UserProfilePage-main .theme-option {
+/* .UserProfilePage-main .theme-option {
     width: 1.3rem;
     height: 100%;
     background-color: var(--primary);
     border-radius: 15px;
-}
+    position: relative;
+} */
 
 .UserProfilePage-main .moon-svg,
 .UserProfilePage-main .sun-svg {
     color: var(--tersiory);
     margin-bottom: 0.2rem;
     margin-left: 0.2rem;
+    outline:2px solid var(--secondery);
     position: relative;
+    border-radius: 15px;    
+    left:-0.7rem;
+    top: 0.7rem;
+    padding: 2px;
+    cursor: pointer;
 }
 .UserProfilePage-main .sun-svg{
     margin-left: 0.1;
+}
+.UserProfilePage-main .right-main{
+    background-color: var(--primary-beeta);
+    height: 24.57rem;
+    width: 100%;
+}
+.UserProfilePage-main .right-bottum{
+    height: 3rem;
+    width: 100%;
+    background-color: var(--secondery);
+    display: flex;
+    padding: 0.4rem;
+    justify-content: center;
+    gap: 0.5rem;
+}
+.UserProfilePage-main .logout-btn , .UserProfilePage-main .register-company-btn{
+    border: solid 1px var(--primary);
+    background-color: transparent;
+    border-radius: 0px;
+    transition: 300ms;
+    color: var(--primary);
+}
+.UserProfilePage-main .logout-btn:hover , .UserProfilePage-main .register-company-btn:hover{
+    border: solid 1px var(--primary);
+    border-radius: 5px;
+    opacity: 0.8;
 }
