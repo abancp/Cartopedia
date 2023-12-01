@@ -1,0 +1,10 @@
+.Order-main{
+    width: 100%;
+    height: 3rem;
+    background-color: var(--primary-beeta);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 1rem;
+    color: var(--tersiory);
+}

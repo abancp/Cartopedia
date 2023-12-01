@@ -37,6 +37,10 @@ export default {
   },
   deleteCompanyProduct: (proId) => {
     db.get().collection(process.env.PRODUCTS_COLLECTION).deleteOne({ _id: new ObjectId(proId) })
-    fs.unlink('./public/product-displays/' + proId + ".jpg")
+    fs.unlink('./public/product-displays/' + proId + ".jpg", (err) => {
+      if (err) {
+        console.log('specified file not excist')
+      }
+    })
   }
 }

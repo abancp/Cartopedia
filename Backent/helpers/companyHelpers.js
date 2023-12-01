@@ -8,6 +8,8 @@ export default {
                     { email: proDetails.comapanyId },
                     { $push: { companyProducts: response.insertedId } }
                 )
+                let key = 'products.' + proDetails.category
+                await db.get().collection(process.env.CATEGORIES_COLLECTION).updateOne({ db: "categories" }, { $push: { [key]: response.insertedId+"" } })
                 await db.get().collection(process.env.DASHBOARD_COLLECTION).updateOne({ item: "dashboard" }, { $inc: { "company.products": 1 } })
                 resolve(response.insertedId)
             })
@@ -16,7 +18,7 @@ export default {
     getAllCategories: () => {
         return new Promise(async (resolve, reject) => {
             let categoryDoc = await db.get().collection(process.env.CATEGORIES_COLLECTION).find().toArray()
-            resolve(categoryDoc[0].categories)
+            resolve(categoryDoc[0]?.categories)
         })
     },
     checkCompayProduct: (product) => {
@@ -27,11 +29,11 @@ export default {
             if (await db.get().collection(process.env.PRODUCTS_COLLECTION).findOne({ name: product.productName })) productNameErr.push("  This product allready registerd  ")
 
             let productPriceErr = []
-            if (product.prodctPrice > 1000000) productPriceErr.push(" Maximum 1,000,000 ₹ ")
+            if (product.prodctPrice > 500_000) productPriceErr.push(" Maximum 500,000 ₹ ")
             if (!/^\d*$/.test(product.productPrice)) productPriceErr.push(" Invalid Price ")
             let productMrpErr = []
 
-            if (product.productMrp > 1000000) productMrpErr.push(" Maximum 1,000,000 ₹ ")
+            if (product.productMrp > 500_000) productMrpErr.push(" Maximum 500,000 ₹ ")
             if (!/^\d*$/.test(product.productMrp)) productMrpErr.push(" Invalid Price ")
             if (parseInt(product.productMrp) < parseInt(product.productPrice)) productMrpErr.push(" Mrp must be greater than your price ")
 
@@ -46,7 +48,6 @@ export default {
 
             });
             if (product.productTags.length < 15) productTagsErr.push(" Minimum 15 tags ")
-
             let productStockErr = []
             if (product.productStock < 1) productStockErr.push(" Enter a valid stock ")
             if (!/^\d*$/.test(product.productStock)) productStockErr.push(" Not a valid stock ")

@@ -28,19 +28,20 @@
 .Header .center-div {
     width: 33%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
 }
 
 .Header .right-div{
     width: 33%;
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-end;
     align-items: center;
+    gap: 1rem;
 }
 .Header .cart-icon-div{
     color: var(--primary);
-    border-radius: 10px;
+    border-radius: 3px;
     background-color: var(--secondery);
     height: fit-content;
     cursor: pointer;

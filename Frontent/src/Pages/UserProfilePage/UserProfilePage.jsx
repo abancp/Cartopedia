@@ -86,7 +86,6 @@ function UserProfilePage() {
           </div>
         </div>
       </div>
-      <UserProfile />
     </div>
   )
 }

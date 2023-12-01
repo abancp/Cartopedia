@@ -6,6 +6,7 @@ import collections from '../../configurations/collections'
 function Header(props) {
   const [userName, setUserName] = useState(null)
   const [email, setEmail] = useState(null)
+  const [userId, setUserId] = useState(null)
   const [company, setCompany] = useState(false)
   const [admin, setAdmin] = useState(false)
   const navigate = useNavigate()
@@ -21,6 +22,7 @@ function Header(props) {
         setEmail(user.email)
         setCompany(user.company)
         setAdmin(user.admin)
+        setUserId(user._id)
 
         if (user.firstName === undefined) {
           window.localStorage.clear()
@@ -60,6 +62,15 @@ function Header(props) {
 
       {/* seting right section of the header  */}
       <div className="right-div">
+        {userName &&
+          <Link to={'/orders/'+userId}>
+            <div className="cart-icon-div">
+              <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="currentColor" class="cart-svg bi bi-list-ul" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2m0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2m0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2" />
+              </svg>
+            </div>
+          </Link>
+        }
 
         {userName &&
           <Link to='/cart'>

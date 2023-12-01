@@ -6,32 +6,27 @@ import collections from '../../configurations/collections'
 import Product from '../../components/Product/Product'
 import { useSelector } from 'react-redux'
 import IndrestedProduct from '../../components/IndrestedProduct/IndrestedProduct'
+import { useNavigate } from 'react-router-dom'
 
 function CartPage() {
+  const store = useSelector((state) => (state.user))
 
   const [products, setProducts] = useState([])
   const [user, setUser] = useState({})
   const [price, setPrice] = useState(0)
-  const [mrp, setMrp] = useState(0)
   const [removed, setRemoved] = useState(Date.now())
-  const store = useSelector((state) => (state.user))
+
+  const navigate = useNavigate()
 
   useEffect(() => {
-    store && store.then((res) => { setUser(res) })
+    if (store) store.then((res) => { setUser(res) })
     axios.get(`${collections.server_base}/cart-items/${user._id}`).then((res) => {
       setProducts(res.data.products)
-      var price = {}
-      var mrp = {}
-      if (products) {
-        for (var i = 0; i < products.length; i++) {
-          price[i] = products[i] ? Number(products[i]?.price) : 0
-          mrp[i] = products[i] ? Number(products[i]?.mrp) : 0
-        }
-        setPrice(Object.values(price).reduce((a, b) => a + b, 0))
-        setMrp(Object.values(mrp).reduce((a, b) => a + b, 0))
-      }
+      setPrice(res.data.totalPrice)
+      console.log(res.data);
     })
-  },[])
+    //FIXME instant cart loading
+  }, [user, store, removed])
 
   const handleRevoveCallback = (date) => {
     setRemoved(date)
@@ -49,9 +44,9 @@ function CartPage() {
           <div className="cart-products-container">
             {products.map((product, i) => {
               if (!product.deleted) {
-                return <Product handleDeleteCallback={handleRevoveCallback} cartItem removeLink={"/remove/cart-product?userId=" + user._id + "&proId=" + product._id}  {...product} key={i} />
+                return <Product handleDeleteCallback={handleRevoveCallback} cartItem removeLink={"/cart-product?userId=" + user._id + "&proId=" + product._id}  {...product} userId={user._id} key={i} />
               } else {
-                return <Product handleDeleteCallback={handleRevoveCallback} cartItem removeLink={"/remove/cart-product?userId=" + user._id + "&proId=" + product?._id} deletedItem name="This Delete Was Delete from Owner" description="Please remove from cart" key={i} />
+                return <Product handleDeleteCallback={handleRevoveCallback} cartItem removeLink={"/cart-product?userId=" + user._id + "&proId=" + product?._id} deletedItem name="This Delete Was Delete from Owner" description="Please remove from cart" key={i} />
               }
             })}
           </div>
@@ -59,12 +54,10 @@ function CartPage() {
             <div className="cart-order-container">
               <h4>Your cart ({products?.length})</h4>
               <hr />
-              <h5 > Total Price : ₹ <strike className='total-mrp-strike' >{mrp}</strike>/-</h5>
-              <h5> Discount : {100 - (Math.round((parseInt(price) * 100) / parseInt(mrp)))} % </h5>
-              <h5>Our price : ₹ {price}/-</h5>
+              <h5>Total price : ₹ {price}/-</h5>
               <hr />
               <div className="cart-controls-div">
-                <div className="place-order-bottun"><h5>Place Order</h5></div>
+                <div className="place-order-bottun" onClick={() => navigate('/place-order/cart')}  ><h5>Place Order</h5></div>
               </div>
             </div>
             <div className="cart-relative-products-div">
@@ -74,6 +67,7 @@ function CartPage() {
                 ))
               }
             </div>
+
           </div>
         </div>
       </div>

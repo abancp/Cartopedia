@@ -24,10 +24,9 @@ router.get("/products/all/:skip",(req,res)=>{
     })
 })
 
-router.delete("/delete/company-product/:id",(req,res)=>{
-    const {id} = req.params
-    adminFunctions.deleteCompanyProduct(id)
-    console.log(id)
+router.delete("/company-product/",(req,res)=>{
+    const {proId} = req.query
+    adminFunctions.deleteCompanyProduct(proId)
     res.status(200)
 })
 

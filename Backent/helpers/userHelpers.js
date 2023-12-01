@@ -4,6 +4,8 @@ import { ObjectId } from "mongodb";
 import levenshtein from "fast-levenshtein";
 import db from "../configuration/mongodb.js";
 import mailer from "../configuration/nodemailer.js";
+import instance from '../configuration/razorpay.js';
+import { nanoid } from 'nanoid';
 
 export default {
     getRandomCoverPicture: () => {
@@ -89,7 +91,7 @@ export default {
         })
     },
     getEmailOtp: async (email, otp) => {
-        console.log("otp-",otp)
+        console.log("otp-", otp)
         let mailDetails = {
             from: 'cartopediaa@gmail.com',
             to: email,
@@ -278,49 +280,123 @@ export default {
     addToCart: (proId, count, userId) => {
         count = Number(count)
         return new Promise(async (resolve, reject) => {
-            const cart = await db.get().collection(process.env.CART_COLLECTION).findOne({ userId })
+            let cart = await db.get().collection(process.env.CART_COLLECTION).findOne({ userId })
+            const product = await db.get().collection(process.env.PRODUCTS_COLLECTION).findOne({ _id: new ObjectId(proId) })
+            const price = Number(product.price)
             let productCount
             const key = "cartItems." + proId
             const setingObj = {}
             if (!cart) {
-                await db.get().collection(process.env.CART_COLLECTION).insertOne({ userId, cartItems: {} })
+                await db.get().collection(process.env.CART_COLLECTION).insertOne({ userId, cartItems: {}, totalPrice: 0 })
+                cart = await db.get().collection(process.env.CART_COLLECTION).findOne({ userId })
             }
-            if (cart?.cartItems) productCount = cart?.cartItems[proId]
-            if (productCount) {
-                setingObj[key] = productCount + count
+            const totalPrice = (price * count)
+            if (cart.totalPrice + totalPrice > 499_999) {
+                reject({ cartPriceLimitErr: true })
             } else {
-                setingObj[key] = count
+                if (cart.cartItems) productCount = cart.cartItems[proId]
+                if (productCount) {
+                    setingObj[key] = productCount + count
+                } else {
+                    setingObj[key] = count
+                }
+                db.get().collection(process.env.CART_COLLECTION).updateOne({ userId }, {
+                    $set: setingObj,
+                    $inc: { "totalPrice": Number(totalPrice) }
+                })
+                resolve({ ok: 'ok' })
             }
-            db.get().collection(process.env.CART_COLLECTION).updateOne({ userId }, {
-                $set: setingObj
-            })
-            resolve({ ok: 'ok' })
         })
     },
     getCartProducts: (userId) => {
         return new Promise(async (resolve, reject) => {
             const cart = await db.get().collection(process.env.CART_COLLECTION).findOne({ userId })
             var products;
+            var totalPrice = cart?.totalPrice;
             if (cart) {
                 const productIds = Object.keys(cart.cartItems)
                 products = []
                 for (var i = 0; i < productIds.length; i++) {
                     let product = await db.get().collection(process.env.PRODUCTS_COLLECTION).findOne({ _id: new ObjectId(productIds[i]) })
-                    let resProduct = product ? product: {_id:productIds[i],deleted:true}
+                    let resProduct = product ? product : { _id: productIds[i], deleted: true, price: 0 }
+                    resProduct.count = cart.cartItems[resProduct._id]
                     products.push(resProduct)
                 }
             } else {
-                resolve([])
+                resolve([[], 0])
             }
-            resolve(products)
+            resolve([products, totalPrice])
         })
     },
-    removeCartProduct:(userId,proId)=>{
-        let key = "cartItems."+proId
-        db.get().collection(process.env.CART_COLLECTION).updateOne({userId},{
-            "$unset":{
-                [key]:1
+    removeCartProduct: async (userId, proId) => {
+        let key = "cartItems." + proId
+        let product = await db.get().collection(process.env.PRODUCTS_COLLECTION).findOne({ _id: new ObjectId(proId) })
+        let { cartItems } = await db.get().collection(process.env.CART_COLLECTION).findOne({ userId })
+        let count = cartItems[proId]
+        let price = product?.price * count
+        db.get().collection(process.env.CART_COLLECTION).updateOne({ userId }, {
+            "$unset": { [key]: 1 },
+            "$inc": { totalPrice: -price }
+        })
+
+
+
+    },
+    placeOrderCart: (userId, address, pay) => {
+        return new Promise(async (resolve, reject) => {
+            let cart = await db.get().collection(process.env.CART_COLLECTION).findOne({ userId })
+            if (cart) {
+                db.get().collection(process.env.ORDER_COLLECTION).insertOne({
+                    userId,
+                    products: cart.cartItems,
+                    totalPrice: Number(cart.totalPrice),
+                    orderDate: Date.now(),
+                    payment: "pending",
+                    address: address,
+                    delivery: 'not started'
+                }).then((res) => {
+                    if (pay !== 'COD') {
+                        let options = {
+                            amount: cart.totalPrice * 100,
+                            currency: "INR",
+                            receipt: "" + res.insertedId
+                        }
+                        instance.orders.create(options, function (err, order) {
+                            db.get().collection(process.env.ORDER_COLLECTION).updateOne({ _id: new ObjectId(res.insertedId) }, {
+                                $set: { orderId: order.id }
+                            })
+                            resolve({ orderId: order.id, price: Number(cart.totalPrice) * 100 })
+                        })
+                    } else {
+                        let orderId = 'cod' + nanoid(9)
+                        db.get().collection(process.env.ORDER_COLLECTION).updateOne({ _id: new ObjectId(res.insertedId) }, {
+                            $set: { 'orderId': orderId }
+                        })
+                        resolve({ orderId, price: Number(cart.totalPrice) * 100 })
+                    }
+                })
+
             }
+        })
+    },
+    paymentSuccess: (orderId) => {
+        return new Promise((resolve, reject) => {
+            db.get().collection(process.env.ORDER_COLLECTION).updateOne({ orderId }, {
+                $set: { payment: 'success' }
+            })
+            resolve()
+        })
+    },
+    clearCart: (userId) => {
+        return new Promise((resolve, reject) => {
+            db.get().collection(process.env.CART_COLLECTION).deleteOne({ userId })
+        })
+    },
+    getOrders: (userId) => {
+        return new Promise(async (resolve, reject) => {
+            const orders = await db.get().collection(process.env.ORDER_COLLECTION).find({ userId }).toArray()
+            console.log(orders);
+            resolve(orders)
         })
     }
 }

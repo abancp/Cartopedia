@@ -1,46 +1,23 @@
-.Button{
+.Button {
     width: fit-content;
 }
 
-
-.Button .button-main{
-   background-color: var(--secondery); 
-   border-radius: 6px;
-   display: flex;
-   justify-content:center;
-   align-items: center;
-   box-shadow: var(--bs-primary);
-   padding: 2px;
-   cursor: pointer;
-   transition: 400ms;
-}
-.Button .button-main:hover{
-    box-shadow: var(--bs-primary);
-}
-
-.Button .button-text{
-    color: white;
-    padding-bottom: 2px;
-    margin: 0;
-    margin-right: 3px;
-}
-
-.Button .button-circle{
-    height: 17px;
-    width: 17px;
-    border-radius: 100%;
-    background-color: var(--primary);
-    margin: 3px;
-    box-shadow: var(--bs-primary);
+.Button .button-main {
+    background-color: var(--secondery);
+    border-radius: 2px;
     display: flex;
     justify-content: center;
     align-items: center;
-    outline: var(--tersiory) solid 3px;
-    margin-right: 6px;
+    /* box-shadow: var(--bs-primary); */
+    padding: 4px;
+    cursor: pointer;
+    transition: 400ms;
+    padding-left: 8px;
 }
 
-.Button .button-icon{
-    margin-right: 1px ;
-    margin-bottom: 3px;
-    color: rgb(168, 115, 115);
+.Button .button-text {
+    color: var(--primary);
+    margin: 0;
+    margin-right: 3px;
+    font-size: large;
 }

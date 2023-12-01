@@ -16,7 +16,7 @@ function ProductDetailed() {
 
     const store = useSelector((state) => (state.user))
     const [userId, setUserId] = useState(store?.then((user) => (user._id)))
-
+    //TODO : showing detaild images 
     useEffect(() => {
         axios.get(collections.server_base + '/product/' + id).then((res) => setProduct(res.data))
         setImages(['/product-displays/' + id + '.jpg'])
@@ -33,7 +33,11 @@ function ProductDetailed() {
 
     const handleClickAddToCart = () => {
         axios.patch(`${collections.server_base}/add-to-cart/${id}/${1}/${userId}`).then((res) => {
-            alert("Iterm added to Cart")
+            if (res.data.cartPriceLimitErr) {
+                alert("Maximum 500,000 rupees in cart")
+            } else {
+                alert("Iterm added to Cart")
+            }
         })
     }
 

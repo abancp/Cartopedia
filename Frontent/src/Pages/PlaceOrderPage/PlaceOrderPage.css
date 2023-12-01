@@ -1,0 +1,99 @@
+.PlaceOrderPage-main {
+    width: 100%;
+    min-height: 100vh;
+    max-height: max-content;
+    background-color: var(--primary);
+    padding-top: 4rem;
+    display: flex;
+    padding-right: 5rem;
+}
+
+.PlaceOrderPage-main .right {
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 3rem;
+}
+
+.PlaceOrderPage-main .place-order-adress-textarea {
+    width: 70%;
+    height: 10rem;
+    margin: 0;
+    background-color: var(--tersiory);
+    font-size: large;
+    border-radius: 5px;
+    font-weight: 600;
+    min-height: 2.5rem;
+    padding: 5px;
+    transition: 200ms;
+    border: 0;
+    outline: 0;
+}
+.PlaceOrderPage-main .place-order-adress-textarea:hover{
+    border: 0;
+    outline: 0;
+}
+.PlaceOrderPage-main .left{
+    width: 30%;
+    height: 100%;
+    padding: 2rem;
+    padding-top: 3rem;
+}
+.PlaceOrderPage-main  .payment-selecting-div{
+    width: 100%;
+    min-height: 10rem;
+    max-height: fit-content;
+    border-radius: 5px;
+    background-color: var(--primary-beeta);
+    align-items: flex-start;
+    display: flex;
+    padding: 0.3rem;
+    flex-direction: column;
+}
+.PlaceOrderPage-main .payment-method-h3{
+    color: var(--secondery);
+    align-self: center;
+    padding: 0.3rem;
+}
+.PlaceOrderPage-main .hr-tersiory{
+    color: var(--tersiory);
+    width: 100%;
+    margin: 0;
+}
+.PlaceOrderPage-main  .pay-options{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    color: var(--tersiory);
+}
+.PlaceOrderPage-main  .COD-div{
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 1rem;
+    padding-top: 1rem;
+}
+.PlaceOrderPage-main  .Online-div{
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 1rem;
+}
+.PlaceOrderPage-main  .place-order-bottun {
+    background-color: var(--secondery);
+    border-radius: 7px;
+    width: 90%;
+    height: 2rem;
+    color: var(--primary);
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 300ms;
+    align-self: center;
+    margin-top: 0.2rem;
+    opacity: 0.8;
+}
+.PlaceOrderPage-main  .place-order-bottun:hover{
+    opacity: 1;
+}

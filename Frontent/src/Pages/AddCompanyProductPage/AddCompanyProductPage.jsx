@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import "./AddCompanyProductPage.css"
 import axios from "axios"
 import Popup from '../../components/Popup/Popup'
@@ -49,9 +49,9 @@ function AddCompanyProductPage() {
     if (store) {
       store.then((user) => {
         setCompanyMail(user.email)
-        if(user.companyDetails === undefined ){
+        if (user.companyDetails === undefined) {
           navigate("/")
-        }else{
+        } else {
           setShowBlock(false)
           setCompanyName(user.companyDetails.companyName)
           setCompanySite(user.companyDetails.website)
@@ -140,7 +140,7 @@ function AddCompanyProductPage() {
           <CompanyInput value={productMrp} error={productMrpErr} onChange={(e) => { setProductMrp(e.target.value) }} width="34.8rem" type="text" placeholder="Maximum Retail Price ( in Rupees '₹' ) [ Max 1,000,000 ₹ ] " />
         </div>
         <div className="product-main">
-          <select value={productCategory} style={{'color':productCategory !== '0' ? 'var(--primary)':'var(--secondery)' }} onChange={(e) => {  setProductCategory(e.target.value) }} className='category-selector'  >
+          <select value={productCategory} style={{ 'color': productCategory !== '0' ? 'var(--primary)' : 'var(--secondery)' }} onChange={(e) => { setProductCategory(e.target.value) }} className='category-selector'  >
             <option style={{ "color": 'var(--secondery)' }} value="0" className='select'>Category ( Select One )</option>
             {
               categories.map((category, i) => (
@@ -167,7 +167,7 @@ function AddCompanyProductPage() {
               <section>
                 <div className='dropzone' {...getRootProps()}>
                   <input   {...getInputProps()} />
-                  <h6 className='dropzon-placeholder' style={{'color':photo ? 'var(--primary)' : 'var(--secondery)'}} >{`${photo ? photo.name : "Display Photo Browse or Drop ( one image )"}`}</h6>
+                  <h6 className='dropzon-placeholder' style={{ 'color': photo ? 'var(--primary)' : 'var(--secondery)' }} >{`${photo ? photo.name : "Display Photo Browse or Drop ( one image )"}`}</h6>
                 </div>
               </section>
             )}
@@ -178,7 +178,7 @@ function AddCompanyProductPage() {
                 <div className='dropzone' {...getRootProps()}>
                   <input  {...getInputProps()} />
 
-                  <h6 className='dropzon-placeholder' style={{'color':detailedPhotos.length === 0 ? 'var(--secondery)' : 'var(--primary)'}} >{`${detailedPhotos.length === 0 ? "Detailed Photos Browse or Drop ( Maximum 10 images )" : detailedPhotosLength <= 10 ? `You can put here  ${10 - detailedPhotosLength}  More` : "Not accept more images ( 10 Images added )"}`}</h6>
+                  <h6 className='dropzon-placeholder' style={{ 'color': detailedPhotos.length === 0 ? 'var(--secondery)' : 'var(--primary)' }} >{`${detailedPhotos.length === 0 ? "Detailed Photos Browse or Drop ( Maximum 10 images )" : detailedPhotosLength <= 10 ? `You can put here  ${10 - detailedPhotosLength}  More` : "Not accept more images ( 10 Images added )"}`}</h6>
                 </div>
               </section>
             )}

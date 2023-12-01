@@ -20,14 +20,14 @@ function AllProducts() {
     axios.get(collections.server_base + "/admin/products/all/" + 0, { headers }).then((res) => {
       setProducts(res.data.products)
     })
-  }, [deleted])
+  }, [deleted,headers])
 
   return (
 
     <div className='AllProducts-main'>
       {
         products?.map((product, i) => (
-          <Product removeLink={'/admin/delete/company-product/' + product._id} allProductForAdminPanel key={i} {...product} handleDeleteCallback={handleDeleteCallback} />
+          <Product removeLink={'/admin/company-product?proId=' + product._id} allProductForAdminPanel key={i} {...product} handleDeleteCallback={handleDeleteCallback} />
         ))
       }
     </div>

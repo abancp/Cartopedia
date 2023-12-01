@@ -5,6 +5,7 @@ import getUserDetails from "../authuntication/getUserDetails.js";
 import userFunctions from "../helpers/userHelpers.js";
 import verifyToken from "../middeleware/verifytoken.js";
 import fs from 'fs';
+import { createHmac } from "crypto";
 
 const router = express.Router();
 
@@ -81,7 +82,6 @@ router.post("/requset-add-company", (req, res) => {
 })
 
 router.post("/submit-otp", (req, res) => {
-    console.log("wefiohoqwfqwqwefqweqwwe")
     let { email, otp } = req.body
     userFunctions.submitEmailOtp(email, otp).then((response) => {
         res.json({ verify: response })
@@ -93,7 +93,6 @@ router.post("/submit-otp", (req, res) => {
 
 router.get("/search/:searchedLine/:email", (req, res) => {
     userFunctions.searchProduct(req.params.searchedLine, req.params.email).then((result) => {
-        console.log(result)
         res.json(result)
     })
 })
@@ -112,23 +111,62 @@ router.get("/product-details/folder-size/:id", (req, res) => {
     })
 })
 
+router.get("/cart-items/:userId", (req, res) => {
+    const { userId } = req.params
+    if (userId) {
+        userFunctions.getCartProducts(userId).then(([products, totalPrice]) => {
+            console.log(totalPrice);
+            res.json({ products, totalPrice })
+        })
+    } else {
+        res.json({ products: [{ useridnotPrvided: "undefined" }] })
+    }
+})
+
 router.patch("/add-to-cart/:proId/:count/:userId", (req, res) => {
     const { proId, count, userId } = req.params
     userFunctions.addToCart(proId, count, userId).then((ok) => {
         res.json(ok)
+    }).catch((err) => {
+        res.json(err)
     })
 })
 
-router.get("/cart-items/:userId",(req,res)=>{
-    const {userId} = req.params
-    userFunctions.getCartProducts(userId).then((products)=>{
-        res.json({products:products})
+router.delete("/cart-product", (req, res) => {
+    const { userId, proId } = req.query
+    userFunctions.removeCartProduct(userId, proId)
+    res.json({ ok: "ok" })
+})
+
+router.post("/place-order/cart", (req, res) => {
+    const { userId, address, payMethode } = req.body
+    console.log({ userId, address, payMethode })
+    userFunctions.placeOrderCart(userId, address, payMethode).then((order) => {
+        userFunctions.clearCart(userId)
+        res.json({ orderId: order.orderId, totalPrice: order.price })
     })
 })
 
-router.delete("/remove/cart-product",(req,res)=>{
-    const {userId,proId} = req.query
-    userFunctions.removeCartProduct(userId,proId)
-    res.json({ok:"ok"})
+router.post("/verify-payment", (req, res) => {
+    const { payment } = req.body
+    console.log(req.body)
+    let hmac = createHmac('sha256', 'EYKX7BDf58oQBqEjreQYuUPD')
+    hmac.update(payment.razorpay_order_id + '|' + payment.razorpay_payment_id)
+    hmac = hmac.digest('hex')
+    if (hmac === payment.razorpay_signature) {
+        userFunctions.paymentSuccess(payment.razorpay_order_id)
+        res.status(200)
+    } else {
+        res.status(402)
+    }
 })
+
+router.get("/orders",verifyToken, (req, res) => {
+    const {userId} = req.query
+    userFunctions.getOrders(userId).then((orders)=>{
+        console.log(orders);
+        res.json({orders})
+    })
+})
+
 export default router;

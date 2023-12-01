@@ -5,7 +5,7 @@ import collections from "../../configurations/collections"
 import { useSelector } from "react-redux"
 import { useNavigate } from 'react-router-dom'
 
-function VerifyAccount(props) {
+function VerifyAccount() {
     const [otp, setOtp] = useState(null)
     const [email, setEmail] = useState(null)
     const [timer, setTimer] = useState(60)
@@ -51,7 +51,7 @@ function VerifyAccount(props) {
                         {otpErr && validTime ? <p className='verifyaccount-error-p'>otp not match,please try again</p> : ""}
                         {timeErr && validTime ? <p className='verifyaccount-error-p' >time out error,please click resent otp</p> : ""}
                         {validTime ? <input onChange={(e) => { setOtp(e.target.value) }} className='verifyaccount-otp-input' type="number" /> : ""}
-                        {validTime ? <button onClick={handleSubmit} className='btn verifyaccount-submit-btn'>submit</button> : ""}
+                        {validTime ? <button onClick={handleSubmit} className='verifyaccount-submit-btn'>submit</button> : ""}
                     </div>
                 </div>
             </div>
