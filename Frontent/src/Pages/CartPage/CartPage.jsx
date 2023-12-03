@@ -12,21 +12,21 @@ function CartPage() {
   const store = useSelector((state) => (state.user))
 
   const [products, setProducts] = useState([])
-  const [user, setUser] = useState({})
+  const [userId, setUserIduserId] = useState({})
   const [price, setPrice] = useState(0)
   const [removed, setRemoved] = useState(Date.now())
 
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (store) store.then((res) => { setUser(res) })
-    axios.get(`${collections.server_base}/cart-items/${user._id}`).then((res) => {
+    if (store) store.then((res) => { setUserIduserId(res._id) })
+    axios.get(`${collections.server_base}/cart-items/${userId}`).then((res) => {
       setProducts(res.data.products)
       setPrice(res.data.totalPrice)
       console.log(res.data);
     })
     //FIXME instant cart loading
-  }, [user, store, removed])
+  }, [userId, store, removed])
 
   const handleRevoveCallback = (date) => {
     setRemoved(date)
@@ -44,9 +44,9 @@ function CartPage() {
           <div className="cart-products-container">
             {products.map((product, i) => {
               if (!product.deleted) {
-                return <Product handleDeleteCallback={handleRevoveCallback} cartItem removeLink={"/cart-product?userId=" + user._id + "&proId=" + product._id}  {...product} userId={user._id} key={i} />
+                return <Product handleDeleteCallback={handleRevoveCallback} cartItem removeLink={"/cart-product?userId=" + userId + "&proId=" + product._id}  {...product} userId={userId} key={i} />
               } else {
-                return <Product handleDeleteCallback={handleRevoveCallback} cartItem removeLink={"/cart-product?userId=" + user._id + "&proId=" + product?._id} deletedItem name="This Delete Was Delete from Owner" description="Please remove from cart" key={i} />
+                return <Product handleDeleteCallback={handleRevoveCallback} cartItem removeLink={"/cart-product?userId=" + userId + "&proId=" + product?._id} deletedItem name="This Delete Was Delete from Owner" description="Please remove from cart" key={i} />
               }
             })}
           </div>

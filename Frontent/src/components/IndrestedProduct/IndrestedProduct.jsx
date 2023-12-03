@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 function IndrestedProduct(props) {
   return (
     <div className='IndrustedProduct'>
-      <Link className='text-decoration-none' to={'/product/'+props.indrestedItem?._id} >
-        <div className={`main ${props.indrested ? "" : "margin-1rem"}`} >
+      <Link className='text-decoration-none' to={'/product/' + props.indrestedItem?._id} >
+        <div style={{ "width": props.width ? props.width : "250px" }} className={`main ${props.indrested ? "" : "margin-1rem"}`} >
           <div className="product-image-div">
             <img className='image' src={`${collections.server_base}/product-displays/${props.indrestedItem?._id}.jpg`} alt="" />
           </div>

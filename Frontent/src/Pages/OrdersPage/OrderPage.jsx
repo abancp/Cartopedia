@@ -11,12 +11,13 @@ function OrderPage() {
     const { userId } = useParams()
 
     const [orders, setOrders] = useState([])
+    const [products, setProducts] = useState([])
 
 
     useEffect(() => {
         axios.get(collections.server_base + '/orders?userId=' + userId).then((res) => {
             setOrders(res.data.orders)
-            console.log(orders)
+            setProducts(res.data.products)
         })
     }, [])
 
@@ -25,7 +26,7 @@ function OrderPage() {
             <Header />
             <div className="main">
                 {orders.map((order, i) => (
-                    <Order {...order} key={i} />
+                    <Order {...order} products={products[i]} key={i} />
                 ))}
             </div>
         </div>

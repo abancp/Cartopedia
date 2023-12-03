@@ -394,9 +394,21 @@ export default {
     },
     getOrders: (userId) => {
         return new Promise(async (resolve, reject) => {
-            const orders = await db.get().collection(process.env.ORDER_COLLECTION).find({ userId }).toArray()
-            console.log(orders);
-            resolve(orders)
+            const orders = await db.get().collection(process.env.ORDER_COLLECTION).find({ userId }).sort({ _id: 1 }).limit(10).toArray()
+            var orderProducts = []
+            for (var j = 0; j < orders.length; j++) {
+                var products;
+                const productIds = Object.keys(orders[j].products)
+                products = []
+                for (var i = 0; i < productIds.length; i++) {
+                    let product = await db.get().collection(process.env.PRODUCTS_COLLECTION).findOne({ _id: new ObjectId(productIds[i]) })
+                    let resProduct = product ? product : { _id: productIds[i], deleted: true, price: 0 }
+                    resProduct.count = orders[j].products[resProduct._id]
+                    products.push(resProduct)
+                }
+                orderProducts.push(products)
+            }
+            resolve([orders, orderProducts])
         })
     }
 }

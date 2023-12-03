@@ -161,11 +161,11 @@ router.post("/verify-payment", (req, res) => {
     }
 })
 
-router.get("/orders",verifyToken, (req, res) => {
+router.get("/orders", (req, res) => {
     const {userId} = req.query
-    userFunctions.getOrders(userId).then((orders)=>{
-        console.log(orders);
-        res.json({orders})
+    userFunctions.getOrders(userId).then(([orders,products])=>{
+        console.log(orders,products);
+        res.json({orders,products})
     })
 })
 
