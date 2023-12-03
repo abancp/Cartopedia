@@ -1,0 +1,23 @@
+.Button {
+    width: fit-content;
+}
+
+.Button .button-main {
+    background-color: var(--secondery);
+    border-radius: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* box-shadow: var(--bs-primary); */
+    padding: 4px;
+    cursor: pointer;
+    transition: 400ms;
+    padding-left: 8px;
+}
+
+.Button .button-text {
+    color: var(--primary);
+    margin: 0;
+    margin-right: 3px;
+    font-size: medium;
+}

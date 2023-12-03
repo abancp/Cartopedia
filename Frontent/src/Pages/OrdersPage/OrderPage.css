@@ -1,0 +1,13 @@
+.OrderPage {
+    width: 100%;
+    background-color: var(--primary);
+    min-height: 100vh;
+    max-height: max-content;
+}
+
+.OrderPage .main {
+    margin-top: 42px;
+    width: 100%;
+    background-color: var(--primary);
+    padding: 3rem;
+}

@@ -1,0 +1,67 @@
+.UserProfileLeft{
+    width: 30%;
+    height: 27rem;
+    background-color: var(--primary-beeta);
+}
+.UserProfileLeft .editbutten-div{
+    position: relative;
+}
+.UserProfileLeft .user-profile-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    transition: 300ms;
+}
+
+.UserProfileLeft .user-profile-img {
+    height: 8rem;
+    width: 8rem;
+    object-fit: cover;
+    clip-path: circle();
+    cursor: pointer;
+    transition: 300ms;
+    margin-top: 1rem;
+}
+
+.UserProfileLeft .user-details-div {
+    text-align: center;
+    color: var(--tersiory);
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.UserProfileLeft .user-name-h3 {
+    font-weight: 600;
+    color: var(--secondery);
+}
+
+.UserProfileLeft .user-username-h5 {
+    opacity: 0.9;
+}
+
+.UserProfileLeft .user-security-details-div {
+    background-color: var(--secondery);
+    width: 100%;
+    height: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0;
+}
+
+.UserProfileLeft .verify-email {
+    color: var(--primary);
+    margin-bottom: 0.3rem;
+}
+
+.UserProfileLeft .user-id-h6 {
+    color: var(--primary);
+    margin-bottom: 0;
+}
+
+.UserProfileLeft .verify-now-link {
+    color: var(--link-color);
+}

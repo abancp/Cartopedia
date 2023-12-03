@@ -1,0 +1,9 @@
+.SearchResultPage{
+    background-color: var(--primary);
+    min-height: 100vh;
+    max-height: max-content;
+}
+.SearchResultPage .search-result-container{
+    height: 100%;
+    padding-top: 4rem;
+}

@@ -1,0 +1,17 @@
+.Previews {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.Previews .home-preview-profile-img {
+    height: 6.3rem;
+    width: 6.3rem;
+    object-fit: cover;
+    clip-path: circle();
+}
+.Previews .preview-user-profile-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

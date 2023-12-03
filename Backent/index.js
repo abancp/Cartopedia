@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import cors from "cors";
@@ -53,4 +54,17 @@ app.use((req, res) => res.status(404));
 
 app.listen(process.env.PORT, () => console.log("Server Started : ",process.env.PORT));
 
+=======
+import express from 'express';
+import router from './routes/index.router.js';
+import configuration from './configuration/index.configarations.js';
+
+const app = express();
+
+configuration(app)
+router(app)
+
+app.listen(process.env.PORT, () => console.log("Server Started : ", parseInt(process.env.PORT)));
+
+>>>>>>> update
 export default app;

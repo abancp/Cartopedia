@@ -1,0 +1,67 @@
+.IndrustedProduct .main{
+    border-radius: 1px;
+    /* box-shadow: var(--bs-primary); */
+    width: 250px;
+    /* background-image:linear-gradient(var(--secondery),var(--primary)); */
+    background-color: var(--primary-beeta);
+    height: 300px;
+    padding: 0.25rem;
+}
+.IndrustedProduct .product-image-div{
+    background-color: transparent;
+    width: 100%;
+    height: 240px;
+    border-radius: 1px;
+    /* box-shadow: var(--bs-primary); */
+}
+
+.IndrustedProduct .image{
+    object-fit:contain ;
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+}
+
+.IndrustedProduct .details{
+    margin-top: 0.3rem;
+    text-align: center;
+}
+
+.IndrustedProduct .name{
+    color: var(--tersiory);
+    font-family:Verdana, Geneva, Tahoma, sans-serif ;
+    font-size: 400;
+    overflow: hidden;
+    height: 20px;
+}
+.IndrustedProduct .cartopedia-price{
+    color: lime;
+    font-size: 15px;
+}
+
+.IndrustedProduct .mrp{
+    color: red;
+    text-decoration: line-through;
+    font-size: 15px;
+}
+.IndrustedProduct .offer{
+    color: var(--tersiory);
+    font-size: 15px;
+}
+
+
+.IndrustedProduct .end-items{
+    margin-top: 0.3rem;
+    display: flex;
+    gap: 0.3rem;
+}
+
+.IndrustedProduct .company{
+    color: var(--tersiory);
+}
+.IndrustedProduct .trending{
+    color: blueviolet;
+}
+.margin-1rem{
+    margin: 1rem;
+}

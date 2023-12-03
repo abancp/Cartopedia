@@ -1,0 +1,22 @@
+.CompanyMiniView .companyMiniView-main{
+    /* border-radius: solid var(--secondery); */
+    width: 100%;
+    height: 4rem;
+    box-shadow: var(--bs-secodery);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: var(--primary-beeta);
+}
+.CompanyMiniView .companyMiniview-profile-img{
+    width:2.7rem;
+    height: 2.7rem;
+    clip-path: circle();
+    object-fit: cover;
+}
+.CompanyMiniView .companyMiniView-details{
+    width: 80%;
+}
+.CompanyMiniView .company-name{
+    color: var(--tersiory);
+}

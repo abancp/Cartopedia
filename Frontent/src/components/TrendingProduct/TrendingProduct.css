@@ -1,0 +1,33 @@
+.TrendingProduct{
+    box-shadow: var(--bs-primary);
+    margin: 1rem;
+}
+.TrendingProduct .main{
+    width: 330px;
+    height: 400px;
+    background-color: var(--primary);
+    border-radius: 4px;
+}
+.TrendingProduct .image{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 190px;
+}
+.TrendingProduct .display{
+    width: 95%;
+    margin-right: 1px;
+    box-shadow: var(--bs-primary);
+    border-radius: 4px;
+    margin-bottom:.9rem ;
+}
+.TrendingProduct .product-details{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.TrendingProduct .name{
+    color: white;
+}

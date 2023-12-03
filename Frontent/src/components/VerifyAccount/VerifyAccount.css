@@ -1,0 +1,71 @@
+.verifyaccount{
+    background-color: var(--primary);
+    height: 100vh;
+    width: 100%;
+}
+.verifyaccount-main-div{
+    box-shadow:var(--bs-primary);
+    border-radius: 4px;
+    /* border: solid 1px var(--secondery); */
+    height: 15.5rem;
+    margin-top: 10rem;
+    padding: 1rem;
+    padding-top: 3px;
+    align-items: center;
+    background-color: var(--primary-beeta);
+    color: var(--tersiory);
+}
+::-webkit-inner-spin-button{
+    display: none;
+}
+.verifyaccount-otp-input{
+    font-size: 27px;
+    width: 10rem;
+    text-align: center;
+    padding: 0;
+    border: 0;
+    border-bottom: 1px solid var(--secondery);
+    font-weight: 700;
+    background-color: transparent;
+    color: var(--tersiory);
+}
+.verifyaccount-otp-input:focus{
+    outline: 0;
+}
+.verifyaccount-emailorphone{
+    color: var(--link-color);
+    text-decoration: underline;
+}
+.verifyaccount-timer{
+    color: darkcyan;
+}
+.verifyaccount-resent-otp{
+    color: rgb(62, 79, 228);
+    text-decoration: underline;
+    cursor: pointer;
+    margin-bottom: 0;
+}
+.verifyaccount-main-sentens{
+    margin-bottom: 2px;
+}
+.verifyaccount-submit-btn{
+    background-color: var(--secondery);
+    border: 0 ;
+    color: var(--tersiory);
+    font-weight: 500;
+    padding: 0;
+    width: 30%;
+    cursor: pointer;
+    transition: 500ms;
+    margin-top: .3rem;
+    border-radius: 3px;
+
+}
+.verifyaccount-submit-btn:hover{
+    background-color: rgb(50, 190, 190);
+    color: var(--tersiory);
+}
+.verifyaccount-error-p{
+    margin: 0;
+    color: red;
+}

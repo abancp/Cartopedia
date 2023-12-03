@@ -1,0 +1,224 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap');
+
+.Header {
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    background-color: var(--primary);
+    height: 42px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 500ms;
+    padding-left: 3rem;
+    padding-right: 2rem;
+    /* box-shadow: var(--bs-primary); */
+}
+
+.Header .left-div {
+    width: 33%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2rem;
+}
+
+.Header .center-div {
+    width: 33%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Header .right-div{
+    width: 33%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1rem;
+}
+.Header .cart-icon-div{
+    color: var(--primary);
+    border-radius: 3px;
+    background-color: var(--secondery);
+    height: fit-content;
+    cursor: pointer;
+    transition: 300ms;
+}
+.Header .cart-icon-div:hover{
+    opacity: 0.8;
+}
+.Header .cart-svg{
+    margin: 4px;
+}
+
+.Header .branding {
+    color: var(--tersiory);
+    cursor: pointer;
+    width: fit-content;
+    transition: 500ms;
+    font-size: x-large;
+}
+
+.Header .branding:hover {
+    color: var(--secondery);
+}
+
+.Header .sell {
+    color: var(--tersiory);
+    cursor: pointer;
+    width: fit-content;
+    font-size: 20px;
+    transition: 300ms;
+}
+
+.Header .sell:hover {
+    color: var(--secondery);
+}
+
+.Header .search-form {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.Header .search {
+    /* background-color: var(--tersiory); */
+    width: fit-content;
+    padding: 5px;
+    border-radius: 2px;
+    transition: 800ms;
+}
+
+.Header .search-input {
+    background-color: var(--tersiory);
+    border: 0;
+    border-radius: 2px;
+    box-sizing: border-box;
+    box-shadow: var(--bs-primary);
+    width: 10rem;
+    height: 1.6rem;
+    padding: 4px;
+    transition: 500ms;
+    color: var(--primary);
+    opacity: .91;
+}
+
+.Header .search-input:hover {
+    opacity: 1;
+    outline: 0;
+    box-shadow: var(--bs-primary);
+}
+
+.Header .search-input:focus {
+    opacity: 1;
+    outline: 0;
+    box-shadow: var(--bs-primary);
+}
+
+.Header .search-icon {
+    color: var(--tersiory);
+    width: fit-content;
+    margin-left: 2px;
+    padding: 2px;
+    cursor: pointer;
+    transition: 500ms;
+    border-radius: 4px;
+}
+
+.Header .search-icon:hover {
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2), 0 5px 15px 0 rgba(0, 0, 0, 0.19);
+    color: var(--secondery);
+}
+
+.Header .account {
+    display: flex;
+    text-decoration: none;
+    height: 2.2rem;
+    text-align: center;
+}
+
+.Header .account-loggedin-div {
+    background-color: var(--secondery);
+    margin-top: 4px;
+    margin-bottom: 4px;
+    margin-right: 4px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    box-shadow: var(--bs-primary);
+    transition: 500ms;
+    cursor: pointer;
+    color: var(--tersiory);
+    display: flex;
+    align-items: center;
+    height: 2rem;
+}
+
+.Header .profile-image {
+    width: 40px;
+    background-color: var(--secondery); 
+    margin-top: 4px;
+    margin-left: 4px;
+    margin-bottom: 4px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    height: 2rem;
+}
+
+.Header .user-profile-img {
+    object-fit: cover;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    width: 100%;
+    height: 100%;
+}
+
+.Header .account-login-div,
+.Header .account-signup-div {
+    background-color: var(--secondery);
+    margin: 4px;
+    border-radius: 2px;
+    box-shadow: var(--bs-primary);
+    transition: 500ms;
+    cursor: pointer;
+    color: var(--tersiory);
+    display: flex;
+    align-items: center;
+}
+
+.Header .account-login-div:hover,
+.Header .account-signup-div:hover {
+    background-color: var(--secondery);
+    margin: 4px;
+    border-radius: 2px;
+}
+
+.Header .account-login-h4,
+.Header .account-signup-h4 {
+    margin-top: .3rem;
+    color: var(--tersiory);
+    margin: 4px;
+    text-align: center;
+    opacity: 0.9;
+    transition: 300ms;
+}
+
+.Header .account-login-h4:hover,
+.Header .account-signup-h4:hover {
+    opacity: 1;
+}
+
+.Header .account-loginorsignup {
+    display: flex;
+}
+
+.text-decoration-none {
+    text-decoration: none;
+}
+
+.Header .search-btn {
+    border: 0;
+    background-color: transparent;
+}

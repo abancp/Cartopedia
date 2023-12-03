@@ -1,0 +1,7 @@
+.AdminHome .main{
+    margin-top: var(--header-H);
+    margin-left: 220px ;
+    width: var(100% - 220px);
+    height: calc(100vh - var(--header-H));
+    background-color: var(--primary);
+}

@@ -1,0 +1,40 @@
+.AdminListItem .adminlistitem-main{
+    border-radius: 3px;
+    background-color: rgba(var(--primary-alpha),0.6);
+    width: 95%;
+    height: 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--tersiory);
+    padding-right: 1rem;
+    transition: 100ms;
+    cursor: pointer;
+}
+.AdminListItem .adminlistitem-main:hover{
+    background-color: rgba(var(--primary-alpha),1);
+    opacity: 1;
+}
+.AdminListItem .icon-div{
+    width: 50px;
+    height: 100%;
+    background-color: var(--primary-beeta);
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
+    opacity: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.AdminListItem .icon{
+    opacity: 1;
+    color: var(--secondery);
+}
+.AdminListItem .title-div{
+    width: 80%;
+    padding-left: .7rem;
+}
+.AdminListItem .title{
+    text-align: start;
+    margin-top: .5rem;
+}
