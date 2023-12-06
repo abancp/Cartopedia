@@ -171,7 +171,7 @@ export default {
             ]).toArray()
             result.companies.push(companies)
             let totalCategories = await db.get().collection(process.env.CATEGORIES_COLLECTION).find({}).toArray()
-            totalCategories[0].categories.forEach(category => {
+            totalCategories[0]?.categories.forEach(category => {
                 for (let i = 0; i < keywords.length; i++) {
                     if ((parseFloat(Number((100 - ((levenshtein.get(category, keywords[i].toLowerCase()) / keywords[i].length) * 100)) / 100.00).toFixed(3))) > 0.85) {
                         result.categories.push(keywords[i])

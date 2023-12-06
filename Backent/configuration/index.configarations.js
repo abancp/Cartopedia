@@ -9,13 +9,13 @@ import socket from "./socket.io.js";
 
 
 export default function configuration(app) {
+    dotenv.config()
     app.use(morgan('common'));
     app.use(express.json());
     app.use(express.urlencoded({ extended: false }));
     app.use(cookieParser());
     app.use(express.static(path.resolve('./public')));
     app.use(cors());
-    dotenv.config()
     socket(4000,"SocketIO Started : ")
     db.connect((err) => err ? console.log("Mongo db Not conneted ", err) : console.log(`Mongodb Connected`))
 }

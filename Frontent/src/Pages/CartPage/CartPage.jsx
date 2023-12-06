@@ -12,21 +12,20 @@ function CartPage() {
   const store = useSelector((state) => (state.user))
 
   const [products, setProducts] = useState([])
-  const [userId, setUserIduserId] = useState({})
+  const [userId, setUserId] = useState()
   const [price, setPrice] = useState(0)
   const [removed, setRemoved] = useState(Date.now())
 
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (store) store.then((res) => { setUserIduserId(res._id) })
+    if (store) store.then((res) => { setUserId(res._id); })
     axios.get(`${collections.server_base}/cart-items/${userId}`).then((res) => {
       setProducts(res.data.products)
       setPrice(res.data.totalPrice)
-      console.log(res.data);
     })
     //FIXME instant cart loading
-  }, [userId, store, removed])
+  }, [userId, removed])
 
   const handleRevoveCallback = (date) => {
     setRemoved(date)
