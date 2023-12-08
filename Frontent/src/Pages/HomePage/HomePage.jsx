@@ -36,11 +36,13 @@ const HomePage = () => {
         <div className='cover-photo-div'>
           <img className='cover-photo' src={`${collections.server_base}/cover-photos/${coverPhotoname}`} alt="" />
         </div>
-        <IndrestedItems item={user && indrestedItem?.name ? indrestedItem : trendingProducts[0]} />
+        <div className="indrested-products-div">
+          <IndrestedItems item={user && indrestedItem?.name ? indrestedItem : trendingProducts[0]} />
+        </div>
       </div>
 
       <div className='Homepage-main-bottum'>
-        <div className='Previews'>
+        <div className='previews'>
           <Previews store={store} user={user} />
         </div>
         <div className="trending-products">

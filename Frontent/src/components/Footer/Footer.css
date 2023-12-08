@@ -1,14 +1,17 @@
 .Footer .footer-main {
-    height: 60px;
+    /* height: 60px; */
+    min-height: 60px;
+    max-height: max-content;
     background-color: var(--primary);
     box-shadow: var(--bs-primary);
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding-top: 10px;
+    padding: 10px;
+    /* border-top: var(--secondery) solid; */
 }
 
-.Footer .footer-right {
+.Footer .footer-left {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,22 +21,35 @@
 .Footer .mongodb,
 .Footer .expressjs,
 .Footer .reactjs,
-.Footer .nodejs{
+.Footer .nodejs {
     object-fit: cover;
     height: 35px;
     width: 130px;
     border-radius: 2px;
 }
 
-.Footer .author{
+.Footer .author {
     color: var(--tersiory);
     margin-top: .5rem;
     font-size: medium;
 }
-.Footer .mern{
-    height:25px;
+
+.Footer .mern {
+    height: 25px;
     width: 50px;
     object-fit: cover;
     margin-bottom: .1rem;
     margin-right: .2rem;
+}
+
+@media screen and (max-width:860px) {
+    .Footer .footer-left {
+        flex-direction: column;
+        padding-left: 1rem;
+        padding-bottom: 1rem;
+    }
+    
+    .Footer .footer-right {
+        margin-left: 1rem;
+    }
 }

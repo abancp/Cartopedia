@@ -10,7 +10,7 @@ import { createHmac } from "crypto";
 const router = express.Router();
 
 router.get("/", (req, res) => {
-    res.json({ "String": "Welcome to cartopedia Server " })
+    res.json({ "string": " Welcome to cartopedia Server " })
 });
 
 router.post("/register", register);
@@ -31,7 +31,6 @@ router.get("/check-phone-availability/:phone", (req, res) => {
 })
 
 router.get("/check-username-availability/:username", (req, res) => {
-    console.log(req.params.username)
     checkUserNameExist(req.params.username).then((userNameResponse) => {
         res.json({ username: userNameResponse })
     })
@@ -46,7 +45,9 @@ router.get("/get-cover-photo", (req, res) => {
 })
 
 router.get("/get-indrested-item/:email", (req, res) => {
-    userFunctions.getUserindrestedItem(req.params.email).then((indrestedItem) => res.json({ indrestedItem: indrestedItem }))
+    userFunctions.getUserIndrestedItem(req.params.email).then((indrestedItem) => {
+        res.json({ indrestedItem: indrestedItem })
+    })
 })
 
 router.get("/get-trending-products", ((req, res) => {
@@ -86,7 +87,6 @@ router.post("/submit-otp", (req, res) => {
     userFunctions.submitEmailOtp(email, otp).then((response) => {
         res.json({ verify: response })
     }).catch((err) => {
-        console.log(err)
         res.json({ err })
     })
 })
@@ -115,7 +115,6 @@ router.get("/cart-items/:userId", (req, res) => {
     const { userId } = req.params
     if (userId) {
         userFunctions.getCartProducts(userId).then(([products, totalPrice]) => {
-            console.log(totalPrice);
             res.json({ products, totalPrice })
         })
     } else {
@@ -140,7 +139,6 @@ router.delete("/cart-product", (req, res) => {
 
 router.post("/place-order/cart", (req, res) => {
     const { userId, address, payMethode } = req.body
-    console.log({ userId, address, payMethode })
     userFunctions.placeOrderCart(userId, address, payMethode).then((order) => {
         userFunctions.clearCart(userId)
         res.json({ orderId: order.orderId, totalPrice: order.price })
@@ -149,7 +147,6 @@ router.post("/place-order/cart", (req, res) => {
 
 router.post("/verify-payment", (req, res) => {
     const { payment } = req.body
-    console.log(req.body)
     let hmac = createHmac('sha256', 'EYKX7BDf58oQBqEjreQYuUPD')
     hmac.update(payment.razorpay_order_id + '|' + payment.razorpay_payment_id)
     hmac = hmac.digest('hex')
@@ -162,10 +159,17 @@ router.post("/verify-payment", (req, res) => {
 })
 
 router.get("/orders", (req, res) => {
-    const {userId} = req.query
-    userFunctions.getOrders(userId).then(([orders,products])=>{
-        console.log(orders,products);
-        res.json({orders,products})
+    const { userId } = req.query
+    userFunctions.getOrders(userId).then(([orders, products]) => {
+        res.json({ orders, products })
+    })
+})
+
+router.patch("/rate-product", (req, res) => {
+    const { proId, rate, userId } = req.query;
+    console.log(proId,rate,userId);
+    userFunctions.rateProduct(proId, rate, userId).then((rating) => {
+        res.json({ rating })
     })
 })
 

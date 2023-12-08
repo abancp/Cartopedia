@@ -1,0 +1,39 @@
+.RatePopup {
+    position: absolute;
+    width: 22rem;
+    height: 12rem;
+    border: solid var(--secondery) 2px;
+    border-radius: 10px;
+    margin-top: 14rem;
+    background-color: var(--primary);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    gap: 0.5rem;
+}
+
+.RatePopup .rates {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 20%;
+}
+
+.RatePopup .rate-star-h6 {
+    color: var(--secondery);
+    margin: 0;
+}
+
+.RatePopup .rate-star {
+    margin-bottom: 0.3rem;
+    margin-left: 0.2rem;
+}
+
+.RatePopup .rate-percent-h6{
+    color: var(--secondery);
+    margin: 0;
+    width: 2rem;
+}

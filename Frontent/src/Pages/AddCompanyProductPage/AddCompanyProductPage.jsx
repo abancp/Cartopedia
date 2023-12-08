@@ -96,7 +96,6 @@ function AddCompanyProductPage() {
       description: productDescription,
       numberOfDetailed: detailedPhotos.length,
       date: Date.now(),
-      trend: 0,
       comapanyId: companyMail,
       companyName: companyName,
       companySite: companySite

@@ -11,7 +11,7 @@ export default {
     getRandomCoverPicture: () => {
         return new Promise((resolve, reject) => fs.readdir("./public/cover-photos", (err, files) => err ? reject(err) : resolve(files[Math.round(Math.random() * (files.length - 1))])))
     },
-    getUserindrestedItem: (email) => {
+    getUserIndrestedItem: (email) => {
         return new Promise(async (resolve, reject) => {
             console.log(email)
             let user = await db.get().collection(process.env.USER_COLLECTION).findOne({ email: email })
@@ -37,10 +37,9 @@ export default {
     },
     getTrendingProducts: () => {
         return new Promise(async (resolve, reject) => {
-            const cursor = db.get().collection(process.env.PRODUCTS_COLLECTION).find().sort({ trend: -1 }).limit(20)
+            const cursor = await db.get().collection(process.env.PRODUCTS_COLLECTION).find().sort({ trend: -1 }).limit(20)
             let pros = []
             for await (const doc of cursor) {
-                console.dir
                 pros.push(doc)
             }
             resolve(pros)
@@ -91,7 +90,6 @@ export default {
         })
     },
     getEmailOtp: async (email, otp) => {
-        console.log("otp-", otp)
         let mailDetails = {
             from: 'cartopediaa@gmail.com',
             to: email,
@@ -124,7 +122,6 @@ export default {
     submitEmailOtp: (email, otp) => {
         return new Promise(async (resolve, reject) => {
             let user = await db.get().collection(process.env.USER_COLLECTION).findOne({ email: email })
-            console.log(await bcrypt.compare("" + otp, user.emailOtp))
             if (user.emailOtpExpareDate > Date.now()) {
                 if (await bcrypt.compare("" + otp, user.emailOtp)) {
                     db.get().collection(process.env.USER_COLLECTION).updateOne({ email: email }, {
@@ -409,6 +406,31 @@ export default {
                 orderProducts.push(products)
             }
             resolve([orders, orderProducts])
+        })
+    },
+    rateProduct: (proId, rate, userId) => {
+        rate = Number(rate)
+        return new Promise(async (resolve, reject) => {
+            const product = await db.get().collection(process.env.PRODUCTS_COLLECTION).findOne({ _id: new ObjectId(proId) })
+            const rates = product.rating.rates
+            var newRating
+            var totalValueSum = 0
+            rates[5-rate]++
+            product.rating.rates = rates
+            product.rating.totalRatings++
+            for (var i = 5; i > 0; i--) {
+                totalValueSum += rates[5 - i] * i
+            }
+            const newRate = totalValueSum / product.rating.totalRatings
+            newRating = {
+                rate: newRate,
+                totalRatings: product.rating.totalRatings,
+                rates
+            }
+            db.get().collection(process.env.PRODUCTS_COLLECTION).updateOne({ _id: new ObjectId(proId) }, {
+                $set: { rating: newRating }
+            })
+            resolve(newRating)
         })
     }
 }

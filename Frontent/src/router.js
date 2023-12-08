@@ -1,6 +1,5 @@
 import CartPage from './Pages/CartPage/CartPage'
 import HomePage from './Pages/HomePage/HomePage'
-import UsedPage from './Pages/UsedPage'
 import OrderPage from './Pages/OrdersPage/OrderPage'
 import LoginPage from './Pages/LoginPage/LoginPage'
 import AdminHome from './Pages/AdminHome/AdminHome'
@@ -19,11 +18,7 @@ export default createBrowserRouter([
   {
     path: "/",
     element: <HomePage />,
-  },
-  {
-    path: "/used",
-    element: <UsedPage />,
-  },
+  },  
   {
     path: "/login",
     element: <LoginPage />,

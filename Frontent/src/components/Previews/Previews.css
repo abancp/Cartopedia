@@ -1,16 +1,25 @@
 .Previews {
     width: 100%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
+    gap: 0.8rem;
 }
+
+@media screen and (max-width: 480px) {
+    .Previews {
+        flex-direction: column;
+    }
+}
+
 .Previews .home-preview-profile-img {
     height: 6.3rem;
     width: 6.3rem;
     object-fit: cover;
     clip-path: circle();
 }
-.Previews .preview-user-profile-div{
+
+.Previews .preview-user-profile-div {
     display: flex;
     justify-content: center;
     align-items: center;

@@ -3,6 +3,12 @@ import db from "../configuration/mongodb.js"
 export default {
     addProduct: (proDetails) => {
         return new Promise((resolve, reject) => {
+            proDetails["trend"] = 0
+            proDetails["rating"] = {
+                rate:0,
+                totalRatings:0,
+                rates:[0,0,0,0,0]
+            }
             db.get().collection(process.env.PRODUCTS_COLLECTION).insertOne(proDetails).then(async (response) => {
                 db.get().collection(process.env.USER_COLLECTION).updateOne(
                     { email: proDetails.comapanyId },

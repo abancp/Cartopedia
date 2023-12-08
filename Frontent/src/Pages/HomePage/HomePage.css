@@ -1,32 +1,37 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
 
- /*  Globel Variable Setting  */
+/*  Globel Variable Setting  */
 :root {
     --primary: hsla(218, 29%, 11%);
-    --primary-alpha:36, 47, 68;
-    --primary-beeta: rgba(0, 195, 255,0.1);
+    --primary-alpha: 36, 47, 68;
+    --primary-beeta: rgba(0, 195, 255, 0.1);
     --secondery: rgb(0, 195, 255);
     --secondery-alpha: 0, 195, 255;
-    --secondery-beeta:rgba(9, 61, 77, 0.1);
+    --secondery-beeta: rgba(9, 61, 77, 0.1);
     --tersiory: #DBE8E1;
-    --error-color:red;
-    --link-color:blue;
+    --error-color: red;
+    --link-color: blue;
     --bs-primary: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
     --h-display: calc(100vh - 50px);
-    --header-H:40px;
+    --header-H: 40px;
 }
-.text-decoration-none{
+
+.text-decoration-none {
     text-decoration: none;
 }
-.color-tersiory{
+
+.color-tersiory {
     color: var(--tersiory);
     transition: 300ms;
 }
 
-#Cartopedia{
+#Cartopedia {
     font-family: sans-serif;
 }
+
 /* Main top  */
+
+
 
 .HomePage .Homepage-main-top {
     margin-top: var(--header-H);
@@ -44,6 +49,11 @@
     justify-content: flex-end;
     align-items: center;
 }
+.HomePage .indrested-products-div {
+    width: 50%;
+}
+
+
 
 .HomePage .cover-photo {
     width: 85%;
@@ -56,8 +66,8 @@
 .HomePage .Homepage-main-bottum {
     background-color: var(--primary);
     width: 100%;
-    min-height: 50rem;
-    max-height: 65rem;
+    min-height: fit-content;
+    max-height: max-content;
 }
 
 .HomePage .trending-products {
@@ -69,6 +79,32 @@
     margin-left: 3rem;
 }
 
+.HomePage .previews{
+    overflow: scroll;
+}
+
 .HomePage ::-webkit-scrollbar {
     display: none;
+}
+
+@media screen and (max-width: 480px)  {
+    .Homepage-main-top {
+        flex-direction: column;
+        gap: 0;
+    }
+    .HomePage .cover-photo-div {
+        width: 100%;
+        height: 18rem;
+        justify-content: center;
+        align-items: end;
+    }
+    .HomePage .indrested-products-div {
+        margin-left: 2rem;
+        width: 100%;
+        display: flex;
+        align-items: start;
+    }
+    .HomePage .trending-products {
+        margin: 0;
+    }
 }
