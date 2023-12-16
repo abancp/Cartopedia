@@ -11,25 +11,22 @@ import IndrestedProduct from '../../components/IndrestedProduct/IndrestedProduct
 
 const HomePage = () => {
 
-  const [user, setUser] = useState({})
   const [indrestedItem, setIntrestedItem] = useState({})
   const [coverPhotoname, setCoverPhotoName] = useState('')
   const [trendingProducts, setTrendingProducts] = useState([{}])
 
-  const store = useSelector((state) => (state.user))
-  console.log(store)
+  const user = useSelector((state) => (state.user))
+  console.log(user)
 
   useEffect(() => {
-
     //getting user from store 
-    if (store) store.then((user) => setUser(user))
-    if (user.email) { axios.get(`${collections.server_base}/get-indrested-item/${user.email}`).then((res) => { res.data.err ? setIntrestedItem({}) : setIntrestedItem(res.data.indrestedItem) }) }
+    if (user) { axios.get(`${collections.server_base}/get-indrested-item/${user.email}`).then((res) => { res.data.err ? setIntrestedItem({}) : setIntrestedItem(res.data.indrestedItem) }) }
     //get cover photo from backent
     axios.get(collections.server_base + "/get-cover-photo").then((res) => setCoverPhotoName(res.data.coverPhotoName))
     //grtting 20 trending products from backent
     axios.get(collections.server_base + "/get-trending-products").then((res) => setTrendingProducts(res.data.products))
 
-  }, [store, user])
+  }, [user])
 
   return (
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import "./PlaceOrderPage.css"
 import Header from '../../components/Header/Header'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import collections from '../../configurations/collections'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
@@ -10,13 +10,15 @@ function PlaceOrderPage() {
     const { item } = useParams()
     const [address, setAddress] = useState('')
     const [payMethode, setPayMethode] = useState('')
-    const [user, setUser] = useState({})
 
-    const store = useSelector((s) => (s.user))
+    const navigate = useNavigate()
+    const user = useSelector((state) => (state.user))
 
     useEffect(() => {
-        if (store) store.then((user) => { setUser(user) })
-    }, [store])
+        if (!user) {
+            navigate('/')
+        }
+    }, [user])
 
     const handleClick = () => {
         order()

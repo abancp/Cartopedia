@@ -5,7 +5,9 @@ import { Provider } from 'react-redux'
 import { RouterProvider } from "react-router-dom"
 import axios from 'axios'
 import collections from './configurations/collections'
+import { createContext } from 'react'
 
+const UserContext = createContext()
 
 const Cartopedia = () => {
 
@@ -17,9 +19,11 @@ const Cartopedia = () => {
 
   return (
     <React.StrictMode>
-      <Provider store={store} >
-        <RouterProvider router={router} />
-      </Provider>
+      <UserContext.Provider value={{}}>
+        <Provider store={store} >
+          <RouterProvider router={router} />
+        </Provider>
+      </UserContext.Provider>
     </React.StrictMode>
   )
 }

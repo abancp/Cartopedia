@@ -11,9 +11,8 @@ import UserProfile from '../../components/UserProfile/UserProfile'
 function UserProfilePage() {
   //getting theme and user from store
   const storeTheme = useSelector((state) => (state.theme))
-  const store = useSelector((state) => (state.user))
+  const user = useSelector((state) => (state.user))
   //setting theme and user states
-  const [user, setUser] = useState({ firstName: "", lastName: "", userName: "", phone: "", email: "" })
   const [theme, setTheme] = useState(storeTheme)
   //getting profile type from url
   const { type } = useParams()
@@ -28,7 +27,6 @@ function UserProfilePage() {
   }
   //useEfect to gett user from promise
   useEffect(() => {
-    store && store.then((user) => { setUser(user) })
     if (!user) {
       navigate('/')
     }
@@ -38,8 +36,7 @@ function UserProfilePage() {
   // Logout function 
   const logout = () => {
     window.localStorage.clear()
-    dispatch({ type: user })
-    setUser({ firstName: "", lastName: "", userName: "", phone: "", email: "" })
+    dispatch({ type: user, payload: { user: {} } })
     navigate('/')
     window.location.reload()
   }
@@ -81,7 +78,7 @@ function UserProfilePage() {
 
           </div>
           <div className="right-bottum">
-            {!user.company && <button className='register-company-btn' onClick={() => { !user.companyPending && navigate('/register-as-company') }} >{user.companyPending?"waiting for admin response":"register as company"}</button>}
+            {!user.company && <button className='register-company-btn' onClick={() => { !user.companyPending && navigate('/register-as-company') }} >{user.companyPending ? "waiting for admin response" : "register as company"}</button>}
             <button className='logout-btn' onClick={logout} >logout</button>
           </div>
         </div>

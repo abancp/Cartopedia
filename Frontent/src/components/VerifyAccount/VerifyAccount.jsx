@@ -15,19 +15,19 @@ function VerifyAccount() {
 
     const navigate = useNavigate()
 
-    var store = useSelector((state) => (state.user))
+    var user = useSelector((state) => (state.user))
     useEffect(() => {
-        if (store) {
-            store.then((res) => {
-                setEmail(res.email)
-                if (res.company) navigate("/")
-            })
+        if (user) {
+            setEmail(user.email)
+            if (user.company) {
+                navigate("/")
+            }
         }
         for (let i = 0; i < 60; i++) {
             setTimeout(() => { setTimer(timer - 1) }, 1000)
             if (timer === 0) setValidTime(false)
         }
-    }, [timer, navigate, store])
+    }, [timer, navigate, user])
     const handleSubmit = () => {
         axios.post(collections.server_base + "/submit-otp", { email: email, otp: otp }).then((res) => {
             if (res.data.verify === true) {
