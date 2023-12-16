@@ -1,16 +1,17 @@
 import db from "../configuration/mongodb.js"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
-import socket from "../configuration/socket.io.js"
 
 const register = async (req, res) => {
+
     const { firstName, userName, lastName, phone, email, password } = req.body
+
     const user = {
-        firstName: firstName,
-        lastName: lastName,
-        userName: userName,
-        phone: phone,
-        email: email,
+        firstName,
+        lastName,
+        userName,
+        phone,
+        email,
         password: await bcrypt.hash("" + password, 10),
         theme: 'dark',
         company: false,
@@ -22,12 +23,14 @@ const register = async (req, res) => {
         indrestedItems: [],
         date: Date.now()
     }
+
     db.get().collection(process.env.USER_COLLECTION).insertOne(user).then(async (response) => {
         await db.get().collection(process.env.DASHBOARD_COLLECTION).updateOne({ item: "dashboard" }, { $inc: { users: 1 } })
-        let token = jwt.sign(user, process.env.JWT_SECRET, { expiresIn: 1000000000 })
-        res.json({ register: true, token: token, user })
-
+        let token = jwt.sign({ _id: response.insertedId, email, signedDate: Date.now() }, process.env.JWT_SECRET, { expiresIn: 60 * 60 * 24 * 365 })
+        let { password, otp, ...filterdUser } = user
+        res.json({ auth: true, token: token, user: filterdUser })
     })
+
 }
 
 export const checkEmailExist = (email) => {
