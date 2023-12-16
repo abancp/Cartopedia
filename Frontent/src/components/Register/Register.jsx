@@ -3,27 +3,27 @@ import "./Register.css";
 import Dropzone from "react-dropzone"
 import axios from 'axios';
 import collections from '../../configurations/collections';
-import {useNavigate} from "react-router-dom";
-import { useDispatch} from 'react-redux';
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux';
 
 
 function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
+
   const [acceptedFile, setAsseptedFile] = useState(null);
   const [emailErr, setEmailErr] = useState(false);
   const [passwordErr, setPasswordErr] = useState(false);
   const [userNameErr, setUserNameErr] = useState(false);
 
 
-  const handleSubmit =(e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (e.target[5].value === e.target[6].value) {
-      axios.post(collections.server_base + "/check-email-availablility", { email: e.target[3].value,userName: e.target[2].value }).then((res) => {
-        if(res.data.userName){
+      axios.post(collections.server_base + "/check-email-availablility", { email: e.target[3].value, userName: e.target[2].value }).then((res) => {
+        if (res.data.userName) {
           setUserNameErr(true);
-        }else{
+        } else {
           setUserNameErr(false);
           if (res.data.email) {
             setEmailErr(true);
@@ -33,7 +33,7 @@ function Register() {
             formData.append('email', e.target[3].value);
             formData.append('file', acceptedFile);
             axios.post(collections.server_base + "/uplaod/user-profile", formData).then((res) => {
-              let user={
+              let user = {
                 firstName: e.target[0].value,
                 lastName: e.target[1].value,
                 userName: e.target[2].value,
@@ -41,15 +41,10 @@ function Register() {
                 phone: e.target[4].value,
                 password: e.target[5].value
               }
-              axios.post(collections.server_base + "/register",user).then((res)=>{
-                dispatch({
-                  type: user
-              });
-              window.localStorage.setItem("token", res.data.token);
-              dispatch({
-                  type: user
-              });
-              navigate("/");
+              axios.post(collections.server_base + "/register", user).then((res) => {
+                window.localStorage.setItem("token", res.data.token);
+                dispatch({ type: "user", payload: { user:res.data.user } });
+                navigate("/");
               })
             });
           }
@@ -71,7 +66,7 @@ function Register() {
                 <input type="text" className='col register-form-firstName-input register-form-input' name='firstName' placeholder='First Name' />
                 <input type="text" className='col register-form-lastName-input register-form-input' name='lastName' placeholder='Last Name' />
               </div>
-              {userNameErr? <p className='margin-top-2 mb-0 text-danger'>this Username is already using</p> : ""}
+              {userNameErr ? <p className='margin-top-2 mb-0 text-danger'>this Username is already using</p> : ""}
               <input type="text" onChange={() => { setUserNameErr(false) }} className={`${userNameErr ? 'margin-top-0' : "margin-top-2"} register-form-userName-input register-form-input`} name='userName' placeholder='Username' />
               {emailErr ? <p className='margin-top-2 mb-0 text-danger'>this email is already existing</p> : ""}
               <input onChange={() => { setEmailErr(false) }} type="email" className={`${emailErr ? 'margin-top-0' : "margin-top-2"} register-form-email-input register-form-input`} name='email' placeholder='Email' />

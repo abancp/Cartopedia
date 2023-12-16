@@ -11,9 +11,8 @@ export default {
     getRandomCoverPicture: () => {
         return new Promise((resolve, reject) => fs.readdir("./public/cover-photos", (err, files) => err ? reject(err) : resolve(files[Math.round(Math.random() * (files.length - 1))])))
     },
-    getUserindrestedItem: (email) => {
+    getUserIndrestedItem: (email) => {
         return new Promise(async (resolve, reject) => {
-            console.log(email)
             let user = await db.get().collection(process.env.USER_COLLECTION).findOne({ email: email })
             if (user) {
                 let itemId = await user.indrestedItems[Math.round(Math.random() * 2)]
@@ -37,10 +36,9 @@ export default {
     },
     getTrendingProducts: () => {
         return new Promise(async (resolve, reject) => {
-            const cursor = db.get().collection(process.env.PRODUCTS_COLLECTION).find().sort({ trend: -1 }).limit(20)
+            const cursor = await db.get().collection(process.env.PRODUCTS_COLLECTION).find().sort({ trend: -1 }).limit(20)
             let pros = []
             for await (const doc of cursor) {
-                console.dir
                 pros.push(doc)
             }
             resolve(pros)
@@ -91,7 +89,6 @@ export default {
         })
     },
     getEmailOtp: async (email, otp) => {
-        console.log("otp-", otp)
         let mailDetails = {
             from: 'cartopediaa@gmail.com',
             to: email,
@@ -124,7 +121,6 @@ export default {
     submitEmailOtp: (email, otp) => {
         return new Promise(async (resolve, reject) => {
             let user = await db.get().collection(process.env.USER_COLLECTION).findOne({ email: email })
-            console.log(await bcrypt.compare("" + otp, user.emailOtp))
             if (user.emailOtpExpareDate > Date.now()) {
                 if (await bcrypt.compare("" + otp, user.emailOtp)) {
                     db.get().collection(process.env.USER_COLLECTION).updateOne({ email: email }, {
@@ -171,7 +167,7 @@ export default {
             ]).toArray()
             result.companies.push(companies)
             let totalCategories = await db.get().collection(process.env.CATEGORIES_COLLECTION).find({}).toArray()
-            totalCategories[0].categories.forEach(category => {
+            totalCategories[0]?.categories.forEach(category => {
                 for (let i = 0; i < keywords.length; i++) {
                     if ((parseFloat(Number((100 - ((levenshtein.get(category, keywords[i].toLowerCase()) / keywords[i].length) * 100)) / 100.00).toFixed(3))) > 0.85) {
                         result.categories.push(keywords[i])
@@ -241,11 +237,10 @@ export default {
             tempProducts.sort((a, b) => b.priority - a.priority)
             result.products = tempProducts
             if (email !== undefined && email !== null) {
-                console.log(email)
                 switch (true) {
                     case tempProducts.length > 2:
                         db.get().collection(process.env.USER_COLLECTION).updateOne({ email: email }, {
-                            $set: { indrestedItems: [tempProducts[0]._id, tempProducts[1]._id, tempProducts[2]._id] }
+                            $set: { indrestedItems: [tempProducts[0]._id, tempProducts[1]._id, tempProducts[2]._id] },
                         })
                         break
                     case tempProducts.length > 1:
@@ -409,6 +404,48 @@ export default {
                 orderProducts.push(products)
             }
             resolve([orders, orderProducts])
+        })
+    },
+    rateProduct: (proId, rate, userId) => {
+        //FIXME : same user cant rate more than one time
+        rate = Number(rate)
+        return new Promise(async (resolve, reject) => {
+            const product = await db.get().collection(process.env.PRODUCTS_COLLECTION).findOne({ _id: new ObjectId(proId) })
+            const rates = product.rating.rates
+            var newRating
+            var totalValueSum = 0
+            rates[5 - rate]++
+            product.rating.rates = rates
+            product.rating.totalRatings++
+            for (var i = 5; i > 0; i--) {
+                totalValueSum += rates[5 - i] * i
+            }
+            const newRate = totalValueSum / product.rating.totalRatings
+            newRating = {
+                rate: newRate,
+                totalRatings: product.rating.totalRatings,
+                rates
+            }
+            db.get().collection(process.env.PRODUCTS_COLLECTION).updateOne({ _id: new ObjectId(proId) }, {
+                $set: { rating: newRating }
+            })
+            resolve(newRating)
+        })
+    },
+    getRecommentedRatedProducts: (userId) => {
+        return new Promise(async (resolve, reject) => {
+            console.log('userId=', userId)
+            if (userId) {
+                // const user = await db.get().collection(process.env.USER_COLLECTION).findOne({ _id: new ObjectId(userId) })
+                const user = { indrestedItems: ['6572e93811467c1919b7955f'] }
+                let indrestedProducts = []
+                for (var i = 0; i < user.indrestedItems.length; i++) {
+                    const product = await db.get().collection(process.env.PRODUCTS_COLLECTION).findOne({ _id: new ObjectId(user.indrestedItems[i]) })
+                    const relatedProducts = await db.get().collection(process.env.PRODUCTS_COLLECTION).find({ "rating.rate": { $gt: 2 }, category: product.category }).limit(4).toArray()
+                    indrestedProducts[i] = relatedProducts
+                }
+                resolve(indrestedProducts)
+            }
         })
     }
 }

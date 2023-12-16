@@ -14,7 +14,8 @@ let initialState = {
 const appReducer = (prevState = initialState, action) => {
     switch (action.type) {
         case "user": {
-            return { ...prevState , user: window.localStorage.getItem("token") ? axios.post(collections.server_base + "/get-user-details", { token: window.localStorage.getItem("token") }).then((res) => { return res.data }) : null };
+            console.log(action.payload)
+            return { ...prevState , user:action.payload.user};
         }
         case 'dark':{
             return {...prevState ,theme:'dark'}

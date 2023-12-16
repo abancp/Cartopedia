@@ -1,20 +1,24 @@
 import React from 'react'
 import "./Preview.css"
+import collections from "../../configurations/collections"
+
 function CartPreview(props) {
   return (
     <div className='CartPreview'>
-      <div className="main">
-        <h3 className='cart-name'>{props.heading}</h3>
-        <div className="image-div">{props.icon}</div>
-        <div className="cart-details">
-          <div className={` cart-recent ${props.line?"bottum-border":""} `}>
-            <h5>{props.text1}</h5>
-            <h5>{props.text2}{props.etc ? <span>...</span> : ""}</h5>
-          </div>
-          <h4 className='total-itmes'>{props.text3}</h4>
-          <h4>{props.text4}</h4>
+      <h4 className='preview-title' >{props.title}</h4>
+      <div className="product-container">
+        <div className="product-1">
+          <img className='preview-img' src={collections.server_base + "/product-displays/"+props.id.w_id+".jpg"} alt="" />
         </div>
-        <div className="cart-actions"> {props.button1} {props.button2} </div>
+        <div className="product-2">
+          <img className='preview-img' src={collections.server_base + "/product-displays/6540b1d2823d600093f7117a.jpg"} alt="" />
+        </div>
+        <div className="product-3">
+          <img className='preview-img' src={collections.server_base + "/product-displays/6540b1d2823d600093f7117a.jpg"} alt="" />
+        </div>
+        <div className="product-4">
+          <img className='preview-img' src={collections.server_base + "/product-displays/6540b1d2823d600093f7117a.jpg"} alt="" />
+        </div>
       </div>
     </div>
   )

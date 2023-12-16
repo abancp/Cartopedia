@@ -1,48 +1,24 @@
-.CartPreview .main{
-    height: 380px;
-    /* box-shadow: var(--bs-primary); */
+.CartPreview {
     background-color: var(--primary-beeta);
-    width: 330px;
-    border-radius: 4px;
-    padding: 1.3rem;
-}
-.CartPreview .image-div{
-    background-color: var(--secondery);
-    width:100px;
-    height:100px ;
-    box-shadow: var(--bs-primary);
-    border-radius: 100px;
-    margin-left: 33%;
-    margin-top: 1rem;
+    border-radius: 2px;
+    padding: 1rem;
+    padding-top: 0.5rem;
 }
 
-.CartPreview .cart-name{
+.preview-title {
     text-align: center;
-    color: var(--tersiory);
-}
-
-.CartPreview .preview-icon{
-    color: var(--primary);
-    margin: 1rem;
-    margin-top: 1rem;
-}
-
-.CartPreview .cart-details{
-    padding-left: 1rem;
-    text-align: start;
-    margin-top:1rem ;
     color:var(--tersiory);
 }
 
-.CartPreview .cart-actions{
-    margin-top: 1.2rem;
-    display: flex;
-    justify-content: space-between;
+.product-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    row-gap: 0.5rem;
+    column-gap: 0.5rem;
 }
 
-.CartPreview .cart-recent{
-    width: 100%;
-}
-.CartPreview .bottum-border{
-    border-bottom: solid var(--tersiory) 1px;
+.preview-img {
+    object-fit: cover;
+    width: 8rem;
+    height: 8rem;
 }

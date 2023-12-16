@@ -8,34 +8,31 @@ import { useDispatch, useSelector } from 'react-redux';
 
 function RegisterAsCompany() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const [companyErr, setCompanyErr] = useState(false);
   const [websiteErr, setWebsiteErr] = useState(false);
   const [email, setEmail] = useState(null);
 
-  var store = useSelector((state) => {
+  var user = useSelector((state) => {
     return state.user;
   });
   useEffect(() => {
-    if (store) {
-      store.then((res) => {
-        setEmail(res.email);
-        if (res.company) {
-          navigate("/");
-        }
-      });
+    if (user) {
+      setEmail(user.email);
+      if (user.company) {
+        navigate("/");
+      }
     }
   });
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios.post(collections.server_base + "/check-companyname-availablility", { companyName: e.target[0].value, website: e.target[1].value }, { headers: { 'Authorization': window.localStorage.getItem("token") } }).then((res) => {
-      if (res.data.companyName) {
+    axios.post(collections.server_base + "/check-companyname-availablility", { companyName: e.target[0].value, website: e.target[1].value }, { headers: { 'Authorization': window.localStorage.getItem("token") } }).then((user) => {
+      if (user.data.companyName) {
         setCompanyErr(true)
       } else {
         setCompanyErr(false);
-        if (res.data.website) {
+        if (user.data.website) {
           setWebsiteErr(true);
         } else {
           setWebsiteErr(false);
@@ -47,12 +44,8 @@ function RegisterAsCompany() {
             description: e.target[4].value,
             email: email
           }
-          axios.post(collections.server_base+"/add-company-temparerly", company).then((res) => {
-            dispatch({
-              type: company
-            });
-            console.log("is it execute")
-            axios.post(collections.server_base + "/get-otp-email", { email: email }).then((res) => {
+          axios.post(collections.server_base + "/add-company-temparerly", company).then(() => {
+            axios.post(collections.server_base + "/get-otp-email", { email: email }).then(() => {
               navigate("/verify-email")
             })
           })

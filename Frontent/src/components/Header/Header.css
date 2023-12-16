@@ -16,9 +16,14 @@
     padding-right: 2rem;
     /* box-shadow: var(--bs-primary); */
 }
+html,body{
+    overflow-x: hidden;
+}
+
 
 .Header .left-div {
     width: 33%;
+    height: 100%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -27,6 +32,7 @@
 
 .Header .center-div {
     width: 33%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -67,6 +73,14 @@
 }
 
 .Header .sell {
+    color: var(--tersiory);
+    cursor: pointer;
+    width: fit-content;
+    font-size: 20px;
+    transition: 300ms;
+}
+
+.Header .panel {
     color: var(--tersiory);
     cursor: pointer;
     width: fit-content;
@@ -203,6 +217,11 @@
     text-align: center;
     opacity: 0.9;
     transition: 300ms;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    /* line-clamp: 2; */
+    -webkit-box-orient: vertical;
 }
 
 .Header .account-login-h4:hover,
@@ -221,4 +240,25 @@
 .Header .search-btn {
     border: 0;
     background-color: transparent;
+}
+
+@media screen and (max-width:860px){
+    .Header .panel{
+        display: none;
+    }
+}
+@media screen and (max-width:800px){
+    .Header .orders-link{
+        display: none;
+    }
+}
+@media screen and (max-width:690px){
+    .Header .cart-link{
+        display: none;
+    }
+}
+@media screen and (max-width:655px){
+    .Header .sell{
+        display: none;
+    }
 }

@@ -53,9 +53,7 @@ function RegisterPage() {
       axios.post(collections.server_base + "/register", user).then((res) => {
 
         window.localStorage.setItem("token", res.data.token)
-        dispatch({
-          type: "user"
-        })
+        dispatch({ type: "user", payload: { user: res.data.user } })
         navigate("/")
 
       })
@@ -180,7 +178,7 @@ function RegisterPage() {
             {({ getRootProps, getInputProps }) => (
               <section>
                 <div className='register-form-profile-dropzone ' onKeyDown={(e) => { e.code === "Enter" && handlePageChange(1) }} {...getRootProps()}>
-                  <input className='register-form-input'  onKeyDown={(e) => { e.code === "Enter" && handlePageChange(1) }} {...getInputProps()} />
+                  <input className='register-form-input' onKeyDown={(e) => { e.code === "Enter" && handlePageChange(1) }} {...getInputProps()} />
                   <h6 >{`${profile ? profile.name : "Profile Browse or Drop"}`}</h6>
                 </div>
               </section>

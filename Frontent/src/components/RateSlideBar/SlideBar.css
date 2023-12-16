@@ -1,0 +1,34 @@
+.Slidebar {
+  height: 1.5rem;
+  width: 10rem;
+  border: var(--secondery) solid 1px;
+  border-radius: 3px;
+  background-color: var(--primary-beeta);
+}
+
+.Slidebar .sidebar-value {
+  height: 100%;
+  background-color: var(--secondery);
+}
+.Slidebar .rates {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 20%;
+}
+
+.Slidebar .rate-star-h6 {
+  color: var(--secondery);
+  margin: 0;
+}
+
+.Slidebar .rate-star {
+  margin-bottom: 0.3rem;
+  margin-left: 0.2rem;
+}
+
+.Slidebar .rate-percent-h6{
+  color: var(--secondery);
+  margin: 0;
+}

@@ -3,13 +3,19 @@ import db from "../configuration/mongodb.js"
 export default {
     addProduct: (proDetails) => {
         return new Promise((resolve, reject) => {
+            proDetails["trend"] = 0
+            proDetails["rating"] = {
+                rate: 0,
+                totalRatings: 0,
+                rates: [0, 0, 0, 0, 0]
+            }
             db.get().collection(process.env.PRODUCTS_COLLECTION).insertOne(proDetails).then(async (response) => {
                 db.get().collection(process.env.USER_COLLECTION).updateOne(
                     { email: proDetails.comapanyId },
                     { $push: { companyProducts: response.insertedId } }
                 )
                 let key = 'products.' + proDetails.category
-                await db.get().collection(process.env.CATEGORIES_COLLECTION).updateOne({ db: "categories" }, { $push: { [key]: response.insertedId+"" } })
+                await db.get().collection(process.env.CATEGORIES_COLLECTION).updateOne({ db: "categories" }, { $push: { [key]: response.insertedId + "" } })
                 await db.get().collection(process.env.DASHBOARD_COLLECTION).updateOne({ item: "dashboard" }, { $inc: { "company.products": 1 } })
                 resolve(response.insertedId)
             })

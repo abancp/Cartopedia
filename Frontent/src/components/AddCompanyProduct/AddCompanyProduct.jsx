@@ -15,24 +15,22 @@ function AddCompanyProduct() {
   const navigate = useNavigate();
 
 
-  var store = useSelector((state) => { return state.user })
+  var user = useSelector((state) => { return state.user })
   useEffect(() => {
-    if (store) {
-      store.then((res) => {
-        setCompanyMail(res.email)
-        if (res.companyDetails === undefined) {
-          navigate("/")
-        } else {
-          setCompanyName(res.companyDetails.companyName)
-        }
-      })
+    if (user) {
+      setCompanyMail(user.email)
+      if (user.companyDetails === undefined) {
+        navigate("/")
+      } else {
+        setCompanyName(user.companyDetails.companyName)
+      }
     } else {
       navigate("/")
     }
-  }, [navigate, store])
+  }, [navigate, user])
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     const product = {
       name: e.target[1].value,
@@ -61,7 +59,7 @@ function AddCompanyProduct() {
       }
       axios.post(collections.server_base + "/uplaod/product-details", formDataDetailed, { headers: { 'Authorization': window.localStorage.getItem("token") } }).then((res) => {
         navigate("/")
-      });
+      })
     })
   }
   return (

@@ -10,25 +10,23 @@ function Header(props) {
   const [company, setCompany] = useState(false)
   const [admin, setAdmin] = useState(false)
   const navigate = useNavigate()
-  const store = useSelector((reduxState) => (reduxState.user))
+  const user = useSelector((reduxState) => (reduxState.user))
 
   useEffect(() => {
 
-    if (store) {
+    if (user) {
 
-      store.then((user) => {
 
-        setUserName(user.firstName + " " + user.lastName)
-        setEmail(user.email)
-        setCompany(user.company)
-        setAdmin(user.admin)
-        setUserId(user._id)
+      setUserName(user.firstName + " " + user.lastName)
+      setEmail(user.email)
+      setCompany(user.company)
+      setAdmin(user.admin)
+      setUserId(user._id)
 
-        if (user.firstName === undefined) {
-          window.localStorage.clear()
-          window.location.reload()
-        }
-      })
+      if (user.firstName === undefined) {
+        window.localStorage.clear()
+        window.location.reload()
+      }
 
     }
   })
@@ -43,7 +41,7 @@ function Header(props) {
 
         <h3 className='branding' onClick={() => window.location.pathname !== '/' ? navigate("/") : null}>Cartopedia</h3>
         <h5 className="sell" onClick={() => window.location.pathname !== '/add-company-product' && navigate("/loading", { state: { loadingCode: 1 } })}> {company && "Sell"} </h5>
-        <Link to={"/admin/dashboard"} className='text-decoration-none'><h5 className="sell"> {admin && "Panel"} </h5></Link>
+        <Link to={"/admin/dashboard"} className='text-decoration-none panel'><h5 className="panel"> {admin && "Panel"} </h5></Link>
       </div>
 
       {/* seting center section of the header */}
@@ -63,7 +61,7 @@ function Header(props) {
       {/* seting right section of the header  */}
       <div className="right-div">
         {userName &&
-          <Link to={'/orders/'+userId}>
+          <Link to={'/orders/' + userId} className='orders-link'>
             <div className="cart-icon-div">
               <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="currentColor" class="cart-svg bi bi-list-ul" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2m0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2m0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2" />
@@ -73,7 +71,7 @@ function Header(props) {
         }
 
         {userName &&
-          <Link to='/cart'>
+          <Link to='/cart' className='cart-link' >
             <div className="cart-icon-div">
               <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="currentColor" class="cart-svg bi bi-cart2" viewBox="0 0 16 16">
                 <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
