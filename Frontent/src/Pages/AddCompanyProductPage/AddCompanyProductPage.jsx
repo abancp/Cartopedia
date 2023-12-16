@@ -42,28 +42,25 @@ function AddCompanyProductPage() {
   const [detailedPhotos, setDetailedPhotos] = useState([])
   const [detailedPhotosLength, setDetailedPhotosLength] = useState(0)
   //making instances
-  const store = useSelector((reduxState) => (reduxState.user))
+  const user = useSelector((state) => (state.user))
   const navigate = useNavigate()
   //useState function 
   useEffect(() => {
-    if (store) {
-      store.then((user) => {
-        setCompanyMail(user.email)
-        if (user.companyDetails === undefined) {
-          navigate("/")
-        } else {
-          setShowBlock(false)
-          setCompanyName(user.companyDetails.companyName)
-          setCompanySite(user.companyDetails.website)
-        }
-      })
+
+    if (user) {
+      setCompanyMail(user.email)
+      if (!user.companyDetails) {
+        navigate("/")
+      } else {
+        setShowBlock(false)
+        setCompanyName(user.companyDetails.companyName)
+        setCompanySite(user.companyDetails.website)
+      }
     } else {
-      navigate("/")
+      navigate('/')
     }
-  })
-  useState(() => {
-    navigate("/")
     axios.get(collections.server_base + "/company/all-categories", { headers: { 'Authorization': window.localStorage.getItem("token") } }).then((res) => setCategories(res.data.categories))
+
   }, [])
   // function checing entered values
   const checkAll = (e) => {

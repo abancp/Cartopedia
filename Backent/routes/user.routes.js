@@ -36,7 +36,10 @@ router.get("/check-username-availability/:username", (req, res) => {
     })
 })
 
-router.post("/get-user-details", getUserDetails)
+router.post("/get-user-details", (req, res, next) => {
+    console.log("token",req.body);
+    next()
+}, getUserDetails)
 
 router.get("/get-cover-photo", (req, res) => {
     userFunctions.getRandomCoverPicture().then(coverPhotoName => {
@@ -154,7 +157,7 @@ router.post("/verify-payment", (req, res) => {
         userFunctions.paymentSuccess(payment.razorpay_order_id)
         res.status(200)
     } else {
-        res.status(402)
+        res.status(402).json({ "error": "payment_failed" })
     }
 })
 
@@ -167,9 +170,16 @@ router.get("/orders", (req, res) => {
 
 router.patch("/rate-product", (req, res) => {
     const { proId, rate, userId } = req.query;
-    console.log(proId,rate,userId);
     userFunctions.rateProduct(proId, rate, userId).then((rating) => {
         res.json({ rating })
+    })
+})
+
+router.get("/recommented/:userId", (req, res) => {
+    const { userId } = req.params
+    console.log("roter.userId" + userId)
+    userFunctions.getRecommentedRatedProducts(userId).then((products) => {
+        res.json({ products })
     })
 })
 

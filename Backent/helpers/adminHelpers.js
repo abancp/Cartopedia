@@ -36,6 +36,7 @@ export default {
     })
   },
   deleteCompanyProduct: (proId) => {
+    //FIXME : deleting company poducts from company database
     db.get().collection(process.env.PRODUCTS_COLLECTION).deleteOne({ _id: new ObjectId(proId) })
     fs.unlink('./public/product-displays/' + proId + ".jpg", (err) => {
       if (err) {

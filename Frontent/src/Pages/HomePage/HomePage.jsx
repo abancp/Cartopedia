@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import "./HomePage.css"
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import axios from "axios"
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
@@ -15,10 +15,13 @@ const HomePage = () => {
   const [indrestedItem, setIntrestedItem] = useState({})
   const [coverPhotoname, setCoverPhotoName] = useState('')
   const [trendingProducts, setTrendingProducts] = useState([{}])
+
   const store = useSelector((state) => (state.user))
+  console.log(store)
 
   useEffect(() => {
-    //getting user from store
+
+    //getting user from store 
     if (store) store.then((user) => setUser(user))
     if (user.email) { axios.get(`${collections.server_base}/get-indrested-item/${user.email}`).then((res) => { res.data.err ? setIntrestedItem({}) : setIntrestedItem(res.data.indrestedItem) }) }
     //get cover photo from backent
@@ -43,7 +46,7 @@ const HomePage = () => {
 
       <div className='Homepage-main-bottum'>
         <div className='previews'>
-          <Previews store={store} user={user} />
+          <Previews user={user} />
         </div>
         <div className="trending-products">
           {trendingProducts.map((product, i) => (<IndrestedProduct key={i} indrestedItem={product} />))}

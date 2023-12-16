@@ -75,7 +75,8 @@
 
 .ProductDetailed .product-description {
     color: var(--tersiory);
-    margin-left: 1rem;
+    margin-top  : 2rem;
+    text-align: center;
 }
 
 .ProductDetailed .description-label {

@@ -13,7 +13,6 @@ export default {
     },
     getUserIndrestedItem: (email) => {
         return new Promise(async (resolve, reject) => {
-            console.log(email)
             let user = await db.get().collection(process.env.USER_COLLECTION).findOne({ email: email })
             if (user) {
                 let itemId = await user.indrestedItems[Math.round(Math.random() * 2)]
@@ -238,11 +237,10 @@ export default {
             tempProducts.sort((a, b) => b.priority - a.priority)
             result.products = tempProducts
             if (email !== undefined && email !== null) {
-                console.log(email)
                 switch (true) {
                     case tempProducts.length > 2:
                         db.get().collection(process.env.USER_COLLECTION).updateOne({ email: email }, {
-                            $set: { indrestedItems: [tempProducts[0]._id, tempProducts[1]._id, tempProducts[2]._id] }
+                            $set: { indrestedItems: [tempProducts[0]._id, tempProducts[1]._id, tempProducts[2]._id] },
                         })
                         break
                     case tempProducts.length > 1:
@@ -409,13 +407,14 @@ export default {
         })
     },
     rateProduct: (proId, rate, userId) => {
+        //FIXME : same user cant rate more than one time
         rate = Number(rate)
         return new Promise(async (resolve, reject) => {
             const product = await db.get().collection(process.env.PRODUCTS_COLLECTION).findOne({ _id: new ObjectId(proId) })
             const rates = product.rating.rates
             var newRating
             var totalValueSum = 0
-            rates[5-rate]++
+            rates[5 - rate]++
             product.rating.rates = rates
             product.rating.totalRatings++
             for (var i = 5; i > 0; i--) {
@@ -431,6 +430,22 @@ export default {
                 $set: { rating: newRating }
             })
             resolve(newRating)
+        })
+    },
+    getRecommentedRatedProducts: (userId) => {
+        return new Promise(async (resolve, reject) => {
+            console.log('userId=', userId)
+            if (userId) {
+                // const user = await db.get().collection(process.env.USER_COLLECTION).findOne({ _id: new ObjectId(userId) })
+                const user = { indrestedItems: ['6572e93811467c1919b7955f'] }
+                let indrestedProducts = []
+                for (var i = 0; i < user.indrestedItems.length; i++) {
+                    const product = await db.get().collection(process.env.PRODUCTS_COLLECTION).findOne({ _id: new ObjectId(user.indrestedItems[i]) })
+                    const relatedProducts = await db.get().collection(process.env.PRODUCTS_COLLECTION).find({ "rating.rate": { $gt: 2 }, category: product.category }).limit(4).toArray()
+                    indrestedProducts[i] = relatedProducts
+                }
+                resolve(indrestedProducts)
+            }
         })
     }
 }

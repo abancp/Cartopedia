@@ -73,11 +73,7 @@ function ProductDetailed() {
                     <div className="image-div">
                         {<img className='product-img' src={collections.server_base + images[0]} alt="" />}
                     </div>
-                    <div className="description-div">
-                        <h4 className='description-label'>Description</h4>
-                        <hr className='description-hr' />
-                        <h5 className=' product-description'>{product.description}</h5>
-                    </div>
+                    
                 </div>
                 <div className="product-right">
                     <h3 className='product-name'>{product.name}</h3>
@@ -89,7 +85,7 @@ function ProductDetailed() {
                     <div className="star-rating-div" >
                         <h5 className='rate-h6' onMouseEnter={handleMouseEnterToRate} onMouseLeave={handleMouseLeaveToRate}>{rating.rate.toFixed(1)} Rating </h5>
                         <StarRating
-                            rating={rating.rate}
+                            rating={rating?.rate}
                             starRatedColor="rgb(0, 195, 255)"
                             starEmptyColor="rgba(9, 61, 77, 0.8)"
                             starDimension='35px'
@@ -103,6 +99,9 @@ function ProductDetailed() {
                     {/* <div className="product-properties"> */}
                     {/* <Property /> */}
                     {/* </div> */}
+                    <div className="description-div">
+                        <h5 className='product-description'>{product.description}</h5>
+                    </div>
                     <div className="product-buy">
                         <div className="add-to-cart" onClick={handleClickAddToCart} >
                             <h3>Add to Cart </h3>

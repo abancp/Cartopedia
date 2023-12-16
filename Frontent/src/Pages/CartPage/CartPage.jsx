@@ -9,23 +9,21 @@ import IndrestedProduct from '../../components/IndrestedProduct/IndrestedProduct
 import { useNavigate } from 'react-router-dom'
 
 function CartPage() {
-  const store = useSelector((state) => (state.user))
 
   const [products, setProducts] = useState([])
-  const [userId, setUserId] = useState()
   const [price, setPrice] = useState(0)
   const [removed, setRemoved] = useState(Date.now())
+
+  const user = useSelector((state) => (state.user))
 
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (store) store.then((res) => { setUserId(res._id); })
-    axios.get(`${collections.server_base}/cart-items/${userId}`).then((res) => {
+    axios.get(`${collections.server_base}/cart-items/${user?._id}`).then((res) => {
       setProducts(res.data.products)
       setPrice(res.data.totalPrice)
     })
-    //FIXME instant cart loading
-  }, [userId, removed])
+  }, [user, removed])
 
   const handleRevoveCallback = (date) => {
     setRemoved(date)
@@ -43,9 +41,9 @@ function CartPage() {
           <div className="cart-products-container">
             {products.map((product, i) => {
               if (!product.deleted) {
-                return <Product handleDeleteCallback={handleRevoveCallback} cartItem removeLink={"/cart-product?userId=" + userId + "&proId=" + product._id}  {...product} userId={userId} key={i} />
+                return <Product handleDeleteCallback={handleRevoveCallback} cartItem removeLink={"/cart-product?userId=" + user?._id + "&proId=" + product._id}  {...product} userId={user?._id} key={i} />
               } else {
-                return <Product handleDeleteCallback={handleRevoveCallback} cartItem removeLink={"/cart-product?userId=" + userId + "&proId=" + product?._id} deletedItem name="This Delete Was Delete from Owner" description="Please remove from cart" key={i} />
+                return <Product handleDeleteCallback={handleRevoveCallback} cartItem removeLink={"/cart-product?userId=" + user?._id + "&proId=" + product?._id} deletedItem name="This Delete Was Delete from Owner" description="Please remove from cart" key={i} />
               }
             })}
           </div>
