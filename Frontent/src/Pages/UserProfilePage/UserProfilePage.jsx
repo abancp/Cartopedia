@@ -35,7 +35,7 @@ function UserProfilePage() {
   // Logout function 
   const logout = () => {
      window.localStorage.clear()
-    dispatch({ type: user, payload: { user: {} } })
+    dispatch({ type: "user", payload: { user: {} } })
     navigate('/')
     window.location.reload()
   }

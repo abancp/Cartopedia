@@ -17,7 +17,6 @@ function Previews(props) {
 
   useEffect(() => {
     axios.get(collections.server_base + "/recommented", { headers }).then(({ data }) => {
-      console.log(data.products[0])
       setRatedProducts(data.products)
     })
 
