@@ -7,8 +7,9 @@ const verifyAdmin = (req, res, next) => {
             res.status(401).send({ err: err.message });
         } else {
             let { email } = decoded;
+            console.log(email)
             userFunctions.getUserDetails(email).then((user) => {
-
+                console.log(user)
                 user.admin ? next() : res.status(401)
             })
         };

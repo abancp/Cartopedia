@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import "./IndrestedItems.css"
-import collections from '../../configurations/collections'
 import { Link } from 'react-router-dom'
+import useDisplayUrl from '../../hooks/useDisplayUrl'
 
 function IndrestedItems(props) {
+
+  const [displayUrl] = useDisplayUrl(props.item?.displayUrl,props.item?._id)
+
   return (
     <div className='IndrestedItems'>
       <div className="indrested-div">
@@ -11,7 +14,7 @@ function IndrestedItems(props) {
         <div className="indrested-top">
           <div className="indrested-prodect-img-div">
             <Link to={'product/' + props.item?._id} >
-              <img className="indrested-product-img" src={`${collections.server_base}/product-displays/${props.item?._id}.jpg`} alt={props.item?.name} />
+              <img className="indrested-product-img" src={displayUrl} alt={props.item?.name} />
             </Link>
           </div>
           <div className="indrested-product-details-div">

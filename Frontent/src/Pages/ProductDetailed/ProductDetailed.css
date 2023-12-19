@@ -16,15 +16,51 @@
     min-height: 100vh;
     max-height: max-content;
     padding: 5px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.ProductDetailed .image-selector-div {
+    width: 10%;
+    height: max-content;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    gap: 0.55rem;
+}
+
+.ProductDetailed .image-selector-image-div {
+    width: 3.2rem;
+    height: 3.2rem;
+    border: 2px solid var(--secondery);
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: white;
+}
+
+.ProductDetailed .images-selector-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .ProductDetailed .image-div {
-    width: 100%;
+    width: 90%;
+    height: fit-content;
     border-radius: 4px;
     box-shadow: var(--bs-primary);
-    overflow: hidden;
     margin-bottom: 2rem;
+    z-index: 10;
 }
+
+.ProductDetailed .opened-img {
+    opacity: 1;
+}
+
+.ProductDetailed .closed-img {
+    opacity: 0.6;
+}
+
 
 .ProductDetailed .right-arrow,
 .ProductDetailed .left-arrow {
@@ -64,10 +100,21 @@
     align-items: center;
 }
 
-.ProductDetailed .product-img {
-    width: 100%;
+.ProductDetailed .zoomed-img{
+    width: 100% ;
     height: 100%;
 }
+
+.ProductDetailed .product-img {
+    width: 100%;
+    cursor: pointer;
+    transition: 300ms;
+
+}
+/* 
+.ProductDetailed .product-img:hover{
+    scale: 6;
+} */
 
 .ProductDetailed .description-div {
     width: 100%;
@@ -75,7 +122,7 @@
 
 .ProductDetailed .product-description {
     color: var(--tersiory);
-    margin-top  : 2rem;
+    margin-top: 2rem;
     text-align: center;
 }
 
@@ -123,14 +170,14 @@
     font-size: x-large;
 }
 
-.ProductDetailed .star-rating-div{
+.ProductDetailed .star-rating-div {
     display: flex;
     justify-content: space-around;
     align-items: end;
     gap: 1rem;
 }
 
-.ProductDetailed .rate-h6{
+.ProductDetailed .rate-h6 {
     cursor: pointer;
     color: var(--secondery);
     text-align: center;
@@ -139,7 +186,7 @@
     margin-bottom: 0.3rem;
 }
 
-.ProductDetailed .total-rate-h6{
+.ProductDetailed .total-rate-h6 {
     color: var(--tersiory);
     text-align: center;
     margin-bottom: 0.2rem;

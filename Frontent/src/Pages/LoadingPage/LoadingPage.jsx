@@ -15,8 +15,8 @@ function LoadingPage() {
                 navigate("/search", { state: { searchedLine: location.state.searchedLine, email: location.state.email } })
                 break
             case 1:
-                if (window.localStorage.getItem("token")) {
-                    axios.post(collections.server_base + "/get-user-details", { token: window.localStorage.getItem("token") }).then((res) => {
+                if ( window.localStorage.getItem("token")) {
+                    axios.post(collections.server_base + "/get-user-details", { token:  window.localStorage.getItem("token") }).then((res) => {
                         if (res.data.company) {
                             navigate("/add-company-product")
                         } else {

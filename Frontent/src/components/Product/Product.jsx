@@ -1,11 +1,14 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import collections from '../../configurations/collections';
 import "./Product.css"
 import { Link } from 'react-router-dom';
 import EditButton from '../EditButton/EditButton';
 import axios from 'axios'
+import useDisplayUrl from '../../hooks/useDisplayUrl';
 
 function Product(product) {
+
+  const [displayUrl] = useDisplayUrl(product.displayUrl,product._id)
 
   const headers = useMemo(() => ({
     'Authorization': window.localStorage.getItem("token")
@@ -24,6 +27,8 @@ function Product(product) {
     axios.patch(`${collections.server_base}/add-to-cart/${product._id}/${1}/${product.userId}`).then((res) => {
       if (res.data.cartPriceLimitErr) {
         alert("Maximum 500,000 rupees in cart")
+        product.handleDeleteCallback(Date.now())
+
       } else {
         product.handleDeleteCallback(Date.now())
       }
@@ -64,7 +69,7 @@ function Product(product) {
             }
             <div className="product-flex-div">
               <div className="product-display-image-div ">
-                <img className='product-display-image' src={`${collections.server_base}/product-displays/${product._id + '.jpg'}`} alt={product.name} />
+                <img className='product-display-image' src={displayUrl} alt={product.name} />
               </div>
               <div className='product-details-div'>
                 <h5 className='product-details-name'>{product.name}</h5>

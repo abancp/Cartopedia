@@ -1,14 +1,14 @@
-import jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken"
 
 
 const verifyToken = (req, res, next) => {
-    jwt.verify(req.headers.authorization, process.env.JWT_SECRET, (err, decoded) => {
+    jwt.verify(req.headers.authorization, process.env.JWT_SECRET, (err) => {
         if (err) {
-            res.status(401).send({ err: err.message });
+            res.status(401).send({ err: err.message })
         } else {
-            next();
-        };
-    });
+            next()
+        }
+    })
 }
 
-export default verifyToken;
+export default verifyToken

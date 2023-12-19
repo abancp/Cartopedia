@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import Preview from "../Preview/Preview"
 import "./Previews.css"
 import axios from 'axios'
@@ -11,22 +11,24 @@ function Previews(props) {
   const [companies, setCompanies] = useState([{}])
   const [products, setProducts] = useState([{}])
 
+  const headers = useMemo(() => ({
+    'Authorization': window.localStorage.getItem("token")
+  }), [])
+
   useEffect(() => {
-    console.log(props);
-    axios.get(collections.server_base + "/recommented/" + props.user?._id).then(({ data }) => {
-      console.log(data.products[0][0]._id)
-      setRatedProducts(data.products[0])
-      console.log(ratedProducts)
+    axios.get(collections.server_base + "/recommented", { headers }).then(({ data }) => {
+      console.log(data.products[0])
+      setRatedProducts(data.products)
     })
 
-  },[])
+  }, [])
 
   return (
     <div className='Previews'>
-      <Preview title="4 + Rated" id={ratedProducts[0]} />
-      <Preview title="Categories" id={ratedProducts[0]} />
+      <Preview title="4 + Rated" products={ratedProducts} />
+      {/* <Preview title="Categories" id={ratedProducts[0]} />
       <Preview title="Companies" id={ratedProducts[0]} />
-      <Preview title="Products" id={ratedProducts[0]} />
+      <Preview title="Products" id={ratedProducts[0]} /> */}
     </div>
   )
 }

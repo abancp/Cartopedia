@@ -8,7 +8,7 @@ function CompanyRequiests() {
   const headers = useMemo(() => {
 
     return {
-      'Authorization': window.localStorage.getItem("token")
+      'Authorization':  window.localStorage.getItem("token")
     }
   }, [])
 

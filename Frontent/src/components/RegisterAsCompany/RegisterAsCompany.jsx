@@ -27,7 +27,7 @@ function RegisterAsCompany() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    axios.post(collections.server_base + "/check-companyname-availablility", { companyName: e.target[0].value, website: e.target[1].value }, { headers: { 'Authorization': window.localStorage.getItem("token") } }).then((user) => {
+    axios.post(collections.server_base + "/check-companyname-availablility", { companyName: e.target[0].value, website: e.target[1].value }, { headers: { 'Authorization':  window.localStorage.getItem("token") } }).then((user) => {
       if (user.data.companyName) {
         setCompanyErr(true)
       } else {

@@ -55,10 +55,11 @@
     object-fit: cover;
     cursor: pointer;
     transition: 300ms;
+    scale: 1.01;
 }
 
 .IndrestedItems .indrested-product-img:hover {
-    scale: 1.1;
+    scale: 1.05;
 }
 
 

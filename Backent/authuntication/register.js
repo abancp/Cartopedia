@@ -19,8 +19,8 @@ const register = async (req, res) => {
         admin: false,
         companyProducts: [],
         verifyEmail: false,
-        lastFiveSearchs: [],
         indrestedItems: [],
+        indrestedCategories: [],
         date: Date.now()
     }
 
