@@ -3,7 +3,7 @@ import "./RegisterAsCompany.css";
 import axios from 'axios';
 import collections from '../../configurations/collections';
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 
 function RegisterAsCompany() {
@@ -23,7 +23,7 @@ function RegisterAsCompany() {
         navigate("/");
       }
     }
-  });
+  },[user,navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

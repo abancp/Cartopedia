@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import collections from '../../configurations/collections';
 import "./Product.css"
 import { Link } from 'react-router-dom';

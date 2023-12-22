@@ -1,5 +1,5 @@
 const server_base = {
-    development: "http://localhost:3001",
+    development: "http://192.168.233.235:3001",
     production: "https://cartopedia-server.onrender.com"
 }
 const collections = {

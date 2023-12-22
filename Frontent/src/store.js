@@ -3,28 +3,26 @@ import { legacy_createStore as createStore } from "redux";
 import collections from "./configurations/collections";
 
 
-const token =  window.localStorage.getItem("token")
-
-
 let initialState = {
-    user:  window.localStorage.getItem("token") ? axios.post(collections.server_base + "/get-user-details", { token:  window.localStorage.getItem("token") }).then((res) => { return res.data }) : null,
+    user: window.localStorage.getItem("token") ? axios.post(collections.server_base + "/get-user-details", { token: window.localStorage.getItem("token") }).then((res) => { return res.data }) : null,
     theme: 'light'
 };
 
 const appReducer = (prevState = initialState, action) => {
     switch (action.type) {
         case "user": {
-            console.log(action.payload)
-            return { ...prevState , user:action.payload.user};
+            return { ...prevState, user: action.payload.user };
         }
-        case 'dark':{
-            return {...prevState ,theme:'dark'}
+        case 'dark': {
+            return { ...prevState, theme: 'dark' }
         }
-        case 'light':{
-            return {...prevState,theme:'light'}
+        case 'light': {
+            return { ...prevState, theme: 'light' }
+        }
+        default: {
+            return prevState
         }
     }
-    return prevState
 };
 const store = createStore(appReducer);
 

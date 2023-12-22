@@ -7,20 +7,21 @@ import collections from '../../configurations/collections'
 function Previews(props) {
 
   const [ratedProducts, setRatedProducts] = useState([{}])
-  const [categories, setCategories] = useState([{}])
-  const [companies, setCompanies] = useState([{}])
-  const [products, setProducts] = useState([{}])
+  // const [categories, setCategories] = useState([{}])
+  // const [companies, setCompanies] = useState([{}])
+  // const [products, setProducts] = useState([{}])
 
   const headers = useMemo(() => ({
     'Authorization': window.localStorage.getItem("token")
   }), [])
 
   useEffect(() => {
+
     axios.get(collections.server_base + "/recommented", { headers }).then(({ data }) => {
       setRatedProducts(data.products)
     })
 
-  }, [])
+  }, [headers])
 
   return (
     <div className='Previews'>

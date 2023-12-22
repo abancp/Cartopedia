@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./IndrestedProduct.css";
-import collections from "../../configurations/collections";
 import { Link } from "react-router-dom";
 import useDisplayUrl from "../../hooks/useDisplayUrl";
 

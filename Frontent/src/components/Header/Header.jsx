@@ -20,7 +20,7 @@ function Header(props) {
       setAdmin(user.admin);
       setUserId(user._id);
     }
-  },[user]);
+  }, [user]);
   const searchItem = (e) => {
     navigate("/loading", {
       state: { loadingCode: 0, searchedLine: e.target[0].value, email: email },
@@ -30,14 +30,7 @@ function Header(props) {
     <div className="Header">
       {/* seting left section of the header */}
       <div className="left-div">
-        <h3
-          className="branding"
-          onClick={() =>
-            window.location.pathname !== "/" ? navigate("/") : null
-          }
-        >
-          Cartopedia
-        </h3>
+        <h3 className="branding" onClick={() => window.location.pathname !== "/" ? navigate("/") : null}>Cartopedia</h3>
         <h5
           className="sell"
           onClick={() =>
