@@ -7,9 +7,7 @@ import axios from 'axios'
 import useDisplayUrl from '../../hooks/useDisplayUrl';
 
 function Product(product) {
-
-  const [displayUrl] = useDisplayUrl(product.displayUrl,product._id)
-
+  const [displayUrl] = useDisplayUrl(product.displayUrl, product._id)
   const headers = useMemo(() => ({
     'Authorization': window.localStorage.getItem("token")
   }), [])
@@ -28,7 +26,6 @@ function Product(product) {
       if (res.data.cartPriceLimitErr) {
         alert("Maximum 500,000 rupees in cart")
         product.handleDeleteCallback(Date.now())
-
       } else {
         product.handleDeleteCallback(Date.now())
       }

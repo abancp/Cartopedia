@@ -12,7 +12,7 @@ function CartPage() {
 
   const [products, setProducts] = useState([])
   const [price, setPrice] = useState(0)
-  const [removed, setRemoved] = useState(Date.now())
+  const [date, setDate] = useState(Date.now())
 
   const user = useSelector((state) => (state.user))
 
@@ -23,10 +23,10 @@ function CartPage() {
       setProducts(res.data.products)
       setPrice(res.data.totalPrice)
     })
-  }, [user, removed])
+  }, [user, date])
 
   const handleRevoveCallback = (date) => {
-    setRemoved(date)
+    setDate(date)
   }
 
   return (

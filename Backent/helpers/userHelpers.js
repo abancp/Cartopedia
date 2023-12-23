@@ -237,8 +237,8 @@ export default {
                 (100 -
                   (levenshtein.get(category, keywords[i].toLowerCase()) /
                     keywords[i].length) *
-                    100) /
-                  100.0
+                  100) /
+                100.0
               ).toFixed(3)
             ) > 0.85
           ) {
@@ -263,6 +263,7 @@ export default {
               companyName: 1,
               stock: 1,
               mrp: 1,
+              displayUrl: 1
             },
           },
         ])
@@ -281,24 +282,24 @@ export default {
           let tagDiff = parseFloat(
             Number(
               (100 - (levenshtein.get(searchedLine, tag) / tag.length) * 100) /
-                100.0
+              100.0
             ).toFixed(3)
           );
           switch (true) {
             case tagDiff >= 0.95:
-              product.priority = product.priority + 0.8;
-              break;
-            case tagDiff >= 0.9:
-              product.priority = product.priority + 0.7;
+              product.priority = product.priority + 1;
               break;
             case tagDiff >= 0.8:
-              product.priority = product.priority + 0.5;
+              product.priority = product.priority + 0.9;
               break;
-            case tagDiff >= 0.7:
-              product.priority = product.priority + 0.3;
+            case tagDiff >= 0.65:
+              product.priority = product.priority + 0.85;
               break;
-            case tagDiff >= 0.6:
-              product.priority = product.priority + 0.1;
+            case tagDiff >= 0.5:
+              product.priority = product.priority + 0.8;
+              break;
+            case tagDiff >= 0.45:
+              product.priority = product.priority + 0.7;
               break;
             default:
               break;

@@ -114,7 +114,7 @@ body {
 .Header .search {
     width: 100%;
     background-color: var(--primary-beeta);
-    padding: 5px;
+    padding: 3px;
     border-radius: 2px;
     transition: 800ms;
 }
