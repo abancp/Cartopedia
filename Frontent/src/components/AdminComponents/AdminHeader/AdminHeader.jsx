@@ -10,15 +10,11 @@ function AdminHeader() {
   useEffect(() => {
     if (user) {
       setUserName(user.firstName + " " + user.lastName)
-      if (user.firstName === undefined) {
-        window.localStorage.clear()
-        window.location.reload()
-      }
-      if (!user.admin) navigate('/')
+      if (!user?.admin) navigate('/')
     } else {
       navigate('/')
     }
-  })
+  },[user])
   return (
     <div className='Header AdminHeader'>
       <div className="left-div">

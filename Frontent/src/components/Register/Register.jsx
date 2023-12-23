@@ -42,7 +42,7 @@ function Register() {
                 password: e.target[5].value
               }
               axios.post(collections.server_base + "/register", user).then((res) => {
-                window.localStorage.setItem("token", res.data.token);
+                 window.localStorage.setItem("token", res.data.token);
                 dispatch({ type: "user", payload: { user:res.data.user } });
                 navigate("/");
               })

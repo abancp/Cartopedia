@@ -13,7 +13,7 @@ function AllProducts() {
   }
 
   const headers = useMemo(() => ({
-    'Authorization': window.localStorage.getItem("token")
+    'Authorization':  window.localStorage.getItem("token")
   }), [])
 
   useEffect(() => {

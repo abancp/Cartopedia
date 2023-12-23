@@ -3,7 +3,7 @@ import "./RegisterAsCompany.css";
 import axios from 'axios';
 import collections from '../../configurations/collections';
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 
 function RegisterAsCompany() {
@@ -23,11 +23,11 @@ function RegisterAsCompany() {
         navigate("/");
       }
     }
-  });
+  },[user,navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    axios.post(collections.server_base + "/check-companyname-availablility", { companyName: e.target[0].value, website: e.target[1].value }, { headers: { 'Authorization': window.localStorage.getItem("token") } }).then((user) => {
+    axios.post(collections.server_base + "/check-companyname-availablility", { companyName: e.target[0].value, website: e.target[1].value }, { headers: { 'Authorization':  window.localStorage.getItem("token") } }).then((user) => {
       if (user.data.companyName) {
         setCompanyErr(true)
       } else {

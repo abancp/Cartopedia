@@ -6,7 +6,6 @@ import UserProfileLeft from '../../components/UserProfileLeft/UserProfileLeft'
 import { useNavigate, useParams } from 'react-router-dom'
 // import axios from 'axios'
 // import collections from '../../configurations/collections'
-import UserProfile from '../../components/UserProfile/UserProfile'
 
 function UserProfilePage() {
   //getting theme and user from store
@@ -35,8 +34,8 @@ function UserProfilePage() {
   })
   // Logout function 
   const logout = () => {
-    window.localStorage.clear()
-    dispatch({ type: user, payload: { user: {} } })
+     window.localStorage.clear()
+    dispatch({ type: "user", payload: { user: {} } })
     navigate('/')
     window.location.reload()
   }

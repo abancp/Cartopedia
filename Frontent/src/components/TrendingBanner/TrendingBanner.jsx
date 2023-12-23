@@ -14,7 +14,7 @@ function TrendingBanner() {
         <div className='trendingbanner'>
             <div className='container-fluid'>
                 <div className="row">
-                <h4 className=' mt-5'>Trending Products</h4>
+                    <h4 className=' mt-5'>Trending Products</h4>
                     <div className='home-trendingbanner-main-div'>
                         {trendingProducts.map((product) => (
                             <div className='home-trendingbanner-product'>
@@ -26,7 +26,7 @@ function TrendingBanner() {
                                         <path d="M4 3.06h2.726c1.22 0 2.12.575 2.325 1.724H4v1.051h5.051C8.855 7.001 8 7.558 6.788 7.558H4v1.317L8.437 14h2.11L6.095 8.884h.855c2.316-.018 3.465-1.476 3.688-3.049H12V4.784h-1.345c-.08-.778-.357-1.335-.793-1.732H12V2H4v1.06Z" />
                                     </svg></h5>
                                     <div className='home-trendingbanner-product-details-title-div'>
-                                        <h5 className='home-trendingbanner-product-details-title text-center '>{product.name.length > 24 ?product.name = product.name.substring(0,23) + "...":product.name}</h5>
+                                        <h5 className='home-trendingbanner-product-details-title text-center '>{product.name.length > 24 ? product.name = product.name.substring(0, 23) + "..." : product.name}</h5>
                                     </div>
                                     <h6 className='home-trendingbanner-product-details-company mb-1 text-center text-secondary'>{product.companyName}</h6>
                                 </div>

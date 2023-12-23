@@ -3,7 +3,7 @@
     border: 0;
     border-radius: 4px;
     box-sizing: border-box;
-    box-shadow: var(--bs-primary);
+    /* box-shadow: var(--bs-primary); */
     width: 10rem;
     height:1.5rem;
     padding: 4px;
@@ -13,11 +13,11 @@
 
 .C-Input:hover{
     outline: 0;
-    box-shadow: var(--bs-primary);
+    /* box-shadow: var(--bs-primary); */
 }
 .C-Input:focus{
     opacity: 1;
     outline: 0;
     border: 0;
-    box-shadow: var(--bs-primary);
+    /* box-shadow: var(--bs-primary); */
 }

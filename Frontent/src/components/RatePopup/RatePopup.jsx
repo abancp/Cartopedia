@@ -14,7 +14,7 @@ function RatePopup(props) {
         setPercent3(props.rating?.rates[2]*100/Number(props.rating?.totalRatings))
         setPercent4(props.rating?.rates[1]*100/Number(props.rating?.totalRatings))
         setPercent5(props.rating?.rates[0]*100/Number(props.rating?.totalRatings))
-    })
+    },[props])
     return (
         <div className='RatePopup' onMouseEnter={props.onMouseEnter} onMouseLeave={props.onMouseLeave}>
             <div className="rates">

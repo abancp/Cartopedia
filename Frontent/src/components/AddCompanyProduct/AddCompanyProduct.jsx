@@ -44,12 +44,12 @@ function AddCompanyProduct() {
       comapanyId: companyMail,
       companyName: companyName
     }
-    axios.post(collections.server_base + "/company/add-product", product, { headers: { 'Authorization': window.localStorage.getItem("token") } }).then((res) => {
+    axios.post(collections.server_base + "/company/add-product", product, { headers: { 'Authorization':  window.localStorage.getItem("token") } }).then((res) => {
 
       let fromDataProfile = new FormData();
       fromDataProfile.append('_id', res.data.id);
       fromDataProfile.append("file", photo);
-      axios.post(collections.server_base + "/uplaod/product-display", fromDataProfile, { headers: { 'Authorization': window.localStorage.getItem("token") } });
+      axios.post(collections.server_base + "/uplaod/product-display", fromDataProfile, { headers: { 'Authorization':  window.localStorage.getItem("token") } });
 
       let formDataDetailed = new FormData();
       formDataDetailed.append('_id', res.data.id);
@@ -57,7 +57,7 @@ function AddCompanyProduct() {
         formDataDetailed.append("index", i);
         formDataDetailed.append("files", detailedPhotos[i]);
       }
-      axios.post(collections.server_base + "/uplaod/product-details", formDataDetailed, { headers: { 'Authorization': window.localStorage.getItem("token") } }).then((res) => {
+      axios.post(collections.server_base + "/uplaod/product-details", formDataDetailed, { headers: { 'Authorization':  window.localStorage.getItem("token") } }).then((res) => {
         navigate("/")
       })
     })
