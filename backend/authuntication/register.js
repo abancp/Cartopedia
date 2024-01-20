@@ -28,6 +28,9 @@ const register = async (req, res) => {
         await db.get().collection(process.env.DASHBOARD_COLLECTION).updateOne({ item: "dashboard" }, { $inc: { users: 1 } })
         let token = jwt.sign({ _id: response.insertedId, email, signedDate: Date.now() }, process.env.JWT_SECRET, { expiresIn: 60 * 60 * 24 * 365 })
         let { password, otp, ...filterdUser } = user
+        res.cookie('userId',response.insertedId)
+        res.cookie('userName',userName)
+        res.cookie('email',email)
         res.json({ sucsess: true, token: token, user: filterdUser })
     })
 

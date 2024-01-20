@@ -19,7 +19,6 @@ router.get("/all-categories", (req, res) => {
 router.post("/check-company-product", (req, res) => {
     companyFunctions.checkCompayProduct(req.body).then((errors) => {
         console.log(errors)
-        console.log("m", errors.productNameErr.length || errors.productPriceErr.length || errors.productMrpErr.length || errors.productCategoryErr.length || errors.productTagsErr.length || errors.productStockErr.length || errors.productDescriptionErr.length)
         if (errors.productNameErr.length || errors.productPriceErr.length || errors.productMrpErr.length || errors.productCategoryErr.length || errors.productTagsErr.length || errors.productStockErr.length || errors.productDescriptionErr.length) {
             res.json(errors)
         }

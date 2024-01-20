@@ -51,8 +51,9 @@ router.get("/get-cover-photo", (req, res) => {
     .catch((err) => res.status(500).json({ err }));
 });
 
-router.get("/get-indrested-item/:email", (req, res) => {
-  userFunctions.getUserIndrestedItem(req.params.email).then((indrestedItem) => {
+router.get("/get-indrested-item", (req, res) => {
+  const { email } = req.cookies
+  userFunctions.getUserIndrestedItem(email).then((indrestedItem) => {
     res.json({ indrestedItem: indrestedItem });
   });
 });
@@ -108,9 +109,10 @@ router.post("/submit-otp", (req, res) => {
     });
 });
 
-router.get("/search/:searchedLine/:email", (req, res) => {
+router.get("/search/:searchedLine", (req, res) => {
+  const { email } = req.cookies
   userFunctions
-    .searchProduct(req.params.searchedLine, req.params.email)
+    .searchProduct(req.params.searchedLine, email)
     .then((result) => {
       res.json(result);
     });
@@ -130,8 +132,8 @@ router.get("/product-details/folder-size/:id", (req, res) => {
   });
 });
 
-router.get("/cart-items/:userId", (req, res) => {
-  const { userId } = req.params;
+router.get("/cart-items", (req, res) => {
+  const { userId } = req.cookies
   if (userId) {
     userFunctions.getCartProducts(userId).then(([products, totalPrice]) => {
       res.json({ products, totalPrice });
@@ -141,8 +143,9 @@ router.get("/cart-items/:userId", (req, res) => {
   }
 });
 
-router.patch("/add-to-cart/:proId/:count/:userId", (req, res) => {
-  const { proId, count, userId } = req.params;
+router.patch("/add-to-cart/:proId/:count", (req, res) => {
+  const { proId, count } = req.params
+  const { userId } = req.cookies
   userFunctions
     .addToCart(proId, count, userId)
     .then((ok) => {
@@ -153,14 +156,16 @@ router.patch("/add-to-cart/:proId/:count/:userId", (req, res) => {
     });
 });
 
-router.delete("/cart-product", (req, res) => {
-  const { userId, proId } = req.query;
-  userFunctions.removeCartProduct(userId, proId);
+router.delete("/cart-product",async(req, res) => {
+  const { proId } = req.query
+  const { userId } = req.cookies
+  await userFunctions.removeCartProduct(userId, proId);
   res.json({ ok: "ok" });
 });
 
 router.post("/place-order/cart", (req, res) => {
-  const { userId, address, payMethode } = req.body;
+  const { address, payMethode } = req.body;
+  const { userId } = req.cookies
   userFunctions.placeOrderCart(userId, address, payMethode).then((order) => {
     userFunctions.clearCart(userId);
     res.json({ orderId: order.orderId, totalPrice: order.price });
@@ -194,12 +199,10 @@ router.patch("/rate-product", (req, res) => {
   });
 });
 
-router.get("/recommented", verifyToken, (req, res) => {
-  const token = req.header("Authorization");
-  jwt.verify(token, process.env.JWT_SECRET, (err, { _id }) => {
-    userFunctions.getRecommentedRatedProducts(_id).then((products) => {
-      res.json({ products });
-    });
+router.get("/recommented", (req, res) => {
+  const { userId } = req.cookies
+  userFunctions.getRecommentedRatedProducts(userId).then((products) => {
+    res.json({ products });
   });
 });
 

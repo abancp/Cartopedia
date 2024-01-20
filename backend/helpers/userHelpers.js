@@ -433,20 +433,14 @@ export default {
   },
   getCartProducts: (userId) => {
     return new Promise(async (resolve, reject) => {
-      const cart = await db
-        .get()
-        .collection(process.env.CART_COLLECTION)
-        .findOne({ userId });
+      const cart = await db.get().collection(process.env.CART_COLLECTION).findOne({ userId });
       var products;
       var totalPrice = cart?.totalPrice;
       if (cart) {
         const productIds = Object.keys(cart.cartItems);
         products = [];
         for (var i = 0; i < productIds.length; i++) {
-          let product = await db
-            .get()
-            .collection(process.env.PRODUCTS_COLLECTION)
-            .findOne({ _id: new ObjectId(productIds[i]) });
+          let product = await db.get().collection(process.env.PRODUCTS_COLLECTION).findOne({ _id: new ObjectId(productIds[i]) });
           let resProduct = product
             ? product
             : { _id: productIds[i], deleted: true, price: 0 };
@@ -459,27 +453,30 @@ export default {
       resolve([products, totalPrice]);
     });
   },
-  removeCartProduct: async (userId, proId) => {
-    let key = "cartItems." + proId;
-    let product = await db
-      .get()
-      .collection(process.env.PRODUCTS_COLLECTION)
-      .findOne({ _id: new ObjectId(proId) });
-    let { cartItems } = await db
-      .get()
-      .collection(process.env.CART_COLLECTION)
-      .findOne({ userId });
-    let count = cartItems[proId];
-    let price = product?.price * count;
-    db.get()
-      .collection(process.env.CART_COLLECTION)
-      .updateOne(
-        { userId },
-        {
-          $unset: { [key]: 1 },
-          $inc: { totalPrice: -price },
-        }
-      );
+  removeCartProduct: (userId, proId) => {
+    return new Promise(async(resolve,reject)=>{
+      let key = "cartItems." + proId;
+      let product = await db
+        .get()
+        .collection(process.env.PRODUCTS_COLLECTION)
+        .findOne({ _id: new ObjectId(proId) });
+      let { cartItems } = await db
+        .get()
+        .collection(process.env.CART_COLLECTION)
+        .findOne({ userId });
+      let count = cartItems[proId];
+      let price = product?.price * count;
+      db.get()
+        .collection(process.env.CART_COLLECTION)
+        .updateOne(
+          { userId },
+          {
+            $unset: { [key]: 1 },
+            $inc: { totalPrice: -price },
+          }
+        );
+      resolve()
+    })
   },
   placeOrderCart: (userId, address, pay) => {
     return new Promise(async (resolve, reject) => {
