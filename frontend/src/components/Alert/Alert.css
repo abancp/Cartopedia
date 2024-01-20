@@ -1,0 +1,23 @@
+.Alert {
+    width: fit-content;
+    position: fixed;
+    align-self: center;
+    background-color: var(--secondery);
+    border-radius: 6px;
+    z-index: 120;
+    top: 2.6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    padding: 0.3rem;
+}
+
+.Alert .message {
+    color: var(--primary);
+    margin: 0;
+}
+
+.Alert .requist-error-svg{
+    color: rgb(201, 43, 43);
+}
