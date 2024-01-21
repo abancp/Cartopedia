@@ -21,7 +21,7 @@ function SearchResultPage() {
 
   useEffect(() => {
 
-    axios.get(collections.server_base + "/search/" + searchedLine + "/" + email).then((res) => {
+    axios.get(collections.server_base + "/search/" + searchedLine ).then((res) => {
       setCategaries(res.data.categories)
       setCompanies(res.data.companies[0])
       setProducts(res.data.products)

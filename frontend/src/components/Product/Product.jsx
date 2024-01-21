@@ -22,7 +22,7 @@ function Product(product) {
 
   const handleIncrement = (e) => {
     e.preventDefault()
-    axios.patch(`${collections.server_base}/add-to-cart/${product._id}/${1}/${product.userId}`).then((res) => {
+    axios.patch(`${collections.server_base}/add-to-cart/${product._id}/${1}`).then((res) => {
       if (res.data.cartPriceLimitErr) {
         alert("Maximum 500,000 rupees in cart")
         product.handleDeleteCallback(Date.now())
@@ -40,7 +40,7 @@ function Product(product) {
         product.handleDeleteCallback(Date.now())
       }
     } else {
-      axios.patch(`${collections.server_base}/add-to-cart/${product._id}/${-1}/${product.userId}`).then((res) => {
+      axios.patch(`${collections.server_base}/add-to-cart/${product._id}/${-1}}`).then((res) => {
         product.handleDeleteCallback(Date.now())
       })
     }

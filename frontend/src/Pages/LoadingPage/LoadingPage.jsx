@@ -12,7 +12,7 @@ function LoadingPage() {
     useEffect(() => {
         switch (loadingCode) {
             case 0:
-                navigate("/search", { state: { searchedLine: location.state.searchedLine, email: location.state.email } })
+                navigate("/search", { state: { searchedLine: location.state.searchedLine } })
                 break
             case 1:
                 if ( window.localStorage.getItem("token")) {

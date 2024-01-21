@@ -20,7 +20,7 @@ const HomePage = () => {
   useEffect(() => {
     //getting user from store
     if (user) {
-      axios.get(`${collections.server_base}/get-indrested-item/${user.email}`).then((res) => {
+      axios.get(`${collections.server_base}/get-indrested-item`).then((res) => {
         res.data.err
           ? setIntrestedItem({})
           : setIntrestedItem(res.data.indrestedItem);

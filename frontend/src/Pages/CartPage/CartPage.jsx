@@ -4,7 +4,6 @@ import Header from '../../components/Header/Header'
 import axios from 'axios'
 import collections from '../../configurations/collections'
 import Product from '../../components/Product/Product'
-import { useSelector } from 'react-redux'
 import IndrestedProduct from '../../components/IndrestedProduct/IndrestedProduct'
 import { useNavigate } from 'react-router-dom'
 
@@ -14,16 +13,19 @@ function CartPage() {
   const [price, setPrice] = useState(0)
   const [date, setDate] = useState(Date.now())
 
-  const user = useSelector((state) => (state.user))
 
   const navigate = useNavigate()
 
   useEffect(() => {
-    axios.get(`${collections.server_base}/cart-items/${user?._id}`).then((res) => {
+    axios.get(`${collections.server_base}/cart-items`).then((res) => {
       setProducts(res.data.products)
       setPrice(res.data.totalPrice)
+      console.log(res.data)
+      if (res.data.products[0]?.useridnotPrvided === 'undefined') {
+        throw new Error('user id not provided')
+      }
     })
-  }, [user, date])
+  }, [date])
 
   const handleRevoveCallback = (date) => {
     setDate(date)
@@ -41,9 +43,9 @@ function CartPage() {
           <div className="cart-products-container">
             {products.map((product, i) => {
               if (!product.deleted) {
-                return <Product handleDeleteCallback={handleRevoveCallback} cartItem removeLink={"/cart-product?userId=" + user?._id + "&proId=" + product._id}  {...product} userId={user?._id} key={i} />
+                return <Product handleDeleteCallback={handleRevoveCallback} cartItem removeLink={"/cart-product?proId=" + product?._id}  {...product} key={i} />
               } else {
-                return <Product handleDeleteCallback={handleRevoveCallback} cartItem removeLink={"/cart-product?userId=" + user?._id + "&proId=" + product?._id} deletedItem name="This Delete Was Delete from Owner" description="Please remove from cart" key={i} />
+                return <Product handleDeleteCallback={handleRevoveCallback} cartItem removeLink={"/cart-product?proId=" + product?._id} deletedItem name="This Delete Was Delete from Owner" description="Please remove from cart" key={i} />
               }
             })}
           </div>

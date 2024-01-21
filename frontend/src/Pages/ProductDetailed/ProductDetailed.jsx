@@ -80,7 +80,7 @@ function ProductDetailed() {
 
   const handleClickAddToCart = () => {
     axios
-      .patch(`${collections.server_base}/add-to-cart/${id}/${1}/${user._id}`)
+      .patch(`${collections.server_base}/add-to-cart/${id}/${1}`)
       .then((res) => {
         if (res.data.cartPriceLimitErr) {
           alert("Maximum 500,000 rupees in cart");

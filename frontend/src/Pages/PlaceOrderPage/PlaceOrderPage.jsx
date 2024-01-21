@@ -26,7 +26,7 @@ function PlaceOrderPage() {
 
     const order = () => {
         if (item === 'cart') {
-            axios.post(collections.server_base + "/place-order/cart", { userId: user._id, address, payMethode }).then((res) => {
+            axios.post(collections.server_base + "/place-order/cart", {  address, payMethode }).then((res) => {
                 if (payMethode !== 'COD') {
                     let options = {
                         key: "rzp_test_NGBzOZCNmPu1Py",

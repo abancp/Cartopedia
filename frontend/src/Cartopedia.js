@@ -12,6 +12,7 @@ const Cartopedia = () => {
       store.dispatch({ type: 'user', payload: { user: data } })
     })
   }
+  axios.defaults.withCredentials = true
   return (
     <React.StrictMode>
       <Provider store={store} >
