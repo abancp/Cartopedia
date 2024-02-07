@@ -412,6 +412,7 @@ export default {
         reject({ cartPriceLimitErr: true });
       } else {
         if (cart.cartItems) productCount = cart.cartItems[proId];
+	      console.log(productCount)
         if (productCount) {
           setingObj[key] = productCount + count;
         } else {
@@ -457,6 +458,8 @@ export default {
     return new Promise(async(resolve,reject)=>{
       let key = "cartItems." + proId;
       let product = await db
+        .get()
+        .get()
         .get()
         .collection(process.env.PRODUCTS_COLLECTION)
         .findOne({ _id: new ObjectId(proId) });
@@ -571,8 +574,6 @@ export default {
             .collection(process.env.PRODUCTS_COLLECTION)
             .findOne({ _id: new ObjectId(productIds[i]) });
           let resProduct = product
-            ? product
-            : { _id: productIds[i], deleted: true, price: 0 };
           resProduct.count = orders[j].products[resProduct._id];
           products.push(resProduct);
         }
@@ -590,7 +591,7 @@ export default {
         .collection(process.env.PRODUCTS_COLLECTION)
         .findOne({ _id: new ObjectId(proId) });
       if (!product.rating) {
-        db.get().collection(PRODUCTS_COLLECTION).updateOne({ _id: new ObjectId(proId) }, {
+        db.get().collection(process.env.PRODUCTS_COLLECTION).updateOne({ _id: new ObjectId(proId) }, {
           $set: {
             "rating": {
               "rate": 0,
@@ -640,10 +641,9 @@ export default {
         const relatedProducts = await db
           .get()
           .collection(process.env.PRODUCTS_COLLECTION)
-          .find({ "rating.rate": { $gt: 2 }, category: product?.category })
+          .find({ "rating.rate": { $gt: 1 }, category: product?.category })
           .limit(4)
           .toArray();
-
         resolve(relatedProducts);
       }
     });

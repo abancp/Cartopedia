@@ -134,6 +134,7 @@ router.get("/product-details/folder-size/:id", (req, res) => {
 
 router.get("/cart-items", (req, res) => {
   const { userId } = req.cookies
+  console.log(req.cookies)
   if (userId) {
     userFunctions.getCartProducts(userId).then(([products, totalPrice]) => {
       res.json({ products, totalPrice });
@@ -145,6 +146,7 @@ router.get("/cart-items", (req, res) => {
 
 router.patch("/add-to-cart/:proId/:count", (req, res) => {
   const { proId, count } = req.params
+  console.log(req.params)
   const { userId } = req.cookies
   userFunctions
     .addToCart(proId, count, userId)

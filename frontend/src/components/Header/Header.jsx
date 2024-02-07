@@ -12,6 +12,8 @@ function Header(props) {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
 
+  
+
   useEffect(() => {
     if (user) {
       setUserName(user.firstName + " " + user.lastName);

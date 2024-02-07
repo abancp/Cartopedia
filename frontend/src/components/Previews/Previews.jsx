@@ -19,6 +19,7 @@ function Previews(props) {
 
     axios.get(collections.server_base + "/recommented").then(({ data }) => {
       setRatedProducts(data.products)
+      console.log(data)
     })
 
   }, [headers])

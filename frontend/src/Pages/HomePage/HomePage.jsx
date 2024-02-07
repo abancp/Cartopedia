@@ -28,8 +28,9 @@ const HomePage = () => {
     }
     //get cover photo from backent
     axios.get(collections.server_base + "/get-cover-photo").then((res) => setCoverPhotoName(res.data.coverPhotoName));
-    //grtting 20 trending products from backent
-    axios.get(collections.server_base + "/get-trending-products").then((res) => setTrendingProducts(res.data.products));
+    //getting 20 trending products from backent
+    axios.get(collections.server_base + "/get-trending-products").then((res) =>{ setTrendingProducts(res.data.products)
+    })
   }, [user]);
 
   return (

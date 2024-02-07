@@ -7,7 +7,7 @@ import path from "path";
 import db from './mongodb.js'
 import socket from "./socket.io.js";
 
- 
+
 export default function configuration(app) {
     dotenv.config()
     app.use(morgan('common'));
