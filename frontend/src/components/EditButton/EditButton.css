@@ -21,14 +21,17 @@
     overflow: hidden;
 }
 
-.EditButton-main .edit-profile-h6{
+
+.EditButton-main .edit-profile-h6 {
     display: none;
 }
-.EditButton-main .edit-button:hover  .edit-profile-h6{
+
+.EditButton-main .edit-button:hover .edit-profile-h6 {
     display: flex;
 }
 
-.EditButton-main .edit-bottun-svg{
+.EditButton-main .edit-bottun-svg {
     margin-top: 0.2rem;
+    margin-right: 0.2rem;
     color: var(--primary);
 }

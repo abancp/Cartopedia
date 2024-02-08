@@ -19,7 +19,6 @@ function Previews(props) {
 
     axios.get(collections.server_base + "/recommented").then(({ data }) => {
       setRatedProducts(data.products)
-      console.log(data)
     })
 
   }, [headers])
@@ -27,8 +26,8 @@ function Previews(props) {
   return (
     <div className='Previews'>
       <Preview title="4 + Rated" products={ratedProducts} />
-      {/* <Preview title="Categories" id={ratedProducts[0]} />
-      <Preview title="Companies" id={ratedProducts[0]} />
+      <Preview title="Categories" id={ratedProducts[0]} />
+      {/*<Preview title="Companies" id={ratedProducts[0]} />
       <Preview title="Products" id={ratedProducts[0]} /> */}
     </div>
   )
