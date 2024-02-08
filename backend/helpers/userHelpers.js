@@ -1,5 +1,5 @@
 import fs from "fs";
-import bcrypt from "bcrypt";
+import bcrypt, { hash } from "bcrypt";
 import { ObjectId } from "mongodb";
 import levenshtein from "fast-levenshtein";
 import db from "../configuration/mongodb.js";
@@ -385,48 +385,34 @@ export default {
   addToCart: (proId, count, userId) => {
     count = Number(count);
     return new Promise(async (resolve, reject) => {
-      let cart = await db
-        .get()
-        .collection(process.env.CART_COLLECTION)
-        .findOne({ userId });
-      const product = await db
-        .get()
-        .collection(process.env.PRODUCTS_COLLECTION)
-        .findOne({ _id: new ObjectId(proId) });
+      let cart = await db.get().collection(process.env.CART_COLLECTION).findOne({ userId });
+      const product = await db.get().collection(process.env.PRODUCTS_COLLECTION).findOne({ _id: new ObjectId(proId) });
       const price = Number(product.price);
       let productCount;
       const key = "cartItems." + proId;
       const setingObj = {};
       if (!cart) {
-        await db
-          .get()
-          .collection(process.env.CART_COLLECTION)
-          .insertOne({ userId, cartItems: {}, totalPrice: 0 });
-        cart = await db
-          .get()
-          .collection(process.env.CART_COLLECTION)
-          .findOne({ userId });
+        await db.get().collection(process.env.CART_COLLECTION).insertOne({ userId, cartItems: {}, totalPrice: 0 });
+        cart = await db.get().collection(process.env.CART_COLLECTION).findOne({ userId });
       }
       const totalPrice = price * count;
       if (cart.totalPrice + totalPrice > 499_999) {
         reject({ cartPriceLimitErr: true });
       } else {
         if (cart.cartItems) productCount = cart.cartItems[proId];
-	      console.log(productCount)
+        console.log(productCount)
         if (productCount) {
           setingObj[key] = productCount + count;
         } else {
           setingObj[key] = count;
         }
-        db.get()
-          .collection(process.env.CART_COLLECTION)
-          .updateOne(
-            { userId },
-            {
-              $set: setingObj,
-              $inc: { totalPrice: Number(totalPrice) },
-            }
-          );
+        db.get().collection(process.env.CART_COLLECTION).updateOne(
+          { userId },
+          {
+            $set: setingObj,
+            $inc: { totalPrice: Number(totalPrice) },
+          }
+        );
         //TODO: seting indrested category from addToCart
         resolve({ ok: "ok" });
       }
@@ -455,41 +441,27 @@ export default {
     });
   },
   removeCartProduct: (userId, proId) => {
-    return new Promise(async(resolve,reject)=>{
+    return new Promise(async (resolve, reject) => {
       let key = "cartItems." + proId;
-      let product = await db
-        .get()
-        .get()
-        .get()
-        .collection(process.env.PRODUCTS_COLLECTION)
-        .findOne({ _id: new ObjectId(proId) });
-      let { cartItems } = await db
-        .get()
-        .collection(process.env.CART_COLLECTION)
-        .findOne({ userId });
+      let product = await db.get().collection(process.env.PRODUCTS_COLLECTION).findOne({ _id: new ObjectId(proId) });
+      let { cartItems } = await db.get().collection(process.env.CART_COLLECTION).findOne({ userId });
       let count = cartItems[proId];
       let price = product?.price * count;
-      db.get()
-        .collection(process.env.CART_COLLECTION)
-        .updateOne(
-          { userId },
-          {
-            $unset: { [key]: 1 },
-            $inc: { totalPrice: -price },
-          }
-        );
+      db.get().collection(process.env.CART_COLLECTION).updateOne(
+        { userId },
+        {
+          $unset: { [key]: 1 },
+          $inc: { totalPrice: -price },
+        }
+      );
       resolve()
     })
   },
   placeOrderCart: (userId, address, pay) => {
     return new Promise(async (resolve, reject) => {
-      let cart = await db
-        .get()
-        .collection(process.env.CART_COLLECTION)
-        .findOne({ userId });
+      let cart = await db.get().collection(process.env.CART_COLLECTION).findOne({ userId });
       if (cart) {
-        db.get()
-          .collection(process.env.ORDER_COLLECTION)
+        db.get().collection(process.env.ORDER_COLLECTION)
           .insertOne({
             userId,
             products: cart.cartItems,
@@ -538,14 +510,12 @@ export default {
   },
   paymentSuccess: (orderId) => {
     return new Promise((resolve, reject) => {
-      db.get()
-        .collection(process.env.ORDER_COLLECTION)
-        .updateOne(
-          { orderId },
-          {
-            $set: { payment: "success" },
-          }
-        );
+      db.get().collection(process.env.ORDER_COLLECTION).updateOne(
+        { orderId },
+        {
+          $set: { payment: "success" },
+        }
+      );
       resolve();
     });
   },
@@ -556,23 +526,14 @@ export default {
   },
   getOrders: (userId) => {
     return new Promise(async (resolve, reject) => {
-      const orders = await db
-        .get()
-        .collection(process.env.ORDER_COLLECTION)
-        .find({ userId })
-        .sort({ _id: 1 })
-        .limit(10)
-        .toArray();
+      const orders = await db.get().collection(process.env.ORDER_COLLECTION).find({ userId }).sort({ _id: 1 }).limit(10).toArray();
       var orderProducts = [];
       for (var j = 0; j < orders.length; j++) {
         var products;
         const productIds = Object.keys(orders[j].products);
         products = [];
         for (var i = 0; i < productIds.length; i++) {
-          let product = await db
-            .get()
-            .collection(process.env.PRODUCTS_COLLECTION)
-            .findOne({ _id: new ObjectId(productIds[i]) });
+          let product = await db.get().collection(process.env.PRODUCTS_COLLECTION).findOne({ _id: new ObjectId(productIds[i]) });
           let resProduct = product
           resProduct.count = orders[j].products[resProduct._id];
           products.push(resProduct);
@@ -586,10 +547,7 @@ export default {
     //TODO : same user cant rate more than one time
     rate = Number(rate);
     return new Promise(async (resolve, reject) => {
-      const product = await db
-        .get()
-        .collection(process.env.PRODUCTS_COLLECTION)
-        .findOne({ _id: new ObjectId(proId) });
+      const product = await db.get().collection(process.env.PRODUCTS_COLLECTION).findOne({ _id: new ObjectId(proId) });
       if (!product.rating) {
         db.get().collection(process.env.PRODUCTS_COLLECTION).updateOne({ _id: new ObjectId(proId) }, {
           $set: {
@@ -616,8 +574,7 @@ export default {
         totalRatings: product.rating.totalRatings,
         rates,
       };
-      db.get()
-        .collection(process.env.PRODUCTS_COLLECTION)
+      db.get().collection(process.env.PRODUCTS_COLLECTION)
         .updateOne(
           { _id: new ObjectId(proId) },
           {
@@ -630,22 +587,46 @@ export default {
   getRecommentedRatedProducts: (userId) => {
     return new Promise(async (resolve, reject) => {
       if (userId) {
-        const user = await db
-          .get()
-          .collection(process.env.USER_COLLECTION)
-          .findOne({ _id: new ObjectId(userId) });
-        const product = await db
-          .get()
-          .collection(process.env.PRODUCTS_COLLECTION)
-          .findOne({ _id: new ObjectId(user.indrestedItems[0]) });
-        const relatedProducts = await db
-          .get()
-          .collection(process.env.PRODUCTS_COLLECTION)
-          .find({ "rating.rate": { $gt: 1 }, category: product?.category })
-          .limit(4)
-          .toArray();
+        const user = await db.get().collection(process.env.USER_COLLECTION).findOne({ _id: new ObjectId(userId) });
+        const product = await db.get().collection(process.env.PRODUCTS_COLLECTION).findOne({ _id: new ObjectId(user.indrestedItems[0]) });
+        const relatedProducts = await db.get().collection(process.env.PRODUCTS_COLLECTION).find({ "rating.rate": { $gt: 1 }, category: product?.category }).limit(4).toArray();
         resolve(relatedProducts);
+      } else {
+        //TODO: recomended products without userId
       }
     });
   },
+  getRecommentedCategories: (userId) => {
+    return new Promise(async (resolve, reject) => {
+      let categories = {}
+      if (userId) {
+        const user = await db.get().collection(process.env.USER_COLLECTION).findOne({ _id: new ObjectId(userId) })
+        if (user.indrestedItems) {
+          user.indrestedItems?.forEach(async (itemId) => {
+            const item = await db.get().collection(process.env.PRODUCTS_COLLECTION).findOne({ _id: new ObjectId(itemId) })
+            if(!item.category in categories){
+              categories[item.category] = item.category
+            }
+          })
+          let categoriesList = Object.keys(categories)
+          if(categoriesList.length >= 4){
+            if(categoriesList.length > 4){
+              resolve(categoriesList.slice(0,3))
+            }else{
+              resolve(categoriesList)
+            }
+          }else{
+            while(Object.keys(categories).length < 4){
+              
+            }
+            resolve(Object.keys(categories))
+          }
+        } else {
+          //TODO: recomented categories without indrested items
+        }
+      } else {
+        //TODO: recomented categories without userId
+      }
+    })
+  }
 };
