@@ -111,6 +111,7 @@ router.post("/submit-otp", (req, res) => {
 
 router.get("/search/:searchedLine", (req, res) => {
   const { email } = req.cookies
+  const startTime = Date.now()
   userFunctions
     .searchProduct(req.params.searchedLine, email)
     .then((result) => {
@@ -158,7 +159,7 @@ router.patch("/add-to-cart/:proId/:count", (req, res) => {
     });
 });
 
-router.delete("/cart-product",async(req, res) => {
+router.delete("/cart-product", async (req, res) => {
   const { proId } = req.query
   const { userId } = req.cookies
   await userFunctions.removeCartProduct(userId, proId);

@@ -3,6 +3,10 @@
     min-height: 100vh;
     max-height: max-content;
 }
+.SearchResultPage .searchresult-time-h6{
+    text-align: center;
+    color: var(--tersiory);
+}
 .SearchResultPage .search-result-container{
     height: 100%;
     min-height: calc(100vh - 3px - var(--footer-H));

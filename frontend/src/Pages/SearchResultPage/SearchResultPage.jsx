@@ -12,7 +12,7 @@ function SearchResultPage() {
   const [products, setProducts] = useState([])
   const [companies, setCompanies] = useState([])
   const [categories, setCategaries] = useState([])
-  const [displayUrl,setDisplayUrl] = useState('')
+  const [time,setTime] = useState('')
 
   const location = useLocation()
 
@@ -25,6 +25,7 @@ function SearchResultPage() {
       setCategaries(res.data.categories)
       setCompanies(res.data.companies[0])
       setProducts(res.data.products)
+      setTime(res.data.time)
     })
 
   }, [email, searchedLine])
@@ -33,6 +34,7 @@ function SearchResultPage() {
     <div className='SearchResultPage'>
       <Header searchedLine={searchedLine} />
       <div className='search-result-container'>
+        <h6 className='searchresult-time-h6'>results in {time} ms</h6>
         {categories.map((category, i) => (
           <Product key={`${i}`} Name={`${category}`} />
         ))}

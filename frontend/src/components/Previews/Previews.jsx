@@ -26,7 +26,10 @@ function Previews(props) {
   return (
     <div className='Previews'>
       <Preview title="4 + Rated" products={ratedProducts} />
-      <Preview title="Categories" id={ratedProducts[0]} />
+      <Preview title="4 + Rated" products={ratedProducts} />
+      <Preview title="4 + Rated" products={ratedProducts} />
+      <Preview title="4 + Rated" products={ratedProducts} />
+      {/* <Preview title="Categories" id={ratedProducts[0]} /> */}
       {/*<Preview title="Companies" id={ratedProducts[0]} />
       <Preview title="Products" id={ratedProducts[0]} /> */}
     </div>

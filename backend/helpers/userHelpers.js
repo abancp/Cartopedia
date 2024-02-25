@@ -200,10 +200,12 @@ export default {
   searchProduct: (searchedLine, email) => {
     let keywords = searchedLine.split(" ");
     return new Promise(async (resolve, reject) => {
+      let startTime = Date.now()
       let result = {
         categories: [],
         companies: [],
         products: null,
+        time:0
       };
       let tempProducts = [];
       let companies = await db
@@ -364,6 +366,7 @@ export default {
             break;
         }
       }
+      result.time = Date.now() - startTime
       resolve(result);
     });
   },
@@ -526,7 +529,7 @@ export default {
   },
   getOrders: (userId) => {
     return new Promise(async (resolve, reject) => {
-      const orders = await db.get().collection(process.env.ORDER_COLLECTION).find({ userId }).sort({ _id: 1 }).limit(10).toArray();
+      const orders = await db.get().collection(process.env.ORDER_COLLECTION).find({ userId }).sort({ _id: 1 }).toArray();
       var orderProducts = [];
       for (var j = 0; j < orders.length; j++) {
         var products;
