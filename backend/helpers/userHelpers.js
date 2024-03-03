@@ -205,71 +205,49 @@ export default {
         categories: [],
         companies: [],
         products: null,
-        time:0
+        time: 0
       };
       let tempProducts = [];
-      let companies = await db
-        .get()
-        .collection(process.env.USER_COLLECTION)
-        .aggregate([
-          { $unwind: "$companyDetails" },
-          { $match: { "companyDetails.companyName": searchedLine } },
-          {
-            $project: {
-              "companyDetails.companyName": 1,
-              _id: 1,
-              "companyDetails.website": 1,
-              "companyDetails.email": 1,
-              "companyDetails.description": 1,
-            },
+      let companies = await db.get().collection(process.env.USER_COLLECTION).aggregate([
+        { $unwind: "$companyDetails" },
+        { $match: { "companyDetails.companyName": searchedLine } },
+        {
+          $project: {
+            "companyDetails.companyName": 1,
+            _id: 1,
+            "companyDetails.website": 1,
+            "companyDetails.email": 1,
+            "companyDetails.description": 1,
           },
-        ])
-        .toArray();
+        },
+      ]).toArray();
       result.companies.push(companies);
-      let totalCategories = await db
-        .get()
-        .collection(process.env.CATEGORIES_COLLECTION)
-        .find({})
-        .toArray();
+      let totalCategories = await db.get().collection(process.env.CATEGORIES_COLLECTION).find({}).toArray();
       totalCategories[0]?.categories.forEach((category) => {
         for (let i = 0; i < keywords.length; i++) {
-          if (
-            parseFloat(
-              Number(
-                (100 -
-                  (levenshtein.get(category, keywords[i].toLowerCase()) /
-                    keywords[i].length) *
-                  100) /
-                100.0
-              ).toFixed(3)
-            ) > 0.85
-          ) {
-            result.categories.push(keywords[i]);
+          if (parseFloat(Number((100 - (levenshtein.get(category, keywords[i].toLowerCase()) / keywords[i].length) * 100) / 100.0).toFixed(3)) > 0.85) {
+            result.categories.push(keywords[i])
           }
         }
       });
-      let products = await db
-        .get()
-        .collection(process.env.PRODUCTS_COLLECTION)
-        .aggregate([
-          {
-            $project: {
-              name: 1,
-              tags: 1,
-              price: 1,
-              category: 1,
-              description: 1,
-              date: 1,
-              trend: 1,
-              comapanyId: 1,
-              companyName: 1,
-              stock: 1,
-              mrp: 1,
-              displayUrl: 1
-            },
+      let products = await db.get().collection(process.env.PRODUCTS_COLLECTION).aggregate([
+        {
+          $project: {
+            name: 1,
+            tags: 1,
+            price: 1,
+            category: 1,
+            description: 1,
+            date: 1,
+            trend: 1,
+            comapanyId: 1,
+            companyName: 1,
+            stock: 1,
+            mrp: 1,
+            displayUrl: 1
           },
-        ])
-        .toArray();
+        },
+      ]).toArray();
       let final = {
         length: 0,
         diff: 0,
@@ -281,12 +259,7 @@ export default {
           Number((100 - (final.diff / final.length) * 100) / 100.0).toFixed(3)
         );
         product.tags.forEach((tag) => {
-          let tagDiff = parseFloat(
-            Number(
-              (100 - (levenshtein.get(searchedLine, tag) / tag.length) * 100) /
-              100.0
-            ).toFixed(3)
-          );
+          let tagDiff = parseFloat(Number((100 - (levenshtein.get(searchedLine, tag) / tag.length) * 100) / 100.0).toFixed(3));
           switch (true) {
             case tagDiff >= 0.95:
               product.priority = product.priority + 1;
@@ -325,9 +298,7 @@ export default {
       if (email !== undefined && email !== null) {
         switch (true) {
           case tempProducts.length > 2:
-            db.get()
-              .collection(process.env.USER_COLLECTION)
-              .updateOne(
+            db.get().collection(process.env.USER_COLLECTION).updateOne(
                 { email: email },
                 {
                   $set: {
@@ -341,9 +312,7 @@ export default {
               );
             break;
           case tempProducts.length > 1:
-            db.get()
-              .collection(process.env.USER_COLLECTION)
-              .updateOne(
+            db.get().collection(process.env.USER_COLLECTION).updateOne(
                 { email: email },
                 {
                   $set: {
@@ -353,9 +322,7 @@ export default {
               );
             break;
           case tempProducts.length > 0:
-            db.get()
-              .collection(process.env.USER_COLLECTION)
-              .updateOne(
+            db.get().collection(process.env.USER_COLLECTION).updateOne(
                 { email: email },
                 {
                   $set: { indrestedItems: [tempProducts[0]._id] },
@@ -377,10 +344,7 @@ export default {
       } catch (BSONError) {
         resolve("Not a valid Product Id");
       }
-      db.get()
-        .collection(process.env.PRODUCTS_COLLECTION)
-        .findOne(objId)
-        .then((product) => {
+      db.get().collection(process.env.PRODUCTS_COLLECTION).findOne(objId).then((product) => {
           resolve(product);
         });
     });
@@ -592,7 +556,13 @@ export default {
       if (userId) {
         const user = await db.get().collection(process.env.USER_COLLECTION).findOne({ _id: new ObjectId(userId) });
         const product = await db.get().collection(process.env.PRODUCTS_COLLECTION).findOne({ _id: new ObjectId(user.indrestedItems[0]) });
-        const relatedProducts = await db.get().collection(process.env.PRODUCTS_COLLECTION).find({ "rating.rate": { $gt: 1 }, category: product?.category }).limit(4).toArray();
+        const relatedProducts = await db.get().collection(process.env.PRODUCTS_COLLECTION).find({ "rating.rate": { $gt: 0 }, category: product?.category }).limit(4).toArray();
+        console.log(relatedProducts)
+        while (relatedProducts.length < 4) {
+          break
+          let checkedCategories = {}
+          //TODO: resolving minimum 4 products
+        }
         resolve(relatedProducts);
       } else {
         //TODO: recomended products without userId
@@ -607,22 +577,23 @@ export default {
         if (user.indrestedItems) {
           user.indrestedItems?.forEach(async (itemId) => {
             const item = await db.get().collection(process.env.PRODUCTS_COLLECTION).findOne({ _id: new ObjectId(itemId) })
-            if(!item.category in categories){
+            if (!item.category in categories) {
               categories[item.category] = item.category
             }
           })
           let categoriesList = Object.keys(categories)
-          if(categoriesList.length >= 4){
-            if(categoriesList.length > 4){
-              resolve(categoriesList.slice(0,3))
-            }else{
+          console.log(categoriesList)
+          if (categoriesList.length >= 4) {
+            if (categoriesList.length > 4) {
+              resolve(categoriesList.slice(0, 3))
+            } else {
               resolve(categoriesList)
             }
-          }else{
-            while(Object.keys(categories).length < 4){
-              
+          } else {
+            while (categoriesList.length < 4) {
+              break
             }
-            resolve(Object.keys(categories))
+            resolve(categoriesList)
           }
         } else {
           //TODO: recomented categories without indrested items
