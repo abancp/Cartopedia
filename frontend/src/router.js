@@ -13,6 +13,7 @@ import VerifyAccountPage from './Pages/VerifyAccountPage'
 import RegisterAsCompanyPage from './Pages/RegisterAsCompanyPage/RegisterAsCompanyPage'
 import AddCompanyProductPage from './Pages/AddCompanyProductPage/AddCompanyProductPage'
 import { createBrowserRouter } from 'react-router-dom'
+import AddCategoryPage from './Pages/AddCategoryPage/AddCategoryPage'
 
 export default createBrowserRouter([
   {
@@ -74,5 +75,9 @@ export default createBrowserRouter([
   {
     path: "/orders/:userId",
     element: <OrderPage />
+  },
+  {
+    path:"/add-category",
+    element:<AddCategoryPage/>
   }
 ])

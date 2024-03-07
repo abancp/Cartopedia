@@ -10,7 +10,6 @@ import userFunctions from "../helpers/userHelpers.js";
 import verifyToken from "../middeleware/verifytoken.js";
 import fs from "fs";
 import { createHmac } from "crypto";
-import jwt from "jsonwebtoken";
 
 const router = express.Router();
 
@@ -21,6 +20,13 @@ router.get("/", (req, res) => {
 router.post("/register", register);
 
 router.post("/login", login);
+
+router.post("/logout", (req, res) => {
+  res.clearCookie('userId')
+  res.clearCookie('userName')
+  res.clearCookie('email')
+  res.json({success:true,message:"Logout successfullyy"})
+})
 
 router.get("/check-email-availability/:email", (req, res) => {
   checkEmailExist(req.params.email).then((emailResponse) => {

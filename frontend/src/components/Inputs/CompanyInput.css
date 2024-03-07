@@ -9,8 +9,8 @@
     color: var(--secondery);
     font-weight: 600;
     font-size: large;
-    border: 1px solid var(--secondery);
     background-color: var(--primary-beeta);
+    border-radius: 4px;
 }
 
 .CompanyInput-main .CompanyInput:hover{
@@ -19,10 +19,11 @@
 .CompanyInput-main .CompanyInput:focus{
     opacity: 1;
     outline: 0;
+    border: 1px solid var(--secondery);
     background-color: var(--primary);
 }
 .CompanyInput-main .CompanyInput::placeholder{
-    color: var(--tersiory);
+    color: var(--tersiory-beeta);
     font-weight: 600;
     font-size: large;
 }

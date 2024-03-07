@@ -1,0 +1,51 @@
+.AddCategoryPage {
+    width: 100%;
+    height: 100vh;
+    background-color: var(--primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.AddCategoryPage .AddCategoryPage-main {
+    width: fit-content;
+    max-width: 36rem;
+    padding: 3rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary-beeta);
+    border-radius: 4px;
+    gap: 1rem;
+}
+
+.AddCategoryPage .title-h3 {
+    color: var(--tersiory);
+}
+
+.AddCategoryPage .buttons {
+    display: flex;
+    gap: 3rem;
+    margin-top: 1rem;
+    justify-content: end;
+    align-self: end;
+}
+
+.AddCategoryPage .line {
+    animation: line_animation .4s  ease-in-out 1;
+    width: 85%;
+    height: 1px;
+    border-top: 1px solid white;
+}
+
+@keyframes line_animation {
+    0%{
+        width: 1%;
+    }
+    100%{
+        width: 85%;
+    }
+}

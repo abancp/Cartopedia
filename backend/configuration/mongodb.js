@@ -1,7 +1,7 @@
-import {MongoClient} from "mongodb"
+import { MongoClient } from "mongodb"
 import dotenv from 'dotenv'
-const state={
-    db:null
+const state = {
+    db: null
 };
 dotenv.config()
 const url = process.env.MONGO_URL
@@ -10,15 +10,17 @@ const client = new MongoClient(url);
 const connect = async (cb) => {
     try {
         await client.connect();
-        const db=client.db(dbName);
-        state.db=db;
+        const db = client.db(dbName);
+        state.db = db;
         return cb();
-    }catch(err){
+    } catch (err) {
         return cb(err);
     }
 };
-const get=()=>state.db;
+const get = () => state.db;
 export default {
     connect,
     get,
+    categoryRequests : client.db(dbName).collection("category-requests"),
+    categories : client.db(dbName).collection("category-requests"),
 };

@@ -4,7 +4,8 @@ import "./UserProfilePage.css"
 import { useDispatch, useSelector } from 'react-redux'
 import UserProfileLeft from '../../components/UserProfileLeft/UserProfileLeft'
 import { useNavigate, useParams } from 'react-router-dom'
-// import axios from 'axios'
+import collections from '../../configurations/collections'
+import axios from 'axios'
 // import collections from '../../configurations/collections'
 
 function UserProfilePage() {
@@ -34,7 +35,8 @@ function UserProfilePage() {
   })
   // Logout function 
   const logout = () => {
-     window.localStorage.clear()
+    axios.get(collections.server_base+'/logout')
+    window.localStorage.clear()
     dispatch({ type: "user", payload: { user: {} } })
     navigate('/')
     window.location.reload()

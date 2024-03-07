@@ -246,7 +246,7 @@ export default {
             mrp: 1,
             displayUrl: 1
           },
-        },
+        }
       ]).toArray();
       let final = {
         length: 0,
@@ -570,6 +570,7 @@ export default {
     });
   },
   getRecommentedCategories: (userId) => {
+    console.log(userId);
     return new Promise(async (resolve, reject) => {
       let categories = {}
       if (userId) {

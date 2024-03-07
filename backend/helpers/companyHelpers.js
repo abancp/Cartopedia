@@ -15,16 +15,54 @@ export default {
                     { $push: { companyProducts: response.insertedId } }
                 )
                 let key = 'products.' + proDetails.category
-                await db.get().collection(process.env.CATEGORIES_COLLECTION).updateOne({ db: "categories" }, { $push: { [key]: response.insertedId + "" } })
-                await db.get().collection(process.env.DASHBOARD_COLLECTION).updateOne({ item: "dashboard" }, { $inc: { "company.products": 1 } })
+                db.get().collection(process.env.DASHBOARD_COLLECTION).updateOne({ item: "dashboard" }, { $inc: { "company.products": 1 } })
                 resolve(response.insertedId)
             })
         })
     },
+    createCategoryReq: async (name, companyId) => {
+
+        let category = await db.categories.findOne({ name })
+
+        if (!category) {
+            db.categoryRequests.insertOne({ name, companyId })
+            return "Requested Successfully"
+        } else {
+            return "Category already exist"
+        }
+    },
+    acceptCategoryReq: async (name) => {
+
+        const indexInfo = await db.categories.indexInformation()
+        const indexKeys = Object.keys(indexInfo)
+        if (indexKeys.includes('location_2d')) {
+            db.categories.insertOne({
+                name,
+                products: [],
+                location: {
+                    type: 'Point',
+                    coordinates: [0, 0]
+                }
+            })
+        } else {
+            await categoriesCollection.createIndex({ location: '2d' })
+            db.categories.insertOne({
+                name,
+                products: [],
+                location: {
+                    type: 'Point',
+                    coordinates: [0, 0]
+                }
+            })
+        }
+
+        db.categoryRequests.deleteOne({ name })
+        return "Request Accepted"
+    },
     getAllCategories: () => {
         return new Promise(async (resolve, reject) => {
-            let categoryDoc = await db.get().collection(process.env.CATEGORIES_COLLECTION).find().toArray()
-            resolve(categoryDoc[0]?.categories)
+            let categories = db.categories.aggregate([{$project:{name:1}}])
+            resolve(categories)
         })
     },
     checkCompayProduct: (product) => {
