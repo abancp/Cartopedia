@@ -9,11 +9,13 @@ import collections from "../../configurations/collections";
 import IndrestedItems from "../../components/IndrestedItems/IndrestedItems";
 import IndrestedProduct from "../../components/IndrestedProduct/IndrestedProduct";
 import Alert from "../../components/Alert/Alert";
+import LoadingSkeleton from "../../components/LoadingSkeleton/LoadingSkeleton";
 
 const HomePage = () => {
   const [indrestedItem, setIntrestedItem] = useState({});
   const [coverPhotoname, setCoverPhotoName] = useState("");
   const [trendingProducts, setTrendingProducts] = useState([{}]);
+  const [coverLoaded, setCoverLoaded] = useState(false);
 
   const user = useSelector((state) => state.user);
 
@@ -43,7 +45,10 @@ const HomePage = () => {
             className="cover-photo"
             src={`${collections.server_base}/cover-photos/${coverPhotoname}`}
             alt=""
+            style={coverLoaded?{'display':'block'}:{'display': 'none'}}
+            onLoad={()=>{setCoverLoaded(true)}}
           />
+          {coverLoaded||<LoadingSkeleton borderR={'5px'} width={'85%'} height={'80%'}/>}
         </div>
         <div className="indrested-products-div">
           <IndrestedItems

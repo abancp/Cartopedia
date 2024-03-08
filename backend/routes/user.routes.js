@@ -10,6 +10,7 @@ import userFunctions from "../helpers/userHelpers.js";
 import verifyToken from "../middeleware/verifytoken.js";
 import fs from "fs";
 import { createHmac } from "crypto";
+import userHelpers from "../helpers/userHelpers.js";
 
 const router = express.Router();
 
@@ -210,6 +211,7 @@ router.patch("/rate-product", (req, res) => {
 
 router.get("/recommented", (req, res) => {
   const { userId } = req.cookies
+  userHelpers.arangeCategoryWithCart(userId)
   userFunctions.getRecommentedRatedProducts(userId).then((products) => {
     res.json({ products });
   });

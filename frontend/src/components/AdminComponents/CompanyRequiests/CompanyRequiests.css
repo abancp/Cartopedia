@@ -1,4 +1,7 @@
-
+.CompanyReqs{
+    background-color: var(--primary-beeta);
+    border-radius: 4px;
+}
 .adminhome-table-div th{
     color: var(--secondery);
 }

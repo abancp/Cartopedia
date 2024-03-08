@@ -3,7 +3,7 @@
     top: 40px;
     left: 0;
     width: 220px;
-    box-shadow: var(--bs-primary);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 .AdminSidebar .adminsidebar-main{
     width: 100%;

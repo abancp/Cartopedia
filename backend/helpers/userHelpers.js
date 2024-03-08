@@ -1,5 +1,5 @@
 import fs from "fs";
-import bcrypt, { hash } from "bcrypt";
+import bcrypt from "bcrypt";
 import { ObjectId } from "mongodb";
 import levenshtein from "fast-levenshtein";
 import db from "../configuration/mongodb.js";
@@ -299,35 +299,35 @@ export default {
         switch (true) {
           case tempProducts.length > 2:
             db.get().collection(process.env.USER_COLLECTION).updateOne(
-                { email: email },
-                {
-                  $set: {
-                    indrestedItems: [
-                      tempProducts[0]._id,
-                      tempProducts[1]._id,
-                      tempProducts[2]._id,
-                    ],
-                  },
-                }
-              );
+              { email: email },
+              {
+                $set: {
+                  indrestedItems: [
+                    tempProducts[0]._id,
+                    tempProducts[1]._id,
+                    tempProducts[2]._id,
+                  ],
+                },
+              }
+            );
             break;
           case tempProducts.length > 1:
             db.get().collection(process.env.USER_COLLECTION).updateOne(
-                { email: email },
-                {
-                  $set: {
-                    indrestedItems: [tempProducts[0]._id, tempProducts[1]._id],
-                  },
-                }
-              );
+              { email: email },
+              {
+                $set: {
+                  indrestedItems: [tempProducts[0]._id, tempProducts[1]._id],
+                },
+              }
+            );
             break;
           case tempProducts.length > 0:
             db.get().collection(process.env.USER_COLLECTION).updateOne(
-                { email: email },
-                {
-                  $set: { indrestedItems: [tempProducts[0]._id] },
-                }
-              );
+              { email: email },
+              {
+                $set: { indrestedItems: [tempProducts[0]._id] },
+              }
+            );
             break;
           default:
             break;
@@ -345,8 +345,8 @@ export default {
         resolve("Not a valid Product Id");
       }
       db.get().collection(process.env.PRODUCTS_COLLECTION).findOne(objId).then((product) => {
-          resolve(product);
-        });
+        resolve(product);
+      });
     });
   },
   addToCart: (proId, count, userId) => {
@@ -551,13 +551,28 @@ export default {
       resolve(newRating);
     });
   },
+  arangeCategoryWithCart: async (userId) => {
+    let earlyOrders = await db.orders.find({ userId }).limit(10).toArray();
+    var categories = {};
+
+    for (const order of earlyOrders) {
+      for (const productId of Object.keys(order.products)) {
+        let product = await db.products.findOne({ _id: new ObjectId(productId) });
+        if (!categories[product.category]) {
+          categories[product.category] = product.category;
+        }
+      }
+    }
+    // if (Object.keys(categories).length > 1){
+    //   // db.categories.updateOne({})
+    // }
+  },
   getRecommentedRatedProducts: (userId) => {
     return new Promise(async (resolve, reject) => {
       if (userId) {
         const user = await db.get().collection(process.env.USER_COLLECTION).findOne({ _id: new ObjectId(userId) });
         const product = await db.get().collection(process.env.PRODUCTS_COLLECTION).findOne({ _id: new ObjectId(user.indrestedItems[0]) });
         const relatedProducts = await db.get().collection(process.env.PRODUCTS_COLLECTION).find({ "rating.rate": { $gt: 0 }, category: product?.category }).limit(4).toArray();
-        console.log(relatedProducts)
         while (relatedProducts.length < 4) {
           break
           let checkedCategories = {}

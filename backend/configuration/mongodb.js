@@ -23,4 +23,7 @@ export default {
     get,
     categoryRequests : client.db(dbName).collection("category-requests"),
     categories : client.db(dbName).collection("category-requests"),
+    carts : client.db(dbName).collection("carts"),
+    orders : client.db(dbName).collection("orders"),
+    products : client.db(dbName).collection("products"),
 };

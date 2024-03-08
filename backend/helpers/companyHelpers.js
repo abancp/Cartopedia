@@ -9,7 +9,7 @@ export default {
                 totalRatings: 0,
                 rates: [0, 0, 0, 0, 0]
             }
-            db.get().collection(process.env.PRODUCTS_COLLECTION).insertOne(proDetails).then(async (response) => {
+            db.products.insertOne(proDetails).then(async (response) => {
                 db.get().collection(process.env.USER_COLLECTION).updateOne(
                     { email: proDetails.comapanyId },
                     { $push: { companyProducts: response.insertedId } }
@@ -20,48 +20,22 @@ export default {
             })
         })
     },
-    createCategoryReq: async (name, companyId) => {
+    createCategoryReq: (name, companyId) => {
+        return new Promise(async (resolve, reject) => {
+            let category = await db.categories.findOne({ name })
+            if (!category) {
+                db.categoryRequests.insertOne({ name, companyId })
+                console.log("Requested for category : "+name);
+                resolve("Requested Successfully")
+            } else {
+                reject("Category already exist")
+            }
+        })
 
-        let category = await db.categories.findOne({ name })
-
-        if (!category) {
-            db.categoryRequests.insertOne({ name, companyId })
-            return "Requested Successfully"
-        } else {
-            return "Category already exist"
-        }
-    },
-    acceptCategoryReq: async (name) => {
-
-        const indexInfo = await db.categories.indexInformation()
-        const indexKeys = Object.keys(indexInfo)
-        if (indexKeys.includes('location_2d')) {
-            db.categories.insertOne({
-                name,
-                products: [],
-                location: {
-                    type: 'Point',
-                    coordinates: [0, 0]
-                }
-            })
-        } else {
-            await categoriesCollection.createIndex({ location: '2d' })
-            db.categories.insertOne({
-                name,
-                products: [],
-                location: {
-                    type: 'Point',
-                    coordinates: [0, 0]
-                }
-            })
-        }
-
-        db.categoryRequests.deleteOne({ name })
-        return "Request Accepted"
     },
     getAllCategories: () => {
         return new Promise(async (resolve, reject) => {
-            let categories = db.categories.aggregate([{$project:{name:1}}])
+            let categories = db.categories.aggregate([{ $project: { name: 1 } }])
             resolve(categories)
         })
     },

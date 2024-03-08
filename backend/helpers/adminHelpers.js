@@ -43,5 +43,45 @@ export default {
         console.log('specified file not excist')
       }
     })
-  }
+  },
+  getCategoryReqs:()=>{
+    return new Promise((resolve,reject)=>{
+      let reqs = db.categoryRequests.find().toArray()
+      resolve(reqs)
+    })
+  },
+  acceptCategoryReq: (name) => {
+    return new Promise(async (resolve, reject) => {
+      const indexInfo = await db.categories.indexInformation()
+      const indexKeys = Object.keys(indexInfo)
+      if (indexKeys.includes('location_2d')) {
+        db.categories.insertOne({
+          name,
+          products: [],
+          location: {
+            type: 'Point',
+            coordinates: [0, 0]
+          }
+        })
+      } else {
+        await categoriesCollection.createIndex({ location: '2d' })
+        db.categories.insertOne({
+          name,
+          products: [],
+          location: {
+            type: 'Point',
+            coordinates: [0, 0]
+          }
+        })
+      }
+      db.categoryRequests.deleteOne({ name })
+      resolve("Request Accepted")
+    })
+  },
+  rejectCategoryReq: (name) => {
+    return new Promise((resolve,reject)=>{
+      db.categoryRequests.deleteOne({ name })
+      resolve("Rejected Successfully")
+    })
+  },
 }
