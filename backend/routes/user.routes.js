@@ -26,7 +26,8 @@ router.post("/logout", (req, res) => {
   res.clearCookie('userId')
   res.clearCookie('userName')
   res.clearCookie('email')
-  res.json({success:true,message:"Logout successfullyy"})
+  console.log('cleared');
+  res.json({success:true,message:"Logout successfully"})
 })
 
 router.get("/check-email-availability/:email", (req, res) => {
@@ -211,6 +212,7 @@ router.patch("/rate-product", (req, res) => {
 
 router.get("/recommented", (req, res) => {
   const { userId } = req.cookies
+  console.log(userId)
   userHelpers.arangeCategoryWithCart(userId)
   userFunctions.getRecommentedRatedProducts(userId).then((products) => {
     res.json({ products });

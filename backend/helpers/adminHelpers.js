@@ -5,13 +5,13 @@ import fs from 'fs'
 export default {
   getCompanyRequiests: async () => {
     return new Promise(async (resolve, reject) => {
-      let companyRequiests = await db.get().collection(process.env.COMPANY_REQUIEST_COLLLECTION).find().toArray();
+      let companyRequiests = await db.get().collection(process.env.COMPANY_REQUEST_COLLECTION).find().toArray();
       resolve(companyRequiests)
     })
   },
   allowCompany: async (email) => {
-    let request = await db.get().collection(process.env.COMPANY_REQUIEST_COLLLECTION).findOne({ email: email })
-    db.get().collection(process.env.COMPANY_REQUIEST_COLLLECTION).deleteOne({ email: email })
+    let request = await db.get().collection(process.env.COMPANY_REQUEST_COLLECTION).findOne({ email: email })
+    db.get().collection(process.env.COMPANY_REQUEST_COLLECTION).deleteOne({ email: email })
     db.get().collection(process.env.USER_COLLECTION).updateOne({ email: email }, {
       $set: {
         companyPending: false,
@@ -27,7 +27,7 @@ export default {
         company: false
       }
     })
-    await db.get().collection(process.env.COMPANY_REQUIEST_COLLLECTION).deleteOne({ email: email })
+    await db.get().collection(process.env.COMPANY_REQUEST_COLLECTION).deleteOne({ email: email })
   },
   getAllProducts: (skip) => {
     return new Promise(async (resolve, reject) => {
@@ -36,16 +36,16 @@ export default {
     })
   },
   deleteCompanyProduct: (proId) => {
-    //FIXME : deleting company poducts from company database
+    //FIXME : deleting company products from company database
     db.get().collection(process.env.PRODUCTS_COLLECTION).deleteOne({ _id: new ObjectId(proId) })
     fs.unlink('./public/product-displays/' + proId + ".jpg", (err) => {
       if (err) {
-        console.log('specified file not excist')
+        console.log('specified file not exist')
       }
     })
   },
-  getCategoryReqs:()=>{
-    return new Promise((resolve,reject)=>{
+  getCategoryReqs: () => {
+    return new Promise((resolve, reject) => {
       let reqs = db.categoryRequests.find().toArray()
       resolve(reqs)
     })
@@ -58,30 +58,24 @@ export default {
         db.categories.insertOne({
           name,
           products: [],
-          location: {
-            type: 'Point',
-            coordinates: [0, 0]
-          }
+          location: [0, 0]
         })
       } else {
-        await categoriesCollection.createIndex({ location: '2d' })
+        await db.categories.createIndex({ location: '2d' })
         db.categories.insertOne({
           name,
           products: [],
-          location: {
-            type: 'Point',
-            coordinates: [0, 0]
-          }
+          location: [0, 0]
         })
       }
-      db.categoryRequests.deleteOne({ name })
+      await db.categoryRequests.deleteOne({ name })
       resolve("Request Accepted")
     })
   },
   rejectCategoryReq: (name) => {
-    return new Promise((resolve,reject)=>{
+    return new Promise((resolve, reject) => {
       db.categoryRequests.deleteOne({ name })
-      resolve("Rejected Successfully")
+      resolve("Request  Rejected")
     })
   },
 }

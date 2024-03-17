@@ -11,7 +11,8 @@
   gap: 2rem;
   transition: 200ms;
 }
-.AddCompanyProductPage .users-block {
+
+.users-block {
   position: absolute;
   top: 0;
   left: 0;
@@ -20,11 +21,13 @@
   width: 100%;
   height: 100vh;
 }
+
 .AddCompanyProductPage .heading {
   margin-top: 0.5rem;
   color: var(--tersiory);
   transition: 200ms;
 }
+
 .AddCompanyProductPage .error {
   color: red;
   top: -14px;
@@ -35,6 +38,7 @@
   font-size: 13px;
   transition: 200ms;
 }
+
 .AddCompanyProductPage .bgimg {
   position: absolute;
   top: 50px;
@@ -45,17 +49,20 @@
   z-index: -4;
   transition: 200ms;
 }
+
 .AddCompanyProductPage .prices {
   display: flex;
   align-items: center;
   gap: 0.4rem;
   transition: 200ms;
 }
+
 .AddCompanyProductPage .offer {
   color: var(--tersiory);
   transition: 200ms;
   margin: 0;
 }
+
 .AddCompanyProductPage .category-selector {
   width: 70rem;
   height: 2.5rem;
@@ -67,14 +74,17 @@
   transition: 200ms;
   border: 1px solid var(--secondery);
 }
+
 .AddCompanyProductPage .category-options {
   color: var(--tersiory);
   font-size: x-large;
 }
+
 .AddCompanyProductPage .category-selector:focus {
   background-color: var(--primary);
   outline: 0;
 }
+
 .AddCompanyProductPage .description-text-area {
   width: 70rem;
   margin: 0;
@@ -86,14 +96,20 @@
   min-height: 2.5rem;
   padding-top: 5px;
   transition: 200ms;
+  color: var(--secondery);
 }
+
 .AddCompanyProductPage .description-text-area:focus {
   outline: 0;
   background-color: var(--primary);
 }
+
 .AddCompanyProductPage .description-text-area::placeholder {
-  color: var(--tersiory);
+  color: var(--tersiory-beeta);
+  font-weight: 600;
+  font-size: large;
 }
+
 .AddCompanyProductPage .description-error {
   color: red;
   top: -21px;
@@ -104,15 +120,18 @@
   font-size: 13px;
   transition: 200ms;
 }
-.AddCompanyProductPage .isUrl-input{
+
+.AddCompanyProductPage .isUrl-input {
   margin: 0;
   padding: 0;
   width: 1rem;
 }
+
 .AddCompanyProductPage .dropzone-div {
   display: flex;
   gap: 0.4rem;
 }
+
 .AddCompanyProductPage .dropzone {
   background-color: var(--primary-beeta);
   border: 0;
@@ -128,16 +147,19 @@
   transition: 200ms;
   border: 1px solid var(--secondery);
 }
+
 .AddCompanyProductPage .dropzon-placeholder {
   font-weight: 600;
   font-size: large;
   margin-top: 0.7rem;
   transition: 200ms;
 }
+
 .AddCompanyProductPage .submit-btn {
   margin-top: 2rem;
   transition: 200ms;
 }
+
 .AddCompanyProductPage .bottum-div {
   margin-bottom: 2rem;
   transition: 200ms;

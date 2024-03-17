@@ -37,7 +37,7 @@ function AddCompanyProductPage() {
   const [productDetailedUrlsErr, setProductDetailedUrlsErr] = useState("");
   const [productStockErr, setProductStockErr] = useState("");
   const [productCategoryErr, setProductCategoryErr] = useState("");
-  const [productDescriptionErr, setProductDiscriptionErr] = useState("");
+  const [productDescriptionErr, setProductDescriptionErr] = useState("");
   // company state
   const [companyName, setCompanyName] = useState("");
   const [companyMail, setCompanyMail] = useState("");
@@ -49,7 +49,7 @@ function AddCompanyProductPage() {
   const [detailedPhotos, setDetailedPhotos] = useState([]);
   const [detailedPhotosLength, setDetailedPhotosLength] = useState(0);
   // seting helperPopup
-  const [showHelperPopup,setShowHelperPopup] = useState(false)
+  const [showHelperPopup, setShowHelperPopup] = useState(false)
   //making instances
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
@@ -72,10 +72,15 @@ function AddCompanyProductPage() {
         headers: { Authorization: window.localStorage.getItem("token") },
       })
       .then((res) => setCategories(res.data.categories));
-    if(!window.localStorage.getItem('p-addCompanyProduct-1')){
+    if (!window.localStorage.getItem('p-addCompanyProduct-1')) {
       setShowHelperPopup(true)
     }
   }, []);
+  useEffect(() => {
+    if(productCategory === "add-category"){
+      navigate('/add-category')
+    }
+  }, [productCategory])
   // function checing entered values
   const checkAll = (e) => {
     e.preventDefault();
@@ -103,7 +108,7 @@ function AddCompanyProductPage() {
         setProductCategoryErr(res.data.productCategoryErr);
         setProductTagsErr(res.data.productTagsErr);
         setProductStockErr(res.data.productStockErr);
-        setProductDiscriptionErr(res.data.productDescriptionErr);
+        setProductDescriptionErr(res.data.productDescriptionErr);
         setProductDisplayUrlErr(res.data.productDisplayUrlErr);
         setProductDetailedUrlsErr(res.data.productDetailedUrlsErr);
         if (res.data.CompanyProductCompleteOk) {
@@ -216,7 +221,7 @@ function AddCompanyProductPage() {
               color:
                 productCategory !== "0"
                   ? "var(--secondery)"
-                  : "var(--tersiory)",
+                  : "var(--tersiory-beeta)",
             }}
             onChange={(e) => {
               setProductCategory(e.target.value);
@@ -235,7 +240,7 @@ function AddCompanyProductPage() {
                 {category}
               </option>
             ))}
-            <option style={{ color: "var(--secondery)" }} value="add-catrgory">
+            <option style={{ color: "var(--secondery)" }} value="add-category">
               -----------------Request for new Category-----------------{" "}
             </option>
           </select>
@@ -317,13 +322,12 @@ function AddCompanyProductPage() {
                   <h6
                     className="dropzon-placeholder"
                     style={{
-                      color: photo ? "var(--secondery)" : "var(--tersiory)",
+                      color: photo ? "var(--secondery)" : "var(--tersiory-beeta)",
                     }}
-                  >{`${
-                    photo
+                  >{`${photo
                       ? photo.name
                       : "Display images Browse or Drop ( one image )"
-                  }`}</h6>
+                    }`}</h6>
                 </div>
               </section>
             )}
@@ -334,7 +338,7 @@ function AddCompanyProductPage() {
             top="-6rem"
             left="-36rem"
             message="Here you can Brows or Drop image . if You add urls droped files will be ignored"
-            gotIt={()=>{setShowHelperPopup(false);window.localStorage.setItem('p-addCompanyProduct-1',true)}}
+            gotIt={() => { setShowHelperPopup(false); window.localStorage.setItem('p-addCompanyProduct-1', true) }}
           />}
           <Dropzone
             multiple={true}
@@ -354,16 +358,15 @@ function AddCompanyProductPage() {
                     style={{
                       color:
                         detailedPhotos.length === 0
-                          ? "var(--tersiory)"
+                          ? "var(--tersiory-beeta)"
                           : "var(--secondery)",
                     }}
-                  >{`${
-                    detailedPhotos.length === 0
+                  >{`${detailedPhotos.length === 0
                       ? "Detailed Photos Browse or Drop ( Maximum 10 images )"
                       : detailedPhotosLength <= 10
-                      ? `You can put here  ${10 - detailedPhotosLength}  More`
-                      : "Not accept more images ( 10 Images added )"
-                  }`}</h6>
+                        ? `You can put here  ${10 - detailedPhotosLength}  More`
+                        : "Not accept more images ( 10 Images added )"
+                    }`}</h6>
                 </div>
               </section>
             )}

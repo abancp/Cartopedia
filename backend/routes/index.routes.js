@@ -1,8 +1,8 @@
-import userRouter from "../routes/user.routes.js";
+import userRouter from "./user.routes.js";
 import verifyCompany from '../middeleware/verifyCompany.js';
-import companyRouter from "../routes/company.routes.js";
-import sellerRouter from "../routes/seller.routes.js";
-import adminRouter from "../routes/admin.routes.js";
+import companyRouter from "./company.routes.js";
+import sellerRouter from "./seller.routes.js";
+import adminRouter from "./admin.routes.js";
 import verifyAdmin from '../middeleware/verifyAdmin.js';
 import fileUploadingFunctions from '../helpers/fileUploadingHelpers.js'
 

@@ -98,27 +98,26 @@ export default {
     });
   },
   requestAddDetailsToOtp: (companyDetails) => {
+    console.log(companyDetails);
     return new Promise(async (resolve, reject) => {
       let { companyName, website, location, categories, description, email } =
         companyDetails;
-      db.get()
-        .collection(process.env.USER_COLLECTION)
-        .updateOne(
-          { email: email },
-          {
-            $set: {
-              companyRequestDetails: {
-                companyName,
-                website,
-                location,
-                categories,
-                description,
-                email,
-                date: Date.now(),
-              },
+      db.users.updateOne(
+        { email: email },
+        {
+          $set: {
+            companyRequestDetails: {
+              companyName,
+              website,
+              location,
+              categories,
+              description,
+              email,
+              date: Date.now(),
             },
-          }
-        );
+          },
+        }
+      );
       await db
         .get()
         .collection(process.env.DASHBOARD_COLLECTION)
@@ -170,8 +169,7 @@ export default {
         .findOne({ email: email });
       if (user.emailOtpExpareDate > Date.now()) {
         if (await bcrypt.compare("" + otp, user.emailOtp)) {
-          db.get()
-            .collection(process.env.USER_COLLECTION)
+          db.users
             .updateOne(
               { email: email },
               {
@@ -184,7 +182,7 @@ export default {
             );
           let tempCompany = user.companyRequestDetails;
           db.get()
-            .collection(process.env.COMPANY_REQUIEST_COLLLECTION)
+            .collection(process.env.COMPANY_REQUEST_COLLECTION)
             .insertOne(tempCompany);
           resolve(true);
         } else {
@@ -223,9 +221,10 @@ export default {
       ]).toArray();
       result.companies.push(companies);
       let totalCategories = await db.get().collection(process.env.CATEGORIES_COLLECTION).find({}).toArray();
-      totalCategories[0]?.categories.forEach((category) => {
+      console.log(totalCategories);
+      totalCategories.forEach((category) => {
         for (let i = 0; i < keywords.length; i++) {
-          if (parseFloat(Number((100 - (levenshtein.get(category, keywords[i].toLowerCase()) / keywords[i].length) * 100) / 100.0).toFixed(3)) > 0.85) {
+          if (parseFloat(Number((100 - (levenshtein.get(category.name, keywords[i].toLowerCase()) / keywords[i].length) * 100) / 100.0).toFixed(3)) > 0.85) {
             result.categories.push(keywords[i])
           }
         }

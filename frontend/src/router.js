@@ -19,7 +19,7 @@ export default createBrowserRouter([
   {
     path: "/",
     element: <HomePage />,
-  },  
+  },
   {
     path: "/login",
     element: <LoginPage />,
@@ -57,10 +57,6 @@ export default createBrowserRouter([
     element: <ProductDetailed />
   },
   {
-    path: "/admin",
-    element: <h1>Admin</h1>
-  },
-  {
     path: "/admin/:page",
     element: <AdminHome />
   },
@@ -77,7 +73,7 @@ export default createBrowserRouter([
     element: <OrderPage />
   },
   {
-    path:"/add-category",
-    element:<AddCategoryPage/>
+    path: "/add-category",
+    element: <AddCategoryPage />
   }
 ])

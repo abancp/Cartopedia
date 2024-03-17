@@ -17,5 +17,5 @@ export default function configuration(app) {
     app.use(express.static(path.resolve('./public')));
     app.use(cors({ origin: ["http://localhost:3000","https://cartopedia.vercel.app","http://192.168.99.235:3000"], credentials: true}));
     socket(4001,"SocketIO Started : ")
-    db.connect((err) => err ? console.log("Mongo db Not conneted ", err) : console.log(`Mongodb Connected`))
+    db.connect((err) => err ? console.log("Mongo db Not connected ", err) : console.log(`Mongodb Connected`))
 }

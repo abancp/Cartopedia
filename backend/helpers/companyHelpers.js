@@ -35,7 +35,8 @@ export default {
     },
     getAllCategories: () => {
         return new Promise(async (resolve, reject) => {
-            let categories = db.categories.aggregate([{ $project: { name: 1 } }])
+            let categories =await db.categories.aggregate([{ $project: { _id:0,name: 1 } }]).toArray()
+            categories = categories.map(object => object.name)
             resolve(categories)
         })
     },

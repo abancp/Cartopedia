@@ -35,7 +35,7 @@ function UserProfilePage() {
   })
   // Logout function 
   const logout = () => {
-    axios.get(collections.server_base+'/logout')
+    axios.post(collections.server_base + '/logout')
     window.localStorage.clear()
     dispatch({ type: "user", payload: { user: {} } })
     navigate('/')

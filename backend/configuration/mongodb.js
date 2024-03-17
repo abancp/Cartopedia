@@ -21,9 +21,10 @@ const get = () => state.db;
 export default {
     connect,
     get,
-    categoryRequests : client.db(dbName).collection("category-requests"),
-    categories : client.db(dbName).collection("category-requests"),
-    carts : client.db(dbName).collection("carts"),
-    orders : client.db(dbName).collection("orders"),
-    products : client.db(dbName).collection("products"),
+    categoryRequests: client.db(dbName).collection("category-requests"),
+    categories: client.db(dbName).collection("categories"),
+    carts: client.db(dbName).collection("carts"),
+    orders: client.db(dbName).collection("orders"),
+    products: client.db(dbName).collection("products"),
+    users: client.db(dbName).collection("user")
 };
