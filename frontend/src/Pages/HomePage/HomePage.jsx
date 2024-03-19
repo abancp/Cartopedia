@@ -28,9 +28,9 @@ const HomePage = () => {
           : setIntrestedItem(res.data.indrestedItem);
       });
     }
-    //get cover photo from backent
+    //get cover photo from backend
     axios.get(collections.server_base + "/get-cover-photo").then((res) => setCoverPhotoName(res.data.coverPhotoName));
-    //getting 20 trending products from backent
+    //getting 20 trending products from backend
     axios.get(collections.server_base + "/get-trending-products").then((res) =>{ setTrendingProducts(res.data.products)
     })
   }, [user]);
@@ -62,6 +62,21 @@ const HomePage = () => {
       <div className="Homepage-main-bottum">
         <div className="previews">
           <Previews user={user} />
+        </div>
+        <div className="trending-products">
+          {trendingProducts.map((product, i) => (
+            <IndrestedProduct key={i} indrestedItem={product} />
+          ))}
+        </div>
+        <div className="trending-products">
+          {trendingProducts.map((product, i) => (
+            <IndrestedProduct key={i} indrestedItem={product} />
+          ))}
+        </div>
+        <div className="trending-products">
+          {trendingProducts.map((product, i) => (
+            <IndrestedProduct key={i} indrestedItem={product} />
+          ))}
         </div>
         <div className="trending-products">
           {trendingProducts.map((product, i) => (

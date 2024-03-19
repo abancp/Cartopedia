@@ -100,8 +100,7 @@ export default {
   requestAddDetailsToOtp: (companyDetails) => {
     console.log(companyDetails);
     return new Promise(async (resolve, reject) => {
-      let { companyName, website, location, categories, description, email } =
-        companyDetails;
+      let { companyName, website, location, categories, description, email } = companyDetails;
       db.users.updateOne(
         { email: email },
         {
@@ -423,6 +422,46 @@ export default {
       resolve()
     })
   },
+  attractCartCategories: async (userId) => {
+    const MOVE_DIST = 0.3
+    let cart = await db.carts.findOne({ userId })
+    let categoriesMap = {}
+    let categories = []
+    for (let productId of Object.keys(cart.cartItems)) {
+      let product = await db.products.findOne({ _id: new ObjectId(productId) })
+      console.log(productId);
+      if (!categoriesMap[product.category]) {
+        categoriesMap[product.category] = true
+        categories.push(await db.categories.findOne({ name: product.category }))
+      }
+    }
+    let newPoint = (point, target, distance) => {
+      let dx = target[0] - point[0]
+      let dy = target[1] - point[1]
+      let magnitude = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy))
+      if (magnitude > 0) {
+        dx /= magnitude
+        dy /= magnitude
+      }
+      dx *= distance
+      dy *= distance
+      let new_x = point[0] + dx
+      let new_y = point[1] + dy
+
+      return [new_x, new_y]
+    }
+    while (categories.length > 1) {
+      for (let i = 1; i < categories.length; i++) {
+        let updatedPoint = newPoint(categories[i].location, categories[0].location, MOVE_DIST)
+        db.categories.updateOne({ name: categories[i].name }, {
+          $set: { location: updatedPoint }
+        })
+        categories[i].location = updatedPoint
+        categories = categories.slice(1)
+      }
+      console.log(categories);
+    }
+  },
   placeOrderCart: (userId, address, pay) => {
     return new Promise(async (resolve, reject) => {
       let cart = await db.get().collection(process.env.CART_COLLECTION).findOne({ userId });
@@ -550,22 +589,6 @@ export default {
       resolve(newRating);
     });
   },
-  arangeCategoryWithCart: async (userId) => {
-    let earlyOrders = await db.orders.find({ userId }).limit(10).toArray();
-    var categories = {};
-
-    for (const order of earlyOrders) {
-      for (const productId of Object.keys(order.products)) {
-        let product = await db.products.findOne({ _id: new ObjectId(productId) });
-        if (!categories[product.category]) {
-          categories[product.category] = product.category;
-        }
-      }
-    }
-    // if (Object.keys(categories).length > 1){
-    //   // db.categories.updateOne({})
-    // }
-  },
   getRecommentedRatedProducts: (userId) => {
     return new Promise(async (resolve, reject) => {
       if (userId) {
@@ -605,9 +628,6 @@ export default {
               resolve(categoriesList)
             }
           } else {
-            while (categoriesList.length < 4) {
-              break
-            }
             resolve(categoriesList)
           }
         } else {

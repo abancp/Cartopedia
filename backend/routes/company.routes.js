@@ -29,8 +29,9 @@ router.post("/check-company-product", (req, res) => {
 })
 
 router.post('/add-category',(req,res)=>{
-    let {categoryName} = req.body
-    companyFunctions.createCategoryReq(categoryName).then((msg)=>{
+    console.log(req.body);
+    let {categoryName,companyName} = req.body
+    companyFunctions.createCategoryReq(categoryName,companyName).then((msg)=>{
         res.json({success:true,message:msg})
     }).catch((err)=>{
         res.status(403).json({success:false,message:err})

@@ -10,10 +10,10 @@ router.get("/requests/company", (req, res) => {
 
 router.post("/permission/company", (req, res) => {
     const { email, permission } = req.body
-    if (req.params.permission === "true") {
-        adminFunctions.allowCompany(req.params.email)
+    if (permission) {
+        adminFunctions.allowCompany(email)
     } else {
-        adminFunctions.denieCompany(req.params.email)
+        adminFunctions.denieCompany(email)
     }
     res.json({ true: true })
 })
@@ -33,22 +33,22 @@ router.delete("/company-product/", (req, res) => {
 
 router.post("/permission/category", (req, res) => {
     const { name, permission } = req.body
-    if(permission === false){
-        adminFunctions.rejectCategoryReq(name).then((msg)=>{
+    if (permission === false) {
+        adminFunctions.rejectCategoryReq(name).then((msg) => {
             console.log(msg);
-            res.json({success:true,message:msg})
+            res.json({ success: true, message: msg })
         })
-    }else{
-        adminFunctions.acceptCategoryReq(name).then((msg)=>{
+    } else {
+        adminFunctions.acceptCategoryReq(name).then((msg) => {
             console.log(msg);
-            res.json({success:true,message:msg})
+            res.json({ success: true, message: msg })
         })
     }
 })
 
-router.get('/requests/category',(req,res)=>{
-    adminFunctions.getCategoryReqs().then((reqs)=>{
-        res.json({success:true,requests:reqs})
+router.get('/requests/category', (req, res) => {
+    adminFunctions.getCategoryReqs().then((reqs) => {
+        res.json({ success: true, requests: reqs })
     })
 })
 

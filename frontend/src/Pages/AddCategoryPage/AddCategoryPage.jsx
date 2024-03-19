@@ -13,22 +13,23 @@ function AddCategoryPage() {
   const navigate = useNavigate()
 
   const [categoryName, setCategoryName] = useState('')
-  const [company, setCompany] = useState('')
+  const [companyName, setCompanyName] = useState('')
   const user = useSelector((state) => state.user);
 
+
+  useEffect(() => {
+    if (user) {
+      setCompanyName(user.companyDetails.companyName)
+    }
+  }, [user])
+
   const addCategoryReq = () => {
-    axios.post(collections.server_base + '/company/add-category', { categoryName }, { headers: { Authorization: window.localStorage.getItem("token") } }).then(() => {
+    axios.post(collections.server_base + '/company/add-category', { categoryName,companyName }, { headers: { Authorization: window.localStorage.getItem("token") } }).then(() => {
       navigate('/')
     })
   }
 
-  useEffect(() => {
-    if (user) {
-      setCompany(user.company)
-    }
-  }, [user])
-
-  if (company) {
+  if (companyName) {
     return (
       <div className='AddCategoryPage'>
         <Header />

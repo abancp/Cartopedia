@@ -58,14 +58,14 @@ export default {
         db.categories.insertOne({
           name,
           products: [],
-          location: [0, 0]
+          location: [Math.abs(Math.floor(Math.random() * 100)), Math.abs(Math.floor(Math.random() * 100))]
         })
       } else {
         await db.categories.createIndex({ location: '2d' })
         db.categories.insertOne({
           name,
           products: [],
-          location: [0, 0]
+          location: [Math.abs(Math.floor(Math.random() * 100 )), Math.abs(Math.floor(Math.random() * 100))]
         })
       }
       await db.categoryRequests.deleteOne({ name })

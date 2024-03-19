@@ -20,11 +20,11 @@ export default {
             })
         })
     },
-    createCategoryReq: (name, companyId) => {
+    createCategoryReq: (name, companyName) => {
         return new Promise(async (resolve, reject) => {
             let category = await db.categories.findOne({ name })
             if (!category) {
-                db.categoryRequests.insertOne({ name, companyId })
+                db.categoryRequests.insertOne({ name, companyName })
                 console.log("Requested for category : "+name);
                 resolve("Requested Successfully")
             } else {

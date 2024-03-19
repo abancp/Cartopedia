@@ -100,11 +100,6 @@ router.post("/add-company-temparerly", (req, res) => {
   });
 });
 
-router.post("/requset-add-company", (req, res) => {
-  userFunctions.requistRegisterCompany(req.body);
-  res.json({ true: true });
-});
-
 router.post("/submit-otp", (req, res) => {
   let { email, otp } = req.body;
   userFunctions
@@ -177,6 +172,7 @@ router.delete("/cart-product", async (req, res) => {
 router.post("/place-order/cart", (req, res) => {
   const { address, payMethode } = req.body;
   const { userId } = req.cookies
+  userFunctions.attractCartCategories(userId)
   userFunctions.placeOrderCart(userId, address, payMethode).then((order) => {
     userFunctions.clearCart(userId);
     res.json({ orderId: order.orderId, totalPrice: order.price });
@@ -213,7 +209,6 @@ router.patch("/rate-product", (req, res) => {
 router.get("/recommented", (req, res) => {
   const { userId } = req.cookies
   console.log(userId)
-  userHelpers.arangeCategoryWithCart(userId)
   userFunctions.getRecommentedRatedProducts(userId).then((products) => {
     res.json({ products });
   });

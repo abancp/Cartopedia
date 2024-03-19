@@ -18,7 +18,7 @@ function AdminHome() {
 
     const adminPages = {
         dashboard: <AdminDashboard />,
-        requisites: <div className='requests'><CompanyRequiests /><CategoryRequests /></div>,
+        requisites: <div className='requests' ><CompanyRequiests /><CategoryRequests /></div>,
         products: <AllProducts />
     }
     if (user.admin) {

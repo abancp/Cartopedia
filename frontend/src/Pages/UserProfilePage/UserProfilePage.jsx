@@ -25,7 +25,7 @@ function UserProfilePage() {
     dark: "hsla(218, 29%, 11%)",
     light: '#DBE8E1'
   }
-  //useEfect to gett user from promise
+  //useEffect to get user from promise
   useEffect(() => {
     if (!user) {
       navigate('/')
