@@ -9,10 +9,12 @@ function Header(props) {
   const [userId, setUserId] = useState(null);
   const [company, setCompany] = useState(false);
   const [admin, setAdmin] = useState(false);
+  const [showVoiceSearchPopup, setShowVoiceSearchPopup] = useState(false)
+  const [voiceSearch,setVoiceSearch] = useState('')
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
 
-  
+
 
   useEffect(() => {
     if (user) {
@@ -24,9 +26,20 @@ function Header(props) {
     }
   }, [user]);
   const searchItem = (e) => {
-    navigate("/loading", {
-      state: { loadingCode: 0, searchedLine: e.target[0].value, email: email },
-    });
+    if (e.target[0].value) {
+      navigate("/loading", {
+        state: { loadingCode: 0, searchedLine: e.target[0].value, email: email },
+      });
+    } else {
+      setShowVoiceSearchPopup(true)
+      if('SpeechRecognition' in window || 'webkitSpeechRecognition' in window){
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+        const recognition = new SpeechRecognition()
+        recognition.lang = 'en-US'
+        recognition.onstart = ()=>{document.getElementById('voice-search-text').innerHTML = 'Recordingg'}
+      }
+    }
+
   };
   return (
     <div className="Header">
@@ -150,6 +163,11 @@ function Header(props) {
           )}
         </div>
       </div>
+      {showVoiceSearchPopup && <div className="voice-search-popup-main">
+        <div className="voice-search-popup">
+          <h4 id="voice-search-text">{voiceSearch}</h4>
+        </div>
+      </div>}
     </div>
   );
 }
