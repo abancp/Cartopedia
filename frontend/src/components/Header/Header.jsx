@@ -46,13 +46,6 @@ function Header(props) {
             state: { loadingCode: 0, searchedLine: voiceSearch, email: email },
           })},500)
         }
-        recognition.onend = () => {
-          setVoiceSearch('Nothing Found..')
-          setTimeout(() => {
-            setShowVoiceSearchPopup(false)
-          }, 500)
-
-        }
         recognition.start()
       }
     }
