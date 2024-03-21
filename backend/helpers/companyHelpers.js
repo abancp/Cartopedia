@@ -60,7 +60,7 @@ export default {
             if (product.productCategory == 0) productCategoryErr.push(" Select a Category ")
             const categoryDoc = await db.get().collection(process.env.CATEGORIES_COLLECTION).find().toArray()
             const categories = categoryDoc[0].categories
-            if (!categories.includes(product.productCategory)) productCategoryErr.push(" Not a valid category ")
+            //FIXME // if (!categories?.includes(product.productCategory)) productCategoryErr.push(" Not a valid category ")
 
             let productTagsErr = []
             product.productTags.forEach((tag) => {

@@ -10,9 +10,9 @@ export default function socket(port = 4000, msg = "SocketIO Started : ") {
     io.on('connection', async (socket) => {
         console.log(`⚡: ${socket.id} user just Connected!`)
         let dashboard = await db.get().collection(process.env.DASHBOARD_COLLECTION).findOne({ item: "dashboard" })
-        socket.emit('users', dashboard.users)
-        socket.emit('sales', dashboard.company.sales)
-        socket.emit('cash', dashboard.company.cash)
+        socket.emit('users', dashboard?.users)
+        socket.emit('sales', dashboard?.company?.sales)
+        socket.emit('cash', dashboard?.company?.cash)
         socket.on('disconnected', () => {
             console.log('🔥: A User disconnected')
         })

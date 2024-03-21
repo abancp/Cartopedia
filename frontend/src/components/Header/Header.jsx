@@ -10,7 +10,7 @@ function Header(props) {
   const [company, setCompany] = useState(false);
   const [admin, setAdmin] = useState(false);
   const [showVoiceSearchPopup, setShowVoiceSearchPopup] = useState(false)
-  const [voiceSearch,setVoiceSearch] = useState('')
+  const [voiceSearch, setVoiceSearch] = useState('')
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
 
@@ -26,17 +26,34 @@ function Header(props) {
     }
   }, [user]);
   const searchItem = (e) => {
+    e.preventDefault()
+    // console.log(e.target[0].value);
     if (e.target[0].value) {
       navigate("/loading", {
         state: { loadingCode: 0, searchedLine: e.target[0].value, email: email },
       });
     } else {
       setShowVoiceSearchPopup(true)
-      if('SpeechRecognition' in window || 'webkitSpeechRecognition' in window){
+      if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
         const recognition = new SpeechRecognition()
         recognition.lang = 'en-US'
-        recognition.onstart = ()=>{document.getElementById('voice-search-text').innerHTML = 'Recordingg'}
+        recognition.onstart = () => { setVoiceSearch('Recording') }
+        recognition.onresult = (e) => {
+          setVoiceSearch(e.results[0][0].transcript)
+
+          setTimeout(()=>{navigate("/loading", {
+            state: { loadingCode: 0, searchedLine: voiceSearch, email: email },
+          })},500)
+        }
+        recognition.onend = () => {
+          setVoiceSearch('Nothing Found..')
+          setTimeout(() => {
+            setShowVoiceSearchPopup(false)
+          }, 500)
+
+        }
+        recognition.start()
       }
     }
 
@@ -165,7 +182,29 @@ function Header(props) {
       </div>
       {showVoiceSearchPopup && <div className="voice-search-popup-main">
         <div className="voice-search-popup">
-          <h4 id="voice-search-text">{voiceSearch}</h4>
+          <div className="animation">
+            <div className="blocks block-1"></div>
+            <div className="blocks block-2"></div>
+            <div className="blocks block-3"></div>
+            <div className="blocks block-4"></div>
+            <div className="blocks block-5"></div>
+            <div className="blocks block-6"></div>
+            <div className="blocks block-7"></div>
+            <div className="blocks block-8"></div>
+            <div className="blocks block-9"></div>
+            <div className="blocks block-10"></div>
+            <div className="blocks block-11"></div>
+            <div className="blocks block-12"></div>
+            <div className="blocks block-13"></div>
+            <div className="blocks block-14"></div>
+            <div className="blocks block-15"></div>
+            <div className="blocks block-16"></div>
+            <div className="blocks block-17"></div>
+            <div className="blocks block-18"></div>
+            <div className="blocks block-19"></div>
+            <div className="blocks block-20"></div>
+          </div>
+          <h4 className="voice-search-text">{voiceSearch}</h4>
         </div>
       </div>}
     </div>
